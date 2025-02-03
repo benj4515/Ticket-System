@@ -5,19 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    private LoginController loginController = new LoginController();
+
+
+
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
-        stage.setScene(scene);
-        stage.show();
+        loginController.Start();
     }
 
     public static void main(String[] args) {
         launch();
+
     }
 }
