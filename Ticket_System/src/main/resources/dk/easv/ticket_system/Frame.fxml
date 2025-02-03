@@ -8,10 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="806.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
    <left>
@@ -19,20 +18,18 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="256.0" spacing="6.0" style="-fx-background-color: white;">
                <children>
-                  <HBox prefHeight="52.0" prefWidth="256.0">
-                     <children>
-                        <ImageView fx:id="imgEASV" fitHeight="46.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="EventHub" textFill="#0097ff">
-                           <font>
-                              <Font name="Arial Bold" size="24.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <Button fx:id="btnUserManagement" mnemonicParsing="false" onAction="#openUserManagement" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
+                  <Label text="EASV EventHub" textFill="#0097ff">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane prefHeight="48.0" prefWidth="240.0">
                            <children>
@@ -46,7 +43,7 @@
                         </AnchorPane>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEventManagement" mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
+                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane prefHeight="48.0" prefWidth="240.0">
                            <children>
@@ -60,7 +57,7 @@
                         </AnchorPane>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnUniversalTicket" mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
+                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane prefHeight="48.0" prefWidth="240.0">
                            <children>
@@ -75,7 +72,7 @@
                      </graphic>
                   </Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnCheckout" mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
+                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane prefHeight="48.0" prefWidth="240.0">
                            <children>
@@ -118,7 +115,4 @@
          </effect>
       </BorderPane>
    </left>
-   <center>
-      <Pane fx:id="pnePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>

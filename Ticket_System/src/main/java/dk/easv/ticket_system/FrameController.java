@@ -25,16 +25,12 @@ public class FrameController {
     @FXML
     private Pane pnePane;
 
-    //Image image2 = new Image("C:\\Users\\benja\\Documents\\GitHub\\Ticket-System\\Ticket_System\\src\\main\\resources\\Images\\EASV.png", 88, 46, false, false);
-    Image Easv_Logo = new Image("https://www.easv.dk/app/uploads/2017/07/EASYDVEST.png", 88, 46, false, false);
-
 
     @FXML
     private ImageView imgEASV;
     private Object parent;
 
     public void initialize() throws IOException {
-        imgEASV.setImage(Easv_Logo);
         //setup();
     }
     private void setup() {
