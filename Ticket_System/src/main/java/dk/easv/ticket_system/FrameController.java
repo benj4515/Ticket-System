@@ -1,5 +1,6 @@
 package dk.easv.ticket_system;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,61 +16,45 @@ import java.io.IOException;
 
 public class FrameController {
     @FXML
-    private Button btnCheckout;
+    public Pane pnePane;
     @FXML
-    private Button btnUniversalTicket;
+    public Button btnUserManagement;
     @FXML
-    private Button btnEventManagement;
+    public Button btnEventManagement;
     @FXML
-    private Button btnUserManagement;
+    public Button btnUniversalTicket;
     @FXML
-    private Pane pnePane;
-
-
+    public Button btnCheckout;
     @FXML
-    private ImageView imgEASV;
     private Object parent;
 
-    public void initialize() throws IOException {
-        //setup();
-    }
-    private void setup() {
-        try{
-            // This creates a new FXMLLoader object and loads the NewMovieWindow.fxml file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("LoginController.fxml"));
 
-            // This creates a new parent object and a new stage object. It sets the scene to the parent object and the title to "Add movie"
-            Parent scene = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(scene));
-            stage.setTitle("Login");
 
-            // Get the controller reference
-            LoginController controller = loader.getController();
-
-            // Send a reference to the parent to MyTunesController
-            controller.setParent(this); // this refers to this MovieCollectionController object
-
-            // Set the modality to Application (you must close "Add movie" before going to the parent window
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //displayError(e);
-        }
+    public void initialize(){
 
     }
-
-
-
 
     @FXML
-    private void openUserManagement() throws IOException {
-        pnePane.getChildren().clear();
-        Pane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
+    public void onUserManagement(ActionEvent actionEvent) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("UserPane.fxml"));
         pnePane.getChildren().setAll(pane);
     }
 
+    @FXML
+    public void onEventManagement(ActionEvent actionEvent) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("EventPane.fxml"));
+        pnePane.getChildren().setAll(pane);
+    }
 
+    @FXML
+    public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("U-TicketPane.fxml"));
+        pnePane.getChildren().setAll(pane);
+    }
+
+    @FXML
+    public void onCheckout(ActionEvent actionEvent) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("CheckoutPane.fxml"));
+        pnePane.getChildren().setAll(pane);
+    }
 }
