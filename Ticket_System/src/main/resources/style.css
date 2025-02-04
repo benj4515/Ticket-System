@@ -1,0 +1,8 @@
+.lblTitle {
+    -fx-font-family: 'Inter', sans-serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: #4F46E5;
+}
+Label {
+    -fx-font-family: 'Inter', sans-serif;
+}
