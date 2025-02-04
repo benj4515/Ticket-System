@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,14 +20,16 @@ public class LoginController {
     @FXML
     private Button btnLogin;
     @FXML
-    private TextField txtUsername;
+    private TextField txtEmail;
     @FXML
     private TextField txtPassword;
 
 
 
     private FrameController parent;
-
+    Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
+    @FXML
+    private Label lblLoginError;
 
 
     public void setParent(FrameController parentParam) {
@@ -41,6 +44,8 @@ public class LoginController {
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
         stage.setTitle("Login");
+
+        stage.getIcons().add(icon);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
@@ -50,11 +55,23 @@ public class LoginController {
 
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
+       openFrame();
+        /*
+        if (txtEmail.getText().equalsIgnoreCase("email@example.com") && txtPassword.getText().equals("password")) {
+            openFrame();
+        } else {
+            lblLoginError.setText("Incorrect email or password");
+        }
+         */
+    }
+
+    private void openFrame() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Frame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
         stage.setTitle("EASV EventHub");
+        stage.getIcons().add(icon);
         stage.show();
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
