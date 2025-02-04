@@ -20,7 +20,7 @@ public class LoginController {
     @FXML
     private Button btnLogin;
     @FXML
-    private TextField txtUsername;
+    private TextField txtEmail;
     @FXML
     private TextField txtPassword;
 
@@ -28,6 +28,8 @@ public class LoginController {
 
     private FrameController parent;
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
+    @FXML
+    private Label lblLoginError;
 
 
     public void setParent(FrameController parentParam) {
@@ -53,6 +55,17 @@ public class LoginController {
 
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
+       openFrame();
+        /*
+        if (txtEmail.getText().equalsIgnoreCase("email@example.com") && txtPassword.getText().equals("password")) {
+            openFrame();
+        } else {
+            lblLoginError.setText("Incorrect email or password");
+        }
+         */
+    }
+
+    private void openFrame() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Frame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
