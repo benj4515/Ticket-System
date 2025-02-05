@@ -32,7 +32,7 @@ public class EventController {
             primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
                 width = newVal.doubleValue();
                 bpnFullPane.setPrefWidth(width - 256);
-                System.out.println("Width: " + width);
+                System.out.println("Width: " + width); //TODO: Should not run multiple times
             });
 
             listenersAdded = true;
