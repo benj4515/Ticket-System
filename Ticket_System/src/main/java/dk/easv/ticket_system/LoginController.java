@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
+    Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
     @FXML
     private Label welcomeText;
     @FXML
@@ -23,11 +24,7 @@ public class LoginController {
     private TextField txtEmail;
     @FXML
     private TextField txtPassword;
-
-
-
     private FrameController parent;
-    Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
     @FXML
     private Label lblLoginError;
 
@@ -52,10 +49,9 @@ public class LoginController {
     }
 
 
-
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
-       openFrame();
+        openFrame();
         /*
         if (txtEmail.getText().equalsIgnoreCase("email@example.com") && txtPassword.getText().equals("password")) {
             openFrame();
@@ -72,6 +68,7 @@ public class LoginController {
         stage.setScene(new Scene(scene));
         stage.setTitle("EASV EventHub");
         stage.getIcons().add(icon);
+        stage.setMaximized(true);
         stage.show();
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();

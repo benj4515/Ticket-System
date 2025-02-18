@@ -2,7 +2,6 @@ package dk.easv.ticket_system;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
