@@ -109,23 +109,35 @@ public class UserController {
     }
 
     public void pane2(){
-        Pane customPane1 = new Pane();
-        customPane1.setPrefSize(460, 385);
-        flowPane.getChildren().add(customPane1);
-        customPane1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
-        VBox vbox1 = new VBox();
-        customPane1.getChildren().add(vbox1);
-        Label label1 = new Label("User Details");
-        label1.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
-        vbox1.getChildren().add(label1);
+        Pane customPane2 = new Pane();
+        customPane2.setPrefSize(460, 485);
+        flowPane.getChildren().add(customPane2);
+        customPane2.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+        VBox vbox2 = new VBox();
+        customPane2.getChildren().add(vbox2);
+        Label label2 = new Label("User Details");
+        label2.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
+        vbox2.getChildren().add(label2);
 
         AnchorPane anchorPaneUserDetails = new AnchorPane();
-        customPane1.getChildren().add(anchorPaneUserDetails);
-        Label labelName1 = new Label("John Cooper");
-        labelName1.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        anchorPaneUserDetails.getChildren().add(labelName1);
-        AnchorPane.setTopAnchor(labelName1, 30.0);
-        AnchorPane.setLeftAnchor(labelName1, 68.0);
+        customPane2.getChildren().add(anchorPaneUserDetails);
+        Label labelName2 = new Label("John Cooper");
+        labelName2.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        anchorPaneUserDetails.getChildren().add(labelName2);
+        AnchorPane.setTopAnchor(labelName2, 70.0);
+        AnchorPane.setLeftAnchor(labelName2, 100.0);
+        Label labelUserDetail = new Label("User since Jan 2025");
+        labelUserDetail.setStyle("-fx-font-size: 14px; -fx-text-fill: #6B7280;");
+        anchorPaneUserDetails.getChildren().add(labelUserDetail);
+        AnchorPane.setTopAnchor(labelUserDetail, 100.0);
+        AnchorPane.setLeftAnchor(labelUserDetail, 100.0);
+        ImageView imageViewUserDetails = new ImageView();
+        imageViewUserDetails.setFitHeight(70.0);
+        imageViewUserDetails.setFitWidth(70.0);
+        imageViewUserDetails.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
+        anchorPaneUserDetails.getChildren().add(imageViewUserDetails);
+        AnchorPane.setTopAnchor(imageViewUserDetails, 60.0);
+        AnchorPane.setLeftAnchor(imageViewUserDetails, 20.0);
     }
 
     public void pane3(){
