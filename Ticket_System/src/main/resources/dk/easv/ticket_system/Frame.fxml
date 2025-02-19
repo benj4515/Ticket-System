@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="806.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
    <left>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <VBox prefHeight="200.0" prefWidth="256.0" style="-fx-background-color: white;">
+            <VBox prefWidth="256.0" style="-fx-background-color: white;">
                <children>
                   <Label fx:id="lblTitle" styleClass="lblTitle" stylesheets="@../../../style.css" text="EASV EventHub" textFill="#0097ff">
                      <font>

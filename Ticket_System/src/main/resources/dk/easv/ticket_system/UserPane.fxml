@@ -7,13 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="957.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.UserController">
+<?import javafx.scene.layout.FlowPane?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.UserController">
    <center>
-      <TilePane fx:id="tilePane" hgap="24.0" prefHeight="200.0" prefWidth="200.0" vgap="24.0" BorderPane.alignment="CENTER">
+      <FlowPane fx:id="flowPane" hgap="24.0" prefWidth="2700.0" vgap="24.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
          </padding>
-      </TilePane>
+      </FlowPane>
    </center>
    <top>
       <BorderPane prefHeight="56.0" prefWidth="956.0" BorderPane.alignment="CENTER">
