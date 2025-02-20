@@ -8,10 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.FlowPane?>
 <BorderPane fx:id="bpnFullPane" prefHeight="979.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.EventController">
    <center>
-      <TilePane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
+      <FlowPane fx:id="flowPane" hgap="24.0" prefWidth="2700.0" vgap="24.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding>
+      </FlowPane>   </center>
    <top>
       <BorderPane fx:id="bpnTopBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
