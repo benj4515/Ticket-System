@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.geometry.Insets;
 
 import java.util.Objects;
 
@@ -21,10 +22,7 @@ public class UserController {
 
         pane3();
 
-        Pane customPane4 = new Pane();
-        customPane4.setPrefSize(460, 485);
-        flowPane.getChildren().add(customPane4);
-        customPane4.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+        pane4();
     }
 
     public void pane1(){
@@ -138,6 +136,58 @@ public class UserController {
         anchorPaneUserDetails.getChildren().add(imageViewUserDetails);
         AnchorPane.setTopAnchor(imageViewUserDetails, 60.0);
         AnchorPane.setLeftAnchor(imageViewUserDetails, 20.0);
+        Label labelUserName = new Label("First Name");
+        labelUserName.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;");
+        anchorPaneUserDetails.getChildren().add(labelUserName);
+        AnchorPane.setTopAnchor(labelUserName, 160.0);
+        AnchorPane.setLeftAnchor(labelUserName, 25.0);
+        Label labelUserNameValue = new Label("John");
+        labelUserNameValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
+        anchorPaneUserDetails.getChildren().add(labelUserNameValue);
+        AnchorPane.setTopAnchor(labelUserNameValue, 185.0);
+        AnchorPane.setLeftAnchor(labelUserNameValue, 25.0);
+        Label labelUserLastName = new Label("Last Name");
+        labelUserLastName.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;");
+        anchorPaneUserDetails.getChildren().add(labelUserLastName);
+        AnchorPane.setTopAnchor(labelUserLastName, 160.0);
+        AnchorPane.setLeftAnchor(labelUserLastName, 230.0);
+        Label labelUserLastNameValue = new Label("Cooper");
+        labelUserLastNameValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
+        anchorPaneUserDetails.getChildren().add(labelUserLastNameValue);
+        AnchorPane.setTopAnchor(labelUserLastNameValue, 185.0);
+        AnchorPane.setLeftAnchor(labelUserLastNameValue, 230.0);
+        Label labelUserEmail = new Label("Email");
+        labelUserEmail.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;");
+        anchorPaneUserDetails.getChildren().add(labelUserEmail);
+        AnchorPane.setTopAnchor(labelUserEmail, 240.0);
+        AnchorPane.setLeftAnchor(labelUserEmail, 30.0);
+        Label labelUserEmailValue = new Label("john@example.com");
+        labelUserEmailValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
+        anchorPaneUserDetails.getChildren().add(labelUserEmailValue);
+        AnchorPane.setTopAnchor(labelUserEmailValue, 265.0);
+        AnchorPane.setLeftAnchor(labelUserEmailValue, 30.0);
+        Label labelUserPhone = new Label("Phone");
+        labelUserPhone.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;");
+        anchorPaneUserDetails.getChildren().add(labelUserPhone);
+        AnchorPane.setTopAnchor(labelUserPhone, 240.0);
+        AnchorPane.setLeftAnchor(labelUserPhone, 230.0);
+        Label labelUserPhoneValue = new Label("+1 (555) 123-4567");
+        labelUserPhoneValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
+        anchorPaneUserDetails.getChildren().add(labelUserPhoneValue);
+        AnchorPane.setTopAnchor(labelUserPhoneValue, 265.0);
+        AnchorPane.setLeftAnchor(labelUserPhoneValue, 230.0);
+        Button buttonAssign = new Button("Assign to Event");
+        buttonAssign.setStyle("-fx-background-color: #1D4ED8; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;");
+        buttonAssign.setPrefSize(185, 46);
+        anchorPaneUserDetails.getChildren().add(buttonAssign);
+        AnchorPane.setTopAnchor(buttonAssign, 420.0);
+        AnchorPane.setLeftAnchor(buttonAssign, 20.0);
+        Label labelUserType = new Label("Coordinator");
+        labelUserType.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #166534; -fx-background-color: #b2fbcd; -fx-background-radius: 8px; -fx-text-alignment: center;");
+        labelUserType.setPrefSize(100, 30);
+        anchorPaneUserDetails.getChildren().add(labelUserType);
+        AnchorPane.setTopAnchor(labelUserType, 430.0);
+        AnchorPane.setLeftAnchor(labelUserType, 340.0);
     }
 
     public void pane3(){
@@ -173,5 +223,93 @@ public class UserController {
         anchorPaneUser1.getChildren().add(labelEmail1);
         AnchorPane.setTopAnchor(labelEmail1, 30.0);
         AnchorPane.setLeftAnchor(labelEmail1, 68.0);
+    }
+
+    public void pane4(){
+        Pane customPane4 = new Pane();
+        customPane4.setPrefSize(460, 485);
+        flowPane.getChildren().add(customPane4);
+        customPane4.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+        VBox vbox4 = new VBox();
+        vbox4.setPrefSize(460, 485);
+        vbox4.setSpacing(10);
+        vbox4.setPadding(new Insets(24));
+        customPane4.getChildren().add(vbox4);
+        Label label4 = new Label("Summer Music Festival");
+        label4.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        vbox4.getChildren().add(label4);
+
+        Label labelEventDetails = new Label("Central Park, New York");
+        labelEventDetails.setStyle("-fx-font-size: 16px;  -fx-text-fill: #6B7280;");
+        vbox4.getChildren().add(labelEventDetails);
+        Label labelEventDate = new Label("July 15, 2025");
+        labelEventDate.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        vbox4.getChildren().add(labelEventDate);
+        Label labelEventTime = new Label("2:00 PM - 10:00 PM");
+        labelEventTime.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        vbox4.getChildren().add(labelEventTime);
+
+        HBox hboxSoldTickets = new HBox();
+        hboxSoldTickets.setAlignment(javafx.geometry.Pos.CENTER);
+        Label labelSoldTickets = new Label("Tickets Sold");
+        labelSoldTickets.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        hboxSoldTickets.getChildren().add(labelSoldTickets);
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
+        hboxSoldTickets.getChildren().add(region1);
+        Label labelSoldTicketsValue = new Label("1,500");
+        labelSoldTicketsValue.setStyle("-fx-font-size: 16px; -fx-text-fill: #000;");
+        hboxSoldTickets.getChildren().add(labelSoldTicketsValue);
+        vbox4.getChildren().add(hboxSoldTickets);
+
+        HBox hboxTicket1 = new HBox();
+        Label labelTicket1 = new Label("VIP Package");
+        labelTicket1.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        hboxTicket1.getChildren().add(labelTicket1);
+        Region region2 = new Region();
+        HBox.setHgrow(region2, Priority.ALWAYS);
+        hboxTicket1.getChildren().add(region2);
+        Label labelTicket1Value = new Label("$199");
+        labelTicket1Value.setStyle("-fx-font-size: 16px; -fx-text-fill: #000;");
+        hboxTicket1.getChildren().add(labelTicket1Value);
+        vbox4.getChildren().add(hboxTicket1);
+
+        HBox hboxTicket2 = new HBox();
+        Label labelTicket2 = new Label("General Admission");
+        labelTicket2.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        hboxTicket2.getChildren().add(labelTicket2);
+        Region region3 = new Region();
+        HBox.setHgrow(region3, Priority.ALWAYS);
+        hboxTicket2.getChildren().add(region3);
+        Label labelTicket2Value = new Label("$59");
+        labelTicket2Value.setStyle("-fx-font-size: 16px; -fx-text-fill: #000;");
+        hboxTicket2.getChildren().add(labelTicket2Value);
+        vbox4.getChildren().add(hboxTicket2);
+
+        HBox hboxCoordinators = new HBox();
+        hboxCoordinators.setAlignment(javafx.geometry.Pos.CENTER);
+        Label labelCoordinators = new Label("Coordinators Assigned");
+        labelCoordinators.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        hboxCoordinators.getChildren().add(labelCoordinators);
+        Region region4 = new Region();
+        HBox.setHgrow(region4, Priority.ALWAYS);
+        hboxCoordinators.getChildren().add(region4);
+        Label labelCoordiantorsAmount = new Label("1");
+        labelCoordiantorsAmount.setStyle("-fx-font-size: 16px; -fx-text-fill: #000;");
+        hboxCoordinators.getChildren().add(labelCoordiantorsAmount);
+        vbox4.getChildren().add(hboxCoordinators);
+
+        HBox hboxAssigned1 = new HBox();
+        hboxAssigned1.setAlignment(javafx.geometry.Pos.CENTER);
+        Label labelAssigned1 = new Label("Sarah Wilson");
+        labelAssigned1.setStyle("-fx-font-size: 16px; -fx-text-fill: #6B7280;");
+        hboxAssigned1.getChildren().add(labelAssigned1);
+        Region region5 = new Region();
+        HBox.setHgrow(region5, Priority.ALWAYS);
+        hboxAssigned1.getChildren().add(region5);
+        Label labelAssigned1Remove = new Label("Remove");
+        labelAssigned1Remove.setStyle("-fx-font-size: 16px; -fx-text-fill: #0059ff;");
+        hboxAssigned1.getChildren().add(labelAssigned1Remove);
+        vbox4.getChildren().add(hboxAssigned1);
     }
 }
