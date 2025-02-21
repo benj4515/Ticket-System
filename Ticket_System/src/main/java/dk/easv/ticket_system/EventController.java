@@ -53,12 +53,37 @@ public class EventController {
         customPane1.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane1);
         customPane1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+
+
         VBox vbox1 = new VBox();
         customPane1.getChildren().add(vbox1);
+
+        ImageView imageViewEvent = new ImageView();
+        imageViewEvent.setFitHeight(260);
+        imageViewEvent.setFitWidth(customPane1.getPrefWidth());
+        imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
+        vbox1.getChildren().add(imageViewEvent);
+
         Label label1 = new Label("Summer music festival");
-        label1.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
+        label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
+
+        Label label2 = new Label("July 15, 2025");
+        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label2);
+
+        Label label3 = new Label("7:00 PM");
+        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #E000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label3);
+
+        Label label4 = new Label("Central Park, New York");
+        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label4);
+        
+        Label label5 = new Label("From $59");
+        label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
+        vbox1.getChildren().add(label5);
 
     }
 
@@ -67,12 +92,33 @@ public class EventController {
         customPane2.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane2);
         customPane2.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+
         VBox vbox2 = new VBox();
         customPane2.getChildren().add(vbox2);
-        Label label2 = new Label("Tech conference");
-        label2.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
-        vbox2.getChildren().add(label2);
 
+        ImageView imageViewEvent2 = new ImageView();
+        imageViewEvent2.setFitHeight(260);
+        imageViewEvent2.setFitWidth(customPane2.getPrefWidth());
+        imageViewEvent2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Partayy.jpg"))));
+        vbox2.getChildren().add(imageViewEvent2);
 
+        Label blabel = new Label("Tech conference");
+        blabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 12px;");
+        vbox2.getChildren().add(blabel);
+        Label label1 = new Label("August 20, 2025");
+        label1.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox2.getChildren().add(label1);
+
+        Label blabel2 = new Label("9.00AM");
+        blabel2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox2.getChildren().add(blabel2);
+
+        Label blabel3 = new Label("Convention Center");
+        blabel3.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox2.getChildren().add(blabel3);
+
+        Label blabel4 = new Label("From $299");
+        blabel4.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #4F46E5; -fx-padding: 10px;");
+        vbox2.getChildren().add(blabel4);
     }
 }
