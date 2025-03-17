@@ -51,14 +51,14 @@ public class LoginController {
 
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
-        openFrame();
-        /*
+        //openFrame();
+
         if (txtEmail.getText().equalsIgnoreCase("email@example.com") && txtPassword.getText().equals("password")) {
             openFrame();
         } else {
             lblLoginError.setText("Incorrect email or password");
         }
-         */
+
     }
 
     private void openFrame() throws IOException {
