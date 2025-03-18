@@ -1,5 +1,6 @@
 package dk.easv.ticket_system;
 
+import dk.easv.ticket_system.BLL.LoginValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class LoginController {
@@ -27,6 +27,7 @@ public class LoginController {
     private FrameController parent;
     @FXML
     private Label lblLoginError;
+    private LoginValidator loginValidator;
 
 
     public void setParent(FrameController parentParam) {
@@ -51,9 +52,10 @@ public class LoginController {
 
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
-        //openFrame();
+        this.loginValidator = new LoginValidator();
+        boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
-        if (txtEmail.getText().equalsIgnoreCase("email@example.com") && txtPassword.getText().equals("password")) {
+        if (success) {
             openFrame();
         } else {
             lblLoginError.setText("Incorrect email or password");
