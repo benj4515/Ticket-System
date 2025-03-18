@@ -1,5 +1,7 @@
 package dk.easv.ticket_system.DAL;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import java.io.IOException;
 import java.sql.*;
 
@@ -22,7 +24,8 @@ public class LoginDAO {
 
                 if (rs.next()) {
                     String storedPassword = rs.getString("password");
-                    return storedPassword.equals(password); // vi skal have krypteret
+                    return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
+                    //return storedPassword.equals(password); // vi skal have krypteret
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

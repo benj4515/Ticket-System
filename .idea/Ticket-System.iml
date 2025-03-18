@@ -5,5 +5,7 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc1" level="project" />
+    <orderEntry type="library" name="at.favre.lib.bcrypt" level="project" />
   </component>
 </module>
