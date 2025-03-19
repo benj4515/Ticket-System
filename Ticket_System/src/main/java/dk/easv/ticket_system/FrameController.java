@@ -1,13 +1,18 @@
 package dk.easv.ticket_system;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -23,6 +28,9 @@ public class FrameController {
     @FXML
     public Button btnCheckout;
     @FXML
+    public Button btnNewUser;
+
+    @FXML
     public AnchorPane apnUser;
     public ImageView imgUserIcon;
     public Label lblUser;
@@ -35,6 +43,7 @@ public class FrameController {
     public AnchorPane apnCheckout;
     public ImageView imgCheckoutIcon;
     public Label lblCheckout;
+
     @FXML
     private Object parent;
 
@@ -98,5 +107,17 @@ public class FrameController {
         pnePane.getChildren().setAll(pane);
         apnCheckout.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblCheckout.setStyle("-fx-text-fill: #1D4ED8");
+    }
+
+    @FXML
+    public void onNewUser(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("New User");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+
     }
 }

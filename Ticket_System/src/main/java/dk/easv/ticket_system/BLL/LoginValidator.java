@@ -1,17 +1,15 @@
 package dk.easv.ticket_system.BLL;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import dk.easv.ticket_system.DAL.DBConnector;
-import dk.easv.ticket_system.DAL.LoginDAO;
+import dk.easv.ticket_system.DAL.UserDAO;
 
 import java.io.IOException;
 
 public class LoginValidator {
-    private LoginDAO loginDao;
+    private UserDAO loginDao;
     //private String bcryptHashString;
 
     public LoginValidator() throws IOException {
-        this.loginDao = new LoginDAO();
+        this.loginDao = new UserDAO();
 
     }
 
