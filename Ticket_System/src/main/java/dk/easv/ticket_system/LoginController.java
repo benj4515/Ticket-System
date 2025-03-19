@@ -20,6 +20,9 @@ public class LoginController {
     private Label welcomeText;
     @FXML
     private Button btnLogin;
+
+
+
     @FXML
     private TextField txtEmail;
     @FXML
@@ -28,7 +31,9 @@ public class LoginController {
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
-
+    public TextField getTxtEmail() {
+        return txtEmail;
+    }
 
     public void setParent(FrameController parentParam) {
         this.parent = parentParam;
@@ -55,16 +60,33 @@ public class LoginController {
         this.loginValidator = new LoginValidator();
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
-        if (success) {
-            openFrame();
+        if (success && loginValidator.isAdmin(txtEmail.getText())) {
+            openAdminFrame();
+        } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
+            openEventFrame();
+            System.out.println(getTxtEmail().getText());
         } else {
             lblLoginError.setText("Incorrect email or password");
         }
 
     }
 
-    private void openFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Frame.fxml"));
+    private void openAdminFrame() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminFrame.fxml"));
+        Parent scene = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(scene));
+        stage.setTitle("EASV EventHub");
+        stage.getIcons().add(icon);
+        stage.setMaximized(true);
+        stage.show();
+
+        Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+        currentStage.close();
+    }
+
+    private void openEventFrame() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
