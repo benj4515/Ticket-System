@@ -1,5 +1,6 @@
 package dk.easv.ticket_system;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
@@ -70,7 +71,7 @@ public class CreateUserController {
     @FXML
     private void handleCreateUser(ActionEvent event) throws Exception {
         String email = txtLoginEmail.getText();
-        String password = txtLoginPassword.getText();
+        String password = BCrypt.withDefaults().hashToString(12,txtLoginPassword.getText().toCharArray());
         String role = selectedUserType;
 
         if (email.isEmpty() || password.isEmpty() || role.isEmpty()) {

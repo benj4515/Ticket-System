@@ -42,8 +42,8 @@
       </Button>
       <MenuButton fx:id="btnUserType" layoutX="449.0" layoutY="41.0" mnemonicParsing="false" text="User Type">
         <items>
-          <MenuItem fx:id="menuAdmin" mnemonicParsing="false" onAction="#handleUsertype" text="handleMenuSelection" />
-          <MenuItem fx:id="menuCoordinator" mnemonicParsing="false" onAction="#handleUsertype" text="menuAdmin" />
+          <MenuItem fx:id="menuAdmin" mnemonicParsing="false" onAction="#handleUsertype" text="Eventcoordinator" />
+          <MenuItem fx:id="menuCoordinator" mnemonicParsing="false" onAction="#handleUsertype" text="Admin" />
         </items>
       </MenuButton>
    </children>
