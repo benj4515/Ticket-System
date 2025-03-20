@@ -11,7 +11,6 @@ public class HelloApplication extends Application {
     private final LoginController loginController = new LoginController();
 
     public static void main(String[] args) {
-        DBConnector.checkConnection();
         launch();
 
     }

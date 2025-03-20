@@ -35,7 +35,17 @@ public class LoginController {
     private Label lblLoginError;
     private LoginValidator loginValidator;
 
+
     private UserModel userModel;
+
+
+    public TextField getTxtEmail() {
+        return txtEmail;
+    }
+
+
+    private UserModel userModel;
+
 
     public void setParent(FrameController parentParam) {
         this.parent = parentParam;

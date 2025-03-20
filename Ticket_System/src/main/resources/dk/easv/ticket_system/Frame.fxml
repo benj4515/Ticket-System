@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="823.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
    <left>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
@@ -114,6 +114,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnNewUser" layoutX="174.0" layoutY="14.0" mnemonicParsing="false" onAction="#onNewUser" text="New User" />
                      </children>
                   </AnchorPane>
                </graphic>
