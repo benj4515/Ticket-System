@@ -1,11 +1,14 @@
 package dk.easv.ticket_system;
 
+import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
+import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -31,12 +34,29 @@ public class LoginController {
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
-    public TextField getTxtEmail() {
-        return txtEmail;
-    }
+
+    private UserModel userModel;
 
     public void setParent(FrameController parentParam) {
         this.parent = parentParam;
+    }
+
+    public LoginController() {
+        try {
+            userModel = new UserModel();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
+        System.out.println(userModel.getObservableUsers());
+    }
+
+    private void displayError(Exception e) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(e.getMessage());
+        alert.showAndWait();
     }
 
 

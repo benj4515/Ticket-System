@@ -14,11 +14,6 @@ public class HelloApplication extends Application {
         DBConnector.checkConnection();
         launch();
 
-
-
-
-
-
     }
 
     @Override

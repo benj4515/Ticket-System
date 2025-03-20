@@ -28,7 +28,6 @@ public class EventController {
     public void initialize() {
         // TODO: Something
 
-
         //Forces resizing of the window because scenebuilder is fucking with me
         if (!listenersAdded) {
             Stage primaryStage = (Stage) Window.getWindows().get(0);
