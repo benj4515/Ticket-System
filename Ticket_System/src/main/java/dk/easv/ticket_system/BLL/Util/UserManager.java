@@ -5,6 +5,7 @@ import dk.easv.ticket_system.DAL.UserDAO;
 import dk.easv.ticket_system.DAL.IUserDataAccess;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserManager {
 
@@ -23,4 +24,7 @@ public class UserManager {
     dataAccess.deleteUser(userToDelete);
     }
 
+    public List<User> getAllUsers() throws Exception {
+    return dataAccess.getAllUsers();
+    }
 }

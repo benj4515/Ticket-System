@@ -1,6 +1,7 @@
 package dk.easv.ticket_system;
 
-
+import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,12 +47,25 @@ public class FrameController {
     public Label lblUsername;
     public ImageView imgUser;
     public Label lblEmail;
+    private UserModel userModel;
+    private User loggedInUser;
 
     @FXML
     private Object parent;
 
     public void initialize() {
+        try {
+            userModel = new UserModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+        lblEmail.setText(user.getEmail());
+    }
+
 
     @FXML
     private void resetStyles() {
