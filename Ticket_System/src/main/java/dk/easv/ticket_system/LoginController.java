@@ -44,9 +44,6 @@ public class LoginController {
     }
 
 
-    private UserModel userModel;
-
-
     public void setParent(FrameController parentParam) {
         this.parent = parentParam;
     }

@@ -3,6 +3,8 @@ package dk.easv.ticket_system.BLL;
 import dk.easv.ticket_system.DAL.UserDAO;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dk.easv.ticket_system.DAL.DBConnector;
+import dk.easv.ticket_system.Models.UserModel;
+
 import java.io.IOException;
 
 public class LoginValidator {
