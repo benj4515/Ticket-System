@@ -11,26 +11,45 @@ public class LoginDAO {
 
     public LoginDAO() throws IOException {
         this.dbConnector = new DBConnector();
-        }
+    }
 
-        public boolean checkUserCredentials(String email, String password) {
-            String query = "SELECT password FROM users WHERE email = ?";
+    public boolean checkUserCredentials(String email, String password) {
+        String query = "SELECT password FROM users WHERE email = ?";
 
-            try (Connection conn = dbConnector.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-                stmt.setString(1, email);
-                ResultSet rs = stmt.executeQuery();
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                    String storedPassword = rs.getString("password");
-                    return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
-                    //return storedPassword.equals(password); // vi skal have krypteret
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (rs.next()) {
+                String storedPassword = rs.getString("password");
+                return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
+                //return storedPassword.equals(password); // vi skal have krypteret
             }
-            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public String getRole(String email) {
+        String query = "SELECT role FROM users WHERE email = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("role");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
