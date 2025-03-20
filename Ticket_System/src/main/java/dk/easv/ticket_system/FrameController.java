@@ -53,15 +53,7 @@ public class FrameController {
     @FXML
     private Object parent;
 
-
-
-
-
-
     public void initialize() {
-
-
-
     }
 
     @FXML

@@ -34,14 +34,18 @@ public class LoginController {
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
-<<<<<<< HEAD
+
+
     private UserModel userModel;
 
-=======
+
     public TextField getTxtEmail() {
         return txtEmail;
     }
->>>>>>> e09250c0d36eacb9d961a9b9d678a8fc975f52a1
+
+
+    private UserModel userModel;
+
 
     public void setParent(FrameController parentParam) {
         this.parent = parentParam;
