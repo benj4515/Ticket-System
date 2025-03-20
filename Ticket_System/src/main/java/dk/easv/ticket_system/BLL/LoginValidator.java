@@ -21,7 +21,14 @@ public class LoginValidator {
     }
 
 
+    public boolean isAdmin(String email) {
+        String role = loginDao.getRole(email);
+        return "admin".equals(role);
+    }
 
 
-
+    public boolean isEventCoordinator(String email) {
+        String role = loginDao.getRole(email);
+        return "eventcoordinator".equals(role);
+    }
 }

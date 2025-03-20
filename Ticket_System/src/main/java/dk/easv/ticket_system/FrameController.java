@@ -43,12 +43,23 @@ public class FrameController {
     public AnchorPane apnCheckout;
     public ImageView imgCheckoutIcon;
     public Label lblCheckout;
+<<<<<<< HEAD
 
+=======
+    public Label lblUsername;
+    public ImageView imgUser;
+    public Label lblEmail;
+>>>>>>> e09250c0d36eacb9d961a9b9d678a8fc975f52a1
     @FXML
     private Object parent;
 
 
+
+
+
+
     public void initialize() {
+
 
 
     }
@@ -63,6 +74,7 @@ public class FrameController {
         lblUTicket.setStyle("-fx-text-fill: black");
         apnCheckout.setStyle("-fx-background-color: white");
         lblCheckout.setStyle("-fx-text-fill: black");
+
     }
 
     @FXML
