@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class CreateUserController {
+    public TextField txtName;
     private String selectedUserType;
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
     @FXML
