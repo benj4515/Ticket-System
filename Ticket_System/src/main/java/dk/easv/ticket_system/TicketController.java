@@ -44,7 +44,7 @@ public class TicketController {
         vbox1.getChildren().add(label2);
         Separator separator1 = new Separator();
         vbox1.getChildren().add(separator1);
-        Label label3 = new Label("🎫 From $59");
+        Label label3 = new Label("🎫 From 15.00 KR.");
         label3.setStyle("-fx-font-size: 16px; -fx-font-weight: normal; -fx-text-fill: #4F46E5;");
         vbox1.getChildren().add(label3);
     }
