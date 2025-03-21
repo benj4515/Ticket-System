@@ -21,7 +21,7 @@
             <Font size="22.0" />
          </font>
       </TextField>
-      <Circle fill="#a98c9d" layoutX="600.0" layoutY="400.0" radius="136.0" stroke="BLACK" strokeType="INSIDE" style="-fx-stroke-width: 0;" />
+      <Circle fill="#009fda" layoutX="600.0" layoutY="400.0" radius="136.0" stroke="BLACK" strokeType="INSIDE" style="-fx-stroke-width: 0;" />
       <Label fx:id="lblLoginError" layoutX="41.0" layoutY="183.0" prefHeight="35.0" prefWidth="369.0">
          <font>
             <Font size="22.0" />
