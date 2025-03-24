@@ -25,6 +25,10 @@ public class CreateUserController {
     private TextField txtLoginEmail;
     @FXML
     private TextField txtLoginPassword;
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtLastName;
     private FrameController parent;
 
     private User user;
@@ -86,12 +90,22 @@ public class CreateUserController {
     private void handleCreateUser(ActionEvent event) throws Exception {
         String email = txtLoginEmail.getText();
         String password = BCrypt.withDefaults().hashToString(12,txtLoginPassword.getText().toCharArray());
-        String role = selectedUserType;
+        int role = Integer.parseInt(selectedUserType);
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
 
-        if (email.isEmpty() || password.isEmpty() || role.isEmpty()) {
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+        System.out.println("Role: " + role);
+        System.out.println("First Name: " + firstName);
+        System.out.println("Last Name: " + lastName);
+
+
+        if (email.isEmpty() || password.isEmpty() || role == 0 || firstName.isEmpty() || lastName.isEmpty()) {
             showAlert("Validation Error", "Please fill in all fields.");
+            return;
         }
-        User newUser = new User(email,password,role);
+        User newUser = new User(email, password, role, firstName, lastName);
         userModel.createUser(newUser);
 
         Stage stage = (Stage) btnCreate.getScene().getWindow();

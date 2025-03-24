@@ -4,13 +4,13 @@ public class User {
     private int id;
     private String email;
     private String password;
-    private String role;
+    private int role;
     private String firstName;
     private String lastName;
     private String phoneNumber;
 
 
-    public User(String email, String password, String role) {
+    public User(String email, String password, int role) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -18,7 +18,7 @@ public class User {
 
     }
 
-    public User(String email, String password, String role, String firstName, String lastName) {
+    public User(String email, String password, int role, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -28,7 +28,7 @@ public class User {
 
     }
 
-    public User(String email, String password, String role, String firstName, String lastName, String phoneNumber) {
+    public User(String email, String password, int role, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -39,7 +39,7 @@ public class User {
 
     }
 
-    public User(int generatedUserID, String email, String password, String roleID, String firstName, String lastName, String phoneNumber) {
+    public User(int generatedUserID, String email, String password, int roleID, String firstName, String lastName, String phoneNumber) {
     }
 
 
@@ -57,7 +57,7 @@ public class User {
 
     }
 */
-    public User(int id, String email, String password, String role) {
+    public User(int id, String email, String password, int role) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -86,11 +86,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRoleID() {
+    public int getRoleID() {
         return role;
     }
 
-    public void setRoleID(String role) {
+    public void setRoleID(int role) {
         this.role = role;
     }
     public String getFirstName() {

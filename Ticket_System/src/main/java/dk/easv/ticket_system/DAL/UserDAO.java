@@ -39,7 +39,7 @@ public class UserDAO implements IUserDataAccess {
 
     public User createUser(User newUser) throws Exception {
         // SQL for inserting into Users table
-        String userQuery = "INSERT INTO Users (email, passwordHash, roleID) VALUES (?, ?, ?)";
+        String userQuery = "INSERT INTO TrueUsers (email, passwordHash, roleID) VALUES (?, ?, ?)";
         // SQL for inserting into UserDetails table
         String detailsQuery = "INSERT INTO UserDetails (userID, firstName, lastName, phoneNumber) VALUES (?, ?, ?, ?)";
 
@@ -50,7 +50,7 @@ public class UserDAO implements IUserDataAccess {
             // Insert into Users table
             userStmt.setString(1, newUser.getEmail());
             userStmt.setString(2, newUser.getPassword()); // Assume it's already hashed
-            userStmt.setString(3, newUser.getRoleID());
+            userStmt.setInt(3, newUser.getRoleID());
             int affectedRows = userStmt.executeUpdate();
 
             if (affectedRows == 0) {
@@ -102,7 +102,7 @@ public class UserDAO implements IUserDataAccess {
                 int id = rs.getInt("userID");
                 String email = rs.getString("email");
                 String password = rs.getString("passwordHash");
-                String role = rs.getString("roleID");
+                int role = rs.getInt("roleID");
 
                 User user = new User(id, email, password, role);
                 users.add(user);
