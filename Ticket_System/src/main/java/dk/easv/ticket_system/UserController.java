@@ -49,9 +49,9 @@ public class UserController {
         vbox1.getChildren().add(label1);
 
         for (User user : userModel.getObservableUsers()) {
-            Button button1 = new Button(); // TODO: Make dynamic with a loop later.
+            Button button1 = new Button();
             button1.setPrefSize(460, 75);
-            button1.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+            button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
             vbox1.getChildren().add(button1);
             AnchorPane anchorPaneUser1 = new AnchorPane();
             button1.setGraphic(anchorPaneUser1);
@@ -72,55 +72,6 @@ public class UserController {
             AnchorPane.setTopAnchor(labelEmail1, 30.0);
             AnchorPane.setLeftAnchor(labelEmail1, 68.0);
         }
-
-        /*
-        Button button2 = new Button(); // TODO: Make dynamic with a loop later.
-        button2.setPrefSize(460, 75);
-        button2.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-        vbox1.getChildren().add(button2);
-        AnchorPane anchorPaneUser2 = new AnchorPane();
-        button2.setGraphic(anchorPaneUser2);
-        Label labelName2 = new Label("Sarah Wilson");
-        labelName2.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        anchorPaneUser2.getChildren().add(labelName2);
-        AnchorPane.setTopAnchor(labelName2, 10.0);
-        AnchorPane.setLeftAnchor(labelName2, 68.0);
-        ImageView imageViewUser2 = new ImageView();
-        imageViewUser2.setFitHeight(50.0);
-        imageViewUser2.setFitWidth(50.0);
-        anchorPaneUser2.getChildren().add(imageViewUser2);
-        imageViewUser2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/sarah.png"))));
-        AnchorPane.setTopAnchor(imageViewUser2, 8.0);
-        AnchorPane.setLeftAnchor(imageViewUser2, 6.0);
-        Label labelEmail2 = new Label("sarah@example.com");
-        anchorPaneUser2.getChildren().add(labelEmail2);
-        AnchorPane.setTopAnchor(labelEmail2, 30.0);
-        AnchorPane.setLeftAnchor(labelEmail2, 68.0);
-
-        Button button3 = new Button(); // TODO: Make dynamic with a loop later.
-        button3.setPrefSize(460, 75);
-        button3.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-        vbox1.getChildren().add(button3);
-        AnchorPane anchorPaneUser3 = new AnchorPane();
-        button3.setGraphic(anchorPaneUser3);
-        Label labelName3 = new Label("Micael Brown");
-        labelName3.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        anchorPaneUser3.getChildren().add(labelName3);
-        AnchorPane.setTopAnchor(labelName3, 10.0);
-        AnchorPane.setLeftAnchor(labelName3, 68.0);
-        ImageView imageViewUser3 = new ImageView();
-        imageViewUser3.setFitHeight(50.0);
-        imageViewUser3.setFitWidth(50.0);
-        anchorPaneUser3.getChildren().add(imageViewUser3);
-        imageViewUser3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/michael.png"))));
-        AnchorPane.setTopAnchor(imageViewUser3, 8.0);
-        AnchorPane.setLeftAnchor(imageViewUser3, 6.0);
-        Label labelEmail3 = new Label("michael@example.com");
-        anchorPaneUser3.getChildren().add(labelEmail3);
-        AnchorPane.setTopAnchor(labelEmail3, 30.0);
-        AnchorPane.setLeftAnchor(labelEmail3, 68.0);
-
-         */
     }
 
     public void pane2(){

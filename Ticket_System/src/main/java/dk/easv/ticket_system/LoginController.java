@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -56,6 +58,19 @@ public class LoginController {
             e.printStackTrace();
         }
         System.out.println(userModel.getObservableUsers());
+    }
+
+    @FXML
+    public void initialize() {
+        txtPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onLoginButtonClick(null);
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            }
+        });
     }
 
     private void displayError(Exception e) {
