@@ -83,9 +83,9 @@ public class FrameController {
     @FXML
     public void onUserManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPane1.fxml"));
         Pane pane = loader.load();
-        UserController userController = loader.getController();
+        UserController1 userController = loader.getController();
         pnePane.getChildren().setAll(pane);
         apnUser.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUser.setStyle("-fx-text-fill: #1D4ED8");

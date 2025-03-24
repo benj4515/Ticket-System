@@ -5,6 +5,7 @@ import dk.easv.ticket_system.Models.UserModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -42,24 +43,38 @@ public class UserController {
         customPane1.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane1);
         customPane1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
-        VBox vbox1 = new VBox();
-        customPane1.getChildren().add(vbox1);
+
         Label label1 = new Label("Users");
         label1.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
-        vbox1.getChildren().add(label1);
+        customPane1.getChildren().add(label1);
+        label1.setPadding(Insets.EMPTY);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefSize(460, 425);
+        scrollPane.setStyle("-fx-background-radius: 8px; -fx-border-radius: 8px;");
+        customPane1.getChildren().add(scrollPane);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        VBox vbox1 = new VBox();
+        vbox1.setPrefWidth(460);
+        scrollPane.setContent(vbox1);
 
         for (User user : userModel.getObservableUsers()) {
             Button button1 = new Button();
-            button1.setPrefSize(460, 75);
+            button1.setPrefWidth(460);
             button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
             vbox1.getChildren().add(button1);
+
             AnchorPane anchorPaneUser1 = new AnchorPane();
             button1.setGraphic(anchorPaneUser1);
+
             Label labelName1 = new Label(user.getEmail());
             labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
             anchorPaneUser1.getChildren().add(labelName1);
             AnchorPane.setTopAnchor(labelName1, 10.0);
             AnchorPane.setLeftAnchor(labelName1, 68.0);
+
             ImageView imageViewUser1 = new ImageView();
             imageViewUser1.setFitHeight(50.0);
             imageViewUser1.setFitWidth(50.0);
@@ -67,6 +82,7 @@ public class UserController {
             imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
             AnchorPane.setTopAnchor(imageViewUser1, 8.0);
             AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
+
             Label labelEmail1 = new Label(user.getEmail());
             anchorPaneUser1.getChildren().add(labelEmail1);
             AnchorPane.setTopAnchor(labelEmail1, 30.0);
