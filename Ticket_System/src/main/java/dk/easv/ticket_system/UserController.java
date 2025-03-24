@@ -1,5 +1,7 @@
 package dk.easv.ticket_system;
 
+import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.Models.UserModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +15,16 @@ import java.util.Objects;
 public class UserController {
     @FXML
     private FlowPane flowPane;
+    private UserModel userModel;
 
+
+    public UserController() {
+        try {
+            userModel = new UserModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -37,29 +48,32 @@ public class UserController {
         label1.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
-        Button button1 = new Button(); // TODO: Make dynamic with a loop later.
-        button1.setPrefSize(460, 75);
-        button1.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-        vbox1.getChildren().add(button1);
-        AnchorPane anchorPaneUser1 = new AnchorPane();
-        button1.setGraphic(anchorPaneUser1);
-        Label labelName1 = new Label("John Cooper");
-        labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        anchorPaneUser1.getChildren().add(labelName1);
-        AnchorPane.setTopAnchor(labelName1, 10.0);
-        AnchorPane.setLeftAnchor(labelName1, 68.0);
-        ImageView imageViewUser1 = new ImageView();
-        imageViewUser1.setFitHeight(50.0);
-        imageViewUser1.setFitWidth(50.0);
-        anchorPaneUser1.getChildren().add(imageViewUser1);
-        imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
-        AnchorPane.setTopAnchor(imageViewUser1, 8.0);
-        AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
-        Label labelEmail1 = new Label("john@example.com");
-        anchorPaneUser1.getChildren().add(labelEmail1);
-        AnchorPane.setTopAnchor(labelEmail1, 30.0);
-        AnchorPane.setLeftAnchor(labelEmail1, 68.0);
+        for (User user : userModel.getObservableUsers()) {
+            Button button1 = new Button(); // TODO: Make dynamic with a loop later.
+            button1.setPrefSize(460, 75);
+            button1.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+            vbox1.getChildren().add(button1);
+            AnchorPane anchorPaneUser1 = new AnchorPane();
+            button1.setGraphic(anchorPaneUser1);
+            Label labelName1 = new Label(user.getEmail());
+            labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
+            anchorPaneUser1.getChildren().add(labelName1);
+            AnchorPane.setTopAnchor(labelName1, 10.0);
+            AnchorPane.setLeftAnchor(labelName1, 68.0);
+            ImageView imageViewUser1 = new ImageView();
+            imageViewUser1.setFitHeight(50.0);
+            imageViewUser1.setFitWidth(50.0);
+            anchorPaneUser1.getChildren().add(imageViewUser1);
+            imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
+            AnchorPane.setTopAnchor(imageViewUser1, 8.0);
+            AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
+            Label labelEmail1 = new Label(user.getEmail());
+            anchorPaneUser1.getChildren().add(labelEmail1);
+            AnchorPane.setTopAnchor(labelEmail1, 30.0);
+            AnchorPane.setLeftAnchor(labelEmail1, 68.0);
+        }
 
+        /*
         Button button2 = new Button(); // TODO: Make dynamic with a loop later.
         button2.setPrefSize(460, 75);
         button2.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
@@ -105,9 +119,14 @@ public class UserController {
         anchorPaneUser3.getChildren().add(labelEmail3);
         AnchorPane.setTopAnchor(labelEmail3, 30.0);
         AnchorPane.setLeftAnchor(labelEmail3, 68.0);
+
+         */
     }
 
     public void pane2(){
+
+
+
         Pane customPane2 = new Pane();
         customPane2.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane2);
