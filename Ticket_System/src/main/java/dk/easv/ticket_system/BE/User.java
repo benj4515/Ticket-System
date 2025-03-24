@@ -5,6 +5,10 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+
 
     public User(String email, String password, String role) {
         this.id = id;
@@ -14,6 +18,32 @@ public class User {
 
     }
 
+    public User(String email, String password, String role, String firstName, String lastName) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
+
+    public User(String email, String password, String role, String firstName, String lastName, String phoneNumber) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+
+    }
+
+    public User(int generatedUserID, String email, String password, String roleID, String firstName, String lastName, String phoneNumber) {
+    }
+
+
+    /*
     public User(int id, String email, String password) {
         this.id = id;
         this.email = email;
@@ -25,6 +55,13 @@ public class User {
         this.email = email;
         this.password = password;
 
+    }
+*/
+    public User(int id, String email, String password, String role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     public int getUserId() {
@@ -49,12 +86,35 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public String getRoleID() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRoleID(String role) {
         this.role = role;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
 

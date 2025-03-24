@@ -65,8 +65,21 @@ public class CreateUserController {
     @FXML
     private void handleUsertype(ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
-        selectedUserType = selectedItem.getText();
-        btnUserType.setText(selectedUserType);
+        String selectedText = selectedItem.getText();
+
+        switch (selectedText) {
+            case "Admin":
+                selectedUserType = "1";
+                break;
+            case "User":
+                selectedUserType = "2";
+                break;
+            default:
+                selectedUserType = "0"; // Default or unknown type
+                break;
+        }
+
+        btnUserType.setText(selectedText);
     }
 
     @FXML

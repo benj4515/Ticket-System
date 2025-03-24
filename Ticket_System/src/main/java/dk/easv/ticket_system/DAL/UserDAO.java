@@ -17,69 +17,100 @@ public class UserDAO implements IUserDataAccess {
     }
 
     public boolean checkUserCredentials(String email, String password) {
-        String query = "SELECT password FROM users WHERE email = ?";
+            String query = "SELECT passwordHash FROM TrueUsers WHERE email = ?";
 
-        try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+            try (Connection conn = dbConnector.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+                stmt.setString(1, email);
+                ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
-
+                if (rs.next()) {
+                    String storedPassword = rs.getString("passwordHash");
+                    return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
-    }
 
-    @Override
+
+
     public User createUser(User newUser) throws Exception {
-        String query = "INSERT into dbo.Users (email, password, role) VALUES (?,?,?)";
+        // SQL for inserting into Users table
+        String userQuery = "INSERT INTO Users (email, passwordHash, roleID) VALUES (?, ?, ?)";
+        // SQL for inserting into UserDetails table
+        String detailsQuery = "INSERT INTO UserDetails (userID, firstName, lastName, phoneNumber) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+             // Prepare the statement for inserting into Users table
+             PreparedStatement userStmt = conn.prepareStatement(userQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, newUser.getEmail());
-            stmt.setString(2, newUser.getPassword());
-            stmt.setString(3, newUser.getRole());
-            stmt.executeUpdate();
+            // Insert into Users table
+            userStmt.setString(1, newUser.getEmail());
+            userStmt.setString(2, newUser.getPassword()); // Assume it's already hashed
+            userStmt.setString(3, newUser.getRoleID());
+            int affectedRows = userStmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new Exception("User creation failed, no rows affected.");
+            }
+
+            // Get the generated userID
+            int generatedUserID;
+            try (ResultSet generatedKeys = userStmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedUserID = generatedKeys.getInt(1); // Retrieve the auto-generated userID
+                } else {
+                    throw new Exception("User creation failed, no userID returned.");
+                }
+            }
+
+            // Insert into UserDetails table using the generated userID
+            try (PreparedStatement detailsStmt = conn.prepareStatement(detailsQuery)) {
+                detailsStmt.setInt(1, generatedUserID); // Set the generated userID
+                detailsStmt.setString(2, newUser.getFirstName());
+                detailsStmt.setString(3, newUser.getLastName());
+                detailsStmt.setString(4, newUser.getPhoneNumber());
+                detailsStmt.executeUpdate();
+            }
+
+            // Return a new User object with the generated userID and other details
+            return new User(generatedUserID, newUser.getEmail(), newUser.getPassword(), newUser.getRoleID(),
+                    newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber());
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Couldnt create new user");
-
+            throw new Exception("Couldn't create new user.");
         }
-        return null;
-
-
     }
 
-    public List<User>getAllUsers() throws Exception {
 
+
+
+    public List<User> getAllUsers() throws Exception {
         ArrayList<User> users = new ArrayList<>();
 
+        String sql = "SELECT userID, email, passwordHash, roleID FROM TrueUsers ";
+
         try (Connection conn = dbConnector.getConnection();
-             Statement statement = conn.createStatement()) {
-            String sql = "select * from dbo.users";
-            ResultSet rs = statement.executeQuery(sql);
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-
-                int id = rs.getInt("id");
+                int id = rs.getInt("userID");
                 String email = rs.getString("email");
-                String password = rs.getString("password");
+                String password = rs.getString("passwordHash");
+                String role = rs.getString("roleID");
 
-                User user = new User(id,email,password);
+                User user = new User(id, email, password, role);
                 users.add(user);
             }
             return users;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Something happened, cannot create new user.");
+            throw new Exception("Something happened, cannot retrieve users.");
         }
     }
 
@@ -87,7 +118,7 @@ public class UserDAO implements IUserDataAccess {
     public void deleteUser(User userToDelete) throws Exception {
 
         //create a string with the sql statement to delete a given user from the database
-        String sql = "DELETE FROM dbo.users WHERE id = ?;";
+        String sql = "DELETE FROM dbo.TrueUsers WHERE id = ?;";
 
         //try with resources to connect to the database and execute the delete statement
         try (Connection conn = dbConnector.getConnection();
