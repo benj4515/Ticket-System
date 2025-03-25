@@ -87,6 +87,8 @@ public class FrameController {
         Pane pane = loader.load();
         UserController1 userController = loader.getController();
         pnePane.getChildren().setAll(pane);
+        pane.prefWidthProperty().bind(pnePane.widthProperty());
+        pane.prefHeightProperty().bind(pnePane.heightProperty());
         apnUser.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUser.setStyle("-fx-text-fill: #1D4ED8");
     }
