@@ -71,6 +71,23 @@ public class LoginController {
                 }
             }
         });
+
+        // TODO: Remove this function later
+        txtEmail.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.MINUS) {
+                try {
+                    openEventFrame();
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            } else if (event.getCode() == KeyCode.PLUS) {
+                try {
+                    openAdminFrame();
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            }
+        });
     }
 
     private void displayError(Exception e) {
