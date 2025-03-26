@@ -124,15 +124,5 @@ public class FrameController {
         lblCheckout.setStyle("-fx-text-fill: #1D4ED8");
     }
 
-    @FXML
-    public void onNewUser(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("New User");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
 
-    }
 }

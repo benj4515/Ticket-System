@@ -47,21 +47,6 @@
                         <Insets top="6.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNewUser" mnemonicParsing="false" onAction="#onNewUser" style="-fx-background-radius: 6; -fx-background-color: white;" text="New User">
-                     <graphic>
-                        <AnchorPane fx:id="apnEvent1" prefHeight="48.0" prefWidth="240.0">
-                           <children>
-                              <ImageView fx:id="imgEventIcon1" fitHeight="32.0" fitWidth="32.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="lblEvent1" layoutX="47.0" layoutY="8.0" prefHeight="34.0" prefWidth="185.0" text="Create User">
-                                 <font>
-                                    <Font name="Inter" size="16.0" />
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </Button>
                   <Button fx:id="btnEventManagement" mnemonicParsing="false" onAction="#onEventManagement" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane fx:id="apnEvent" prefHeight="48.0" prefWidth="240.0">

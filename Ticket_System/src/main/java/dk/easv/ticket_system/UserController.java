@@ -2,7 +2,11 @@ package dk.easv.ticket_system;
 
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.Models.UserModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,7 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class UserController {
@@ -43,6 +50,8 @@ public class UserController {
     private Label lblName;
     @FXML
     private Label lblUserCreated;
+    @FXML
+    private Button btnNewUser;
 
 
     public UserController() {
@@ -51,6 +60,18 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void onNewUser(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("New User");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+
     }
 
     @FXML
