@@ -29,10 +29,15 @@ public class CreateUserController {
     private TextField txtFirstName;
     @FXML
     private TextField txtLastName;
+    @FXML
+    private CheckBox adminSelect;
+    @FXML
+    private CheckBox eventCoordinatorSelect;
     private FrameController parent;
 
     private User user;
     private UserModel userModel;
+
 
 
     public void setParent(FrameController parentParam) {
@@ -66,6 +71,8 @@ public class CreateUserController {
         alert.showAndWait();
     }
 
+    /*
+    //Gammel unødvendig metode som hentede værdien fra en MenuButton.
     @FXML
     private void handleUsertype(ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
@@ -75,7 +82,7 @@ public class CreateUserController {
             case "Admin":
                 selectedUserType = "1";
                 break;
-            case "User":
+            case "EventCoordinator":
                 selectedUserType = "2";
                 break;
             default:
@@ -85,21 +92,29 @@ public class CreateUserController {
 
         btnUserType.setText(selectedText);
     }
+     */
 
     @FXML
     private void handleCreateUser(ActionEvent event) throws Exception {
         String email = txtLoginEmail.getText();
         String password = BCrypt.withDefaults().hashToString(12,txtLoginPassword.getText().toCharArray());
-        int role = Integer.parseInt(selectedUserType);
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
+        int role = 0;
+        if (adminSelect.isSelected()) {
+            role = 1;
+        } else if (eventCoordinatorSelect.isSelected()) {
+            role = 2;
+        }
 
+        /*
+        //SOUTS til at tjekke return values.
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
         System.out.println("Role: " + role);
         System.out.println("First Name: " + firstName);
         System.out.println("Last Name: " + lastName);
-
+        */
 
         if (email.isEmpty() || password.isEmpty() || role == 0 || firstName.isEmpty() || lastName.isEmpty()) {
             showAlert("Validation Error", "Please fill in all fields.");

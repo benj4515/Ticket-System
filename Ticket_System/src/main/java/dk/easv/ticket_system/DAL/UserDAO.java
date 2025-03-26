@@ -38,18 +38,22 @@ public class UserDAO implements IUserDataAccess {
 
 
     public User createUser(User newUser) throws Exception {
-        // SQL for inserting into Users table
+
+        // 3 SQL statements, one for each implicated table.
         String userQuery = "INSERT INTO TrueUsers (email, passwordHash, roleID) VALUES (?, ?, ?)";
-        // SQL for inserting into UserDetails table
+
         String detailsQuery = "INSERT INTO UserDetails (userID, firstName, lastName, phoneNumber) VALUES (?, ?, ?, ?)";
 
+        //Unused statement, used this when user constructor relied on rolename
+        //String roleQuery = "SELECT roleName FROM Roles WHERE roleID = ?";
+
+
         try (Connection conn = dbConnector.getConnection();
-             // Prepare the statement for inserting into Users table
              PreparedStatement userStmt = conn.prepareStatement(userQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Insert into Users table
+            // Insert into TrueUsers table
             userStmt.setString(1, newUser.getEmail());
-            userStmt.setString(2, newUser.getPassword()); // Assume it's already hashed
+            userStmt.setString(2, newUser.getPassword());
             userStmt.setInt(3, newUser.getRoleID());
             int affectedRows = userStmt.executeUpdate();
 
@@ -57,11 +61,11 @@ public class UserDAO implements IUserDataAccess {
                 throw new Exception("User creation failed, no rows affected.");
             }
 
-            // Get the generated userID
+            //We store the generated userID, so we can use it in our UserDetails insert.
             int generatedUserID;
             try (ResultSet generatedKeys = userStmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    generatedUserID = generatedKeys.getInt(1); // Retrieve the auto-generated userID
+                    generatedUserID = generatedKeys.getInt(1);
                 } else {
                     throw new Exception("User creation failed, no userID returned.");
                 }
@@ -69,15 +73,30 @@ public class UserDAO implements IUserDataAccess {
 
             // Insert into UserDetails table using the generated userID
             try (PreparedStatement detailsStmt = conn.prepareStatement(detailsQuery)) {
-                detailsStmt.setInt(1, generatedUserID); // Set the generated userID
+                detailsStmt.setInt(1, generatedUserID);
                 detailsStmt.setString(2, newUser.getFirstName());
                 detailsStmt.setString(3, newUser.getLastName());
                 detailsStmt.setString(4, newUser.getPhoneNumber());
                 detailsStmt.executeUpdate();
             }
 
-            // Return a new User object with the generated userID and other details
-            return new User(generatedUserID, newUser.getEmail(), newUser.getPassword(), newUser.getRoleID(),
+            /*
+            // old piece of code for  when user constructor relied on roleName instead of ID.
+            String roleName = null;
+            try (PreparedStatement roleStmt = conn.prepareStatement(roleQuery)) {
+                roleStmt.setInt(1, newUser.getRoleID());
+                try (ResultSet roleResult = roleStmt.executeQuery()) {
+                    if (roleResult.next()) {
+                        roleName = roleResult.getString("roleName");
+                    } else {
+                        throw new Exception("Role not found for given roleID.");
+                    }
+                }
+            }
+            */
+
+
+            return new User(generatedUserID, newUser.getEmail(), newUser.getPassword(), newUser.getRoleID(), // Updated to roleName
                     newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber());
 
         } catch (SQLException e) {
@@ -85,6 +104,7 @@ public class UserDAO implements IUserDataAccess {
             throw new Exception("Couldn't create new user.");
         }
     }
+
 
 
 
@@ -136,7 +156,9 @@ public class UserDAO implements IUserDataAccess {
     }
 
     public String getRole(String email) {
-        String query = "SELECT role FROM users WHERE email = ?";
+        String query = "SELECT r.roleName FROM Roles r " +
+                "JOIN TrueUsers u ON r.roleID = u.roleID " +
+                "WHERE u.email = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -146,7 +168,7 @@ public class UserDAO implements IUserDataAccess {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("role");
+                return rs.getString("roleName");
             }
         } catch (SQLException e) {
             e.printStackTrace();
