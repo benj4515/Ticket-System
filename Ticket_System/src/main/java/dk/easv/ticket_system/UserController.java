@@ -55,13 +55,8 @@ public class UserController {
 
     @FXML
     public void initialize() {
-        pane1();
-
-        pane2();
-
-        pane3();
-
-        pane4();
+        showUserList();
+        showEventList();
     }
 
     private void updateSelectedUser(User user) {
@@ -71,15 +66,14 @@ public class UserController {
         lblLastName.setText(user.getLastName());
         lblPhoneNumber.setText(user.getPhoneNumber());
         if (user.getRoleID() == 1) {
-            lblRole.setText("Admin");
+            lblRole.setText("      Admin");
         } else if (user.getRoleID() == 2 ) {
-            lblRole.setText("Event Coordinator");
+            lblRole.setText("  Coordinator");
         }
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getEmail() + " " + user.getPhoneNumber() + " " + user.getRoleID());
     }
 
-    public void pane1(){
-
+    public void showUserList(){
         for (User user : userModel.getObservableUsers()) {
             Button button1 = new Button();
             button1.setPrefSize(460, 75);
@@ -87,7 +81,7 @@ public class UserController {
             vbox1.getChildren().add(button1);
             AnchorPane anchorPaneUser1 = new AnchorPane();
             button1.setGraphic(anchorPaneUser1);
-            Label labelName1 = new Label(user.getEmail());
+            Label labelName1 = new Label(user.getFirstName() + " " + user.getLastName());
             labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
             anchorPaneUser1.getChildren().add(labelName1);
             AnchorPane.setTopAnchor(labelName1, 10.0);
@@ -106,14 +100,9 @@ public class UserController {
 
             button1.setOnAction(event -> updateSelectedUser(user));
         }
-
     }
 
-    public void pane2(){
-
-    }
-
-    public void pane3(){
+    public void showEventList(){
 
         Button button1 = new Button(); // TODO: Make dynamic with a loop later.
         button1.setPrefSize(460, 75);
@@ -139,7 +128,4 @@ public class UserController {
         AnchorPane.setLeftAnchor(labelEmail1, 68.0);
     }
 
-    public void pane4(){
-        
-    }
 }
