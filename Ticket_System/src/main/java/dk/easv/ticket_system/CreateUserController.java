@@ -25,10 +25,19 @@ public class CreateUserController {
     private TextField txtLoginEmail;
     @FXML
     private TextField txtLoginPassword;
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtLastName;
+    @FXML
+    private CheckBox adminSelect;
+    @FXML
+    private CheckBox eventCoordinatorSelect;
     private FrameController parent;
 
     private User user;
     private UserModel userModel;
+
 
 
     public void setParent(FrameController parentParam) {
@@ -62,23 +71,56 @@ public class CreateUserController {
         alert.showAndWait();
     }
 
+    /*
+    //Gammel unødvendig metode som hentede værdien fra en MenuButton.
     @FXML
     private void handleUsertype(ActionEvent event) {
         MenuItem selectedItem = (MenuItem) event.getSource();
-        selectedUserType = selectedItem.getText();
-        btnUserType.setText(selectedUserType);
+        String selectedText = selectedItem.getText();
+
+        switch (selectedText) {
+            case "Admin":
+                selectedUserType = "1";
+                break;
+            case "EventCoordinator":
+                selectedUserType = "2";
+                break;
+            default:
+                selectedUserType = "0"; // Default or unknown type
+                break;
+        }
+
+        btnUserType.setText(selectedText);
     }
+     */
 
     @FXML
     private void handleCreateUser(ActionEvent event) throws Exception {
         String email = txtLoginEmail.getText();
         String password = BCrypt.withDefaults().hashToString(12,txtLoginPassword.getText().toCharArray());
-        String role = selectedUserType;
-
-        if (email.isEmpty() || password.isEmpty() || role.isEmpty()) {
-            showAlert("Validation Error", "Please fill in all fields.");
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        int role = 0;
+        if (adminSelect.isSelected()) {
+            role = 1;
+        } else if (eventCoordinatorSelect.isSelected()) {
+            role = 2;
         }
-        User newUser = new User(email,password,role);
+
+        /*
+        //SOUTS til at tjekke return values.
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+        System.out.println("Role: " + role);
+        System.out.println("First Name: " + firstName);
+        System.out.println("Last Name: " + lastName);
+        */
+
+        if (email.isEmpty() || password.isEmpty() || role == 0 || firstName.isEmpty() || lastName.isEmpty()) {
+            showAlert("Validation Error", "Please fill in all fields.");
+            return;
+        }
+        User newUser = new User(email, password, role, firstName, lastName);
         userModel.createUser(newUser);
 
         Stage stage = (Stage) btnCreate.getScene().getWindow();
