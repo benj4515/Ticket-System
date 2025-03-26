@@ -17,69 +17,120 @@ public class UserDAO implements IUserDataAccess {
     }
 
     public boolean checkUserCredentials(String email, String password) {
-        String query = "SELECT password FROM users WHERE email = ?";
+            String query = "SELECT passwordHash FROM TrueUsers WHERE email = ?";
 
-        try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+            try (Connection conn = dbConnector.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+                stmt.setString(1, email);
+                ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
-
+                if (rs.next()) {
+                    String storedPassword = rs.getString("passwordHash");
+                    return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
-    }
 
-    @Override
+
+
     public User createUser(User newUser) throws Exception {
-        String query = "INSERT into dbo.Users (email, password, role) VALUES (?,?,?)";
+
+        // 3 SQL statements, one for each implicated table.
+        String userQuery = "INSERT INTO TrueUsers (email, passwordHash, roleID) VALUES (?, ?, ?)";
+
+        String detailsQuery = "INSERT INTO UserDetails (userID, firstName, lastName, phoneNumber) VALUES (?, ?, ?, ?)";
+
+        //Unused statement, used this when user constructor relied on rolename
+        //String roleQuery = "SELECT roleName FROM Roles WHERE roleID = ?";
+
 
         try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement userStmt = conn.prepareStatement(userQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, newUser.getEmail());
-            stmt.setString(2, newUser.getPassword());
-            stmt.setString(3, newUser.getRole());
-            stmt.executeUpdate();
+            // Insert into TrueUsers table
+            userStmt.setString(1, newUser.getEmail());
+            userStmt.setString(2, newUser.getPassword());
+            userStmt.setInt(3, newUser.getRoleID());
+            int affectedRows = userStmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new Exception("User creation failed, no rows affected.");
+            }
+
+            //We store the generated userID, so we can use it in our UserDetails insert.
+            int generatedUserID;
+            try (ResultSet generatedKeys = userStmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedUserID = generatedKeys.getInt(1);
+                } else {
+                    throw new Exception("User creation failed, no userID returned.");
+                }
+            }
+
+            // Insert into UserDetails table using the generated userID
+            try (PreparedStatement detailsStmt = conn.prepareStatement(detailsQuery)) {
+                detailsStmt.setInt(1, generatedUserID);
+                detailsStmt.setString(2, newUser.getFirstName());
+                detailsStmt.setString(3, newUser.getLastName());
+                detailsStmt.setString(4, newUser.getPhoneNumber());
+                detailsStmt.executeUpdate();
+            }
+
+            /*
+            // old piece of code for  when user constructor relied on roleName instead of ID.
+            String roleName = null;
+            try (PreparedStatement roleStmt = conn.prepareStatement(roleQuery)) {
+                roleStmt.setInt(1, newUser.getRoleID());
+                try (ResultSet roleResult = roleStmt.executeQuery()) {
+                    if (roleResult.next()) {
+                        roleName = roleResult.getString("roleName");
+                    } else {
+                        throw new Exception("Role not found for given roleID.");
+                    }
+                }
+            }
+            */
+
+
+            return new User(generatedUserID, newUser.getEmail(), newUser.getPassword(), newUser.getRoleID(), // Updated to roleName
+                    newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber());
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Couldnt create new user");
-
+            throw new Exception("Couldn't create new user.");
         }
-        return null;
-
-
     }
 
-    public List<User>getAllUsers() throws Exception {
 
+
+
+
+    public List<User> getAllUsers() throws Exception {
         ArrayList<User> users = new ArrayList<>();
 
+        String sql = "SELECT userID, email, passwordHash, roleID FROM TrueUsers ";
+
         try (Connection conn = dbConnector.getConnection();
-             Statement statement = conn.createStatement()) {
-            String sql = "select * from dbo.users";
-            ResultSet rs = statement.executeQuery(sql);
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-
-                int id = rs.getInt("id");
+                int id = rs.getInt("userID");
                 String email = rs.getString("email");
-                String password = rs.getString("password");
+                String password = rs.getString("passwordHash");
+                int role = rs.getInt("roleID");
 
-                User user = new User(id,email,password);
+                User user = new User(id, email, password, role);
                 users.add(user);
             }
             return users;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Something happened, cannot create new user.");
+            throw new Exception("Something happened, cannot retrieve users.");
         }
     }
 
@@ -87,7 +138,7 @@ public class UserDAO implements IUserDataAccess {
     public void deleteUser(User userToDelete) throws Exception {
 
         //create a string with the sql statement to delete a given user from the database
-        String sql = "DELETE FROM dbo.users WHERE id = ?;";
+        String sql = "DELETE FROM dbo.TrueUsers WHERE id = ?;";
 
         //try with resources to connect to the database and execute the delete statement
         try (Connection conn = dbConnector.getConnection();
@@ -105,7 +156,9 @@ public class UserDAO implements IUserDataAccess {
     }
 
     public String getRole(String email) {
-        String query = "SELECT role FROM users WHERE email = ?";
+        String query = "SELECT r.roleName FROM Roles r " +
+                "JOIN TrueUsers u ON r.roleID = u.roleID " +
+                "WHERE u.email = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -115,7 +168,7 @@ public class UserDAO implements IUserDataAccess {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("role");
+                return rs.getString("roleName");
             }
         } catch (SQLException e) {
             e.printStackTrace();
