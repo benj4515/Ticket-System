@@ -74,13 +74,13 @@ public class LoginController {
 
         // TODO: Remove this function later
         txtEmail.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.MINUS) {
+            if (event.getCode() == KeyCode.DOWN) {
                 try {
                     openEventFrame();
                 } catch (IOException e) {
                     displayError(e);
                 }
-            } else if (event.getCode() == KeyCode.PLUS) {
+            } else if (event.getCode() == KeyCode.UP) {
                 try {
                     openAdminFrame();
                 } catch (IOException e) {

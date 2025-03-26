@@ -18,7 +18,7 @@
          <center>
             <VBox prefWidth="256.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="lblTitle" styleClass="lblTitle" stylesheets="@../../../style.css" text="EASV EventHub" textFill="#0097ff">
+                  <Label fx:id="lblTitle" styleClass="lblTitle" stylesheets="@../../../style.css" text="EASV EventHub" textFill="#009fda">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
