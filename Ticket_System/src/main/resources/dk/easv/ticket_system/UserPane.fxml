@@ -69,10 +69,17 @@
             </Pane>
             <Pane fx:id="customPane3" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
                <children>
-                  <VBox fx:id="vbox3">
-                     <children>
-                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Your Events" />
-                     </children>
+                  <VBox>
+                  <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Your Events" />
+                  <ScrollPane prefHeight="415.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-border-color: #FFF;">
+                     <content>
+                        <VBox fx:id="vbox3">
+                           <children>
+                           </children>
+                        </VBox>
+                     </content>
+                     <hbarPolicy>NEVER</hbarPolicy>
+                  </ScrollPane>
                   </VBox>
                </children>
             </Pane>
