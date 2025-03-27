@@ -1,7 +1,7 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers;
 
-import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
+import dk.easv.ticket_system.Controllers.Admin.AFrameController;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class LoginController {
     private TextField txtEmail;
     @FXML
     private TextField txtPassword;
-    private FrameController parent;
+    private AFrameController parent;
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
@@ -46,7 +45,7 @@ public class LoginController {
     }
 
 
-    public void setParent(FrameController parentParam) {
+    public void setParent(AFrameController parentParam) {
         this.parent = parentParam;
     }
 
@@ -131,7 +130,7 @@ public class LoginController {
     }
 
     private void openAdminFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -145,7 +144,7 @@ public class LoginController {
     }
 
     private void openEventFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));

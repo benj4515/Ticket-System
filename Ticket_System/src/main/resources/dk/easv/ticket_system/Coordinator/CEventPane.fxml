@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.FlowPane?>
-<BorderPane fx:id="bpnFullPane" prefHeight="979.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.EventController">
+<BorderPane fx:id="bpnFullPane" prefHeight="979.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AEventController">
    <center>
       <FlowPane fx:id="flowPane" hgap="24.0" prefWidth="2700.0" vgap="24.0" BorderPane.alignment="CENTER">
          <padding>

@@ -1,6 +1,7 @@
 package dk.easv.ticket_system;
 
 
+import dk.easv.ticket_system.Controllers.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

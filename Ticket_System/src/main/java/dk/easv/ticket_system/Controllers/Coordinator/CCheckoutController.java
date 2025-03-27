@@ -1,4 +1,4 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers.Coordinator;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -7,7 +7,7 @@ import javafx.scene.layout.FlowPane;
 
 import java.util.Objects;
 
-public class CheckoutController {
+public class CCheckoutController {
 
 
     @FXML

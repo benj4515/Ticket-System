@@ -1,4 +1,4 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.Models.UserModel;
@@ -12,8 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.geometry.Insets;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -21,7 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class UserController {
+public class CUserController {
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -57,7 +59,7 @@ public class UserController {
     private ScrollPane scpScrollPane;
 
 
-    public UserController() {
+    public CUserController() {
         try {
             userModel = new UserModel();
         } catch (Exception e) {
@@ -67,7 +69,7 @@ public class UserController {
 
     @FXML
     public void onNewUser(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ACreateUser.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

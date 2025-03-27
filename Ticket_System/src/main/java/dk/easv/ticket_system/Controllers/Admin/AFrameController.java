@@ -1,25 +1,20 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers.Admin;
 
 import dk.easv.ticket_system.BE.User;
-import dk.easv.ticket_system.BLL.LoginValidator;
+import dk.easv.ticket_system.Controllers.Coordinator.CCheckoutController;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
-public class FrameController {
+public class AFrameController {
     @FXML
     public Pane pnePane;
     @FXML
@@ -85,9 +80,9 @@ public class FrameController {
     @FXML
     public void onUserManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUserPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AUserPane.fxml"));
         Pane pane = loader.load();
-        UserController userController = loader.getController();
+        AUserController userController = loader.getController();
         pnePane.getChildren().setAll(pane);
         apnUser.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUser.setStyle("-fx-text-fill: #1D4ED8");
@@ -96,9 +91,9 @@ public class FrameController {
     @FXML
     public void onEventManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EventPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CEventPane.fxml"));
         Pane pane = loader.load();
-        EventController eventController = loader.getController();
+        AEventController eventController = loader.getController();
         pnePane.getChildren().setAll(pane);
         apnEvent.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblEvent.setStyle("-fx-text-fill: #1D4ED8");
@@ -107,9 +102,9 @@ public class FrameController {
     @FXML
     public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("U-TicketPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AU-TicketPane.fxml"));
         Pane pane = loader.load();
-        TicketController ticketController = loader.getController();
+        ATicketController ticketController = loader.getController();
         pnePane.getChildren().setAll(pane);
         apnUTicket.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUTicket.setStyle("-fx-text-fill: #1D4ED8");
@@ -118,9 +113,9 @@ public class FrameController {
     @FXML
     public void onCheckout(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CheckoutPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CCheckoutPane.fxml"));
         Pane pane = loader.load();
-        CheckoutController checkoutController = loader.getController();
+        CCheckoutController checkoutController = loader.getController();
         pnePane.getChildren().setAll(pane);
         apnCheckout.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblCheckout.setStyle("-fx-text-fill: #1D4ED8");

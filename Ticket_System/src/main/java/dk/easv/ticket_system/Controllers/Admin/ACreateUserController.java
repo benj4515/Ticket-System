@@ -1,4 +1,4 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers.Admin;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dk.easv.ticket_system.BE.User;
@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class CreateUserController {
+public class ACreateUserController {
     public TextField txtName;
     private String selectedUserType;
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
@@ -33,18 +33,18 @@ public class CreateUserController {
     private CheckBox adminSelect;
     @FXML
     private CheckBox eventCoordinatorSelect;
-    private FrameController parent;
+    private AFrameController parent;
 
     private User user;
     private UserModel userModel;
 
 
 
-    public void setParent(FrameController parentParam) {
+    public void setParent(AFrameController parentParam) {
         this.parent = parentParam;
     }
 
-    public CreateUserController() {
+    public ACreateUserController() {
         try {
             userModel = new UserModel();
         } catch (Exception e) {

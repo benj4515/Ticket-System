@@ -1,4 +1,4 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +10,7 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 
-public class EventController {
+public class AEventController {
 
 
     @FXML
