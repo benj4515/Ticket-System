@@ -117,13 +117,13 @@ public class LoginController {
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
         this.loginValidator = new LoginValidator();
+
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
             openEventFrame();
-            System.out.println(getTxtEmail().getText());
         } else {
             lblLoginError.setText("Incorrect email or password");
         }

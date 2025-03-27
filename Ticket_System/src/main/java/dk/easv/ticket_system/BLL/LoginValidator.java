@@ -9,6 +9,10 @@ import java.io.IOException;
 public class LoginValidator {
     private UserDAO loginDao;
     private UserModel userModel;
+    private String role;
+
+
+
 
 
     public LoginValidator() throws IOException {
@@ -34,4 +38,6 @@ public class LoginValidator {
         String role = loginDao.getRole(email);
         return "Eventcoordinator".equals(role);
     }
+
+
 }

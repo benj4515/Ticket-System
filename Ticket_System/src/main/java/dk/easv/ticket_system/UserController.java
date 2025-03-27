@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -52,6 +53,8 @@ public class UserController {
     private Label lblUserCreated;
     @FXML
     private Button btnNewUser;
+    @FXML
+    private ScrollPane scpScrollPane;
 
 
     public UserController() {
@@ -78,6 +81,8 @@ public class UserController {
     public void initialize() {
         showUserList();
         showEventList();
+
+        scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
     private void updateSelectedUser(User user) {

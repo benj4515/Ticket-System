@@ -1,6 +1,7 @@
 package dk.easv.ticket_system;
 
 import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.BLL.LoginValidator;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class FrameController {
     @FXML
@@ -83,7 +85,7 @@ public class FrameController {
     @FXML
     public void onUserManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminUserPane.fxml"));
         Pane pane = loader.load();
         UserController userController = loader.getController();
         pnePane.getChildren().setAll(pane);
