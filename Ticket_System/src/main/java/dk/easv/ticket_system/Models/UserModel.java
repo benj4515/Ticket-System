@@ -34,4 +34,15 @@ public class UserModel {
     public List<User> getAllUsers() throws Exception {
         return userManager.getAllUsers();
     }
+
+    // brug mig til at populate panel 1 i usercontroller
+    public List<User> getAllUsersForUserCtlr() throws Exception {
+        return userManager.getAllUsersForUserCtlr();
+    }
+
+    //brug mig til at populate panel 2 i usercontroller
+    public List<User> getAllUserDetails() throws Exception {
+        return userManager.getAllUserDetails();
+    }
+
 }

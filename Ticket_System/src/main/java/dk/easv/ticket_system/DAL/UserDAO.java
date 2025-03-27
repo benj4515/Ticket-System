@@ -176,5 +176,55 @@ public class UserDAO implements IUserDataAccess {
         return null;
     }
 
+    @Override
+    public List<User> getAllUsersForUserCtlr() throws Exception {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT tu.email, ud.firstName, ud.lastName " +
+                "FROM TrueUsers tu " +
+                "JOIN UserDetails ud ON tu.userID = ud.userID";;
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+
+                User user = new User(email, firstName, lastName);
+                users.add(user);
+            }
+        }
+
+        return users;
+    }
+
+    @Override
+    public List<User> getAllUserDetails() throws Exception {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT tu.email, ud.firstName, ud.lastName, r.roleName " +
+                "FROM TrueUsers tu " +
+                "JOIN UserDetails ud ON tu.userID = ud.userID " +
+                "LEFT JOIN Roles r ON tu.roleID = r.roleID";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String roleName = rs.getString("roleName");
+
+                User user = new User(email, firstName, lastName, roleName);
+                users.add(user);
+            }
+        }
+
+        return users;
+    }
+
 }
 
