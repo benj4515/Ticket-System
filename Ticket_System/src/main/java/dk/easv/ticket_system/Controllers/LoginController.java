@@ -75,7 +75,7 @@ public class LoginController {
         txtEmail.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
                 try {
-                    openEventFrame();
+                    openCoordinatorFrame();
                 } catch (IOException e) {
                     displayError(e);
                 }
@@ -100,7 +100,7 @@ public class LoginController {
 
     public void Start() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Login.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -122,7 +122,7 @@ public class LoginController {
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
-            openEventFrame();
+            openCoordinatorFrame();
         } else {
             lblLoginError.setText("Incorrect email or password");
         }
@@ -130,7 +130,7 @@ public class LoginController {
     }
 
     private void openAdminFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/AFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -143,8 +143,8 @@ public class LoginController {
         currentStage.close();
     }
 
-    private void openEventFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CFrame.fxml"));
+    private void openCoordinatorFrame() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource( "/dk/easv/ticket_system/Coordinator/CFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));

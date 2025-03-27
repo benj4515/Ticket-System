@@ -79,7 +79,7 @@ public class CFrameController {
     @FXML
     public void onUserManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AUserPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CUserPane.fxml"));
         Pane pane = loader.load();
         CUserController userController = loader.getController();
         pnePane.getChildren().setAll(pane);
@@ -90,7 +90,7 @@ public class CFrameController {
     @FXML
     public void onEventManagement(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CEventPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CEventPane.fxml"));
         Pane pane = loader.load();
         CEventController CEventController = loader.getController();
         pnePane.getChildren().setAll(pane);
@@ -101,7 +101,7 @@ public class CFrameController {
     @FXML
     public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AU-TicketPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CU-TicketPane.fxml"));
         Pane pane = loader.load();
         CTicketController ticketController = loader.getController();
         pnePane.getChildren().setAll(pane);
@@ -112,7 +112,7 @@ public class CFrameController {
     @FXML
     public void onCheckout(ActionEvent actionEvent) throws IOException {
         resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CCheckoutPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CCheckoutPane.fxml"));
         Pane pane = loader.load();
         CCheckoutController checkoutController = loader.getController();
         pnePane.getChildren().setAll(pane);
