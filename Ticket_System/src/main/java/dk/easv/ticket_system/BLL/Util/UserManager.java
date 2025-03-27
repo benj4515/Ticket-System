@@ -27,4 +27,12 @@ public class UserManager {
     public List<User> getAllUsers() throws Exception {
     return dataAccess.getAllUsers();
     }
+
+    public List<User> getAllUsersForUserCtlr() throws Exception {
+    return dataAccess.getAllUsersForUserCtlr();
+    }
+
+    public List<User> getAllUserDetails() throws Exception {
+    return dataAccess.getAllUserDetails();
+    }
 }

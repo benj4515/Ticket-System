@@ -8,6 +8,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String roleName;
 
 
     public User(String email, String password, int role) {
@@ -39,29 +40,33 @@ public class User {
 
     }
 
-    public User(int generatedUserID, String email, String password, int roleID, String firstName, String lastName, String phoneNumber) {
-    }
-
-
-    /*
-    public User(int id, String email, String password) {
-        this.id = id;
+    public User (String email,int role, String firstName, String lastName) {
         this.email = email;
-        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
 
+    public User(int generatedUserID, String email, String password,
+                int roleID, String firstName, String lastName, String phoneNumber) {
     }
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-
-    }
-*/
     public User(int id, String email, String password, int role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String email, String firstName, String lastName) {
+    }
+
+    public User(String email, String firstName, String lastName, String roleName) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = firstName;
+        this.roleName = roleName;
     }
 
     public int getUserId() {
