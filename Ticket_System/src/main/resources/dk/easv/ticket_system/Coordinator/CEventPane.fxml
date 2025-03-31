@@ -34,7 +34,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <right>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #4F46E5; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER" />
+            <Button fx:id="btnCreateEvent" onAction="#onCreateEvent" mnemonicParsing="false" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #4F46E5; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </top>

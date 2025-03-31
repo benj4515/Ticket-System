@@ -57,6 +57,7 @@ public class CUserController {
     private Button btnNewUser;
     @FXML
     private ScrollPane scpScrollPane;
+    private Button selectedUserButton;
 
 
     public CUserController() {
@@ -75,7 +76,13 @@ public class CUserController {
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
-    private void updateSelectedUser(User user) {
+    private void updateSelectedUser(User user, Button button) {
+        if (selectedUserButton != null) {
+            selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        }
+        selectedUserButton = button;
+        selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+
         lblName.setText(user.getFirstName() + " " + user.getLastName());
         lblEmail.setText(user.getEmail());
         lblFirstName.setText(user.getFirstName());
@@ -114,7 +121,7 @@ public class CUserController {
             AnchorPane.setTopAnchor(labelEmail1, 30.0);
             AnchorPane.setLeftAnchor(labelEmail1, 68.0);
 
-            button1.setOnAction(event -> updateSelectedUser(user));
+            button1.setOnAction(event -> updateSelectedUser(user, button1));
         }
     }
 

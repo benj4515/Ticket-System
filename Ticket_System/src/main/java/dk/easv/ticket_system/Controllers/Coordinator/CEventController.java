@@ -1,6 +1,13 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
+import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,9 +15,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class CEventController {
@@ -18,6 +27,9 @@ public class CEventController {
 
     @FXML
     public FlowPane flowPane;
+    private Event eventModel;
+    @FXML
+    public Button btnCreateEvent;
     @FXML
     private BorderPane bpnTopBar;
     @FXML
@@ -46,16 +58,17 @@ public class CEventController {
             listenersAdded = true;
         }
 
-        pane1();
+        showEvents();
         pane2();
     }
-    public void pane1(){
+
+    public void showEvents() {
+        //for (Event event : eventModel.getObservableEvents()) {
         Pane customPane1 = new Pane();
         customPane1.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane1);
         customPane1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
-
-
+        
         VBox vbox1 = new VBox();
         customPane1.getChildren().add(vbox1);
 
@@ -65,10 +78,31 @@ public class CEventController {
         imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         vbox1.getChildren().add(imageViewEvent);
 
-        Label label1 = new Label("Summer music festival");
+        /*
+        Label label1 = new Label(event.getEventName());
         label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
+        Label label2 = new Label(event.getEventDate());
+        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label2);
+
+        Label label3 = new Label(event.getEventStart);
+        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #E000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label3);
+
+        Label label4 = new Label(event.getEventLocation);
+        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        vbox1.getChildren().add(label4);
+
+        Label label5 = new Label(event.getEventPrice);
+        label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
+        vbox1.getChildren().add(label5);
+        */
+
+        Label label1 = new Label("Summer music festival");
+        label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
+        vbox1.getChildren().add(label1);
 
         Label label2 = new Label("July 15, 2025");
         label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
@@ -81,11 +115,11 @@ public class CEventController {
         Label label4 = new Label("Central Park, New York");
         label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
         vbox1.getChildren().add(label4);
-        
+
         Label label5 = new Label("From $59");
         label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
         vbox1.getChildren().add(label5);
-
+        //}
     }
 
     public void pane2(){
@@ -121,5 +155,15 @@ public class CEventController {
         Label blabel4 = new Label("From $299");
         blabel4.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #4F46E5; -fx-padding: 10px;");
         vbox2.getChildren().add(blabel4);
+    }
+
+    public void onCreateEvent(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CCreateEvent.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("New Event");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 }
