@@ -29,7 +29,7 @@ public class User {
 
     }
 
-    public User( String email, String password, int role, String firstName, String lastName, String phoneNumber) {
+    public User(String email, String password, int role, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -69,7 +69,14 @@ public class User {
         this.roleName = roleName;
     }
 
-    public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {
+    public User (int id, String email, String roleName) {
+
+    }
+
+    public User(String email) {
+    }
+
+    public User(String firstName, String lastName) {
     }
 
     public int getUserId() {
@@ -125,15 +132,13 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRoleName() {
-        return roleName;
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + id +
+                ", email='" + email + '\'' +
+                ", roleName='" + roleName + '\'' +
+                '}';
     }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-
 }
-
 
