@@ -1,5 +1,6 @@
 package dk.easv.ticket_system.Models;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.Util.UserManager;
 import javafx.collections.FXCollections;
@@ -32,17 +33,30 @@ public class UserModel {
     }
 
     public List<User> getAllUsers() throws Exception {
+        List<User> users = userManager.getAllUsers();
+
+        observableUsers.clear();
+        observableUsers.addAll(users);
         return userManager.getAllUsers();
     }
 
     // brug mig til at populate panel 1 i usercontroller
     public List<User> getAllUsersForUserCtlr() throws Exception {
+        List<User> users = userManager.getAllUsersForUserCtlr();
+
+        observableUsers.clear();
+        observableUsers.addAll(users);
         return userManager.getAllUsersForUserCtlr();
     }
 
     //brug mig til at populate panel 2 i usercontroller
     public List<User> getAllUserDetails() throws Exception {
-        return userManager.getAllUserDetails();
+        List<User> users = userManager.getAllUserDetails();
+
+        observableUsers.clear();
+        observableUsers.addAll(users);
+        return users;
     }
+
 
 }

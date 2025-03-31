@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AUserController">
+   <center>
+      <ScrollPane fx:id="scpScrollPane" hbarPolicy="NEVER" prefHeight="930.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
+         <FlowPane fx:id="flowPane" hgap="24.0" prefWrapLength="1200.0" vgap="24.0" BorderPane.alignment="CENTER">
+            <padding>
+               <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+            </padding>
+            <Pane fx:id="customPane1" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox prefHeight="34.0" prefWidth="460.0" spacing="310.0">
+                           <children>
+                              <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Users" />
+                              <Button fx:id="btnNewUser" onAction="#onNewUser" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="+" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <ScrollPane prefHeight="415.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-border-color: #FFF;">
+                           <content>
+                              <VBox fx:id="vbox1" />
+                           </content>
+                           <hbarPolicy>NEVER</hbarPolicy>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane fx:id="customPane2" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="User Details" />
+                     </children>
+                  </VBox>
+                  <AnchorPane>
+                     <children>
+                        <Label fx:id="lblName" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000;" text="John Cooper" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="70.0" />
+                        <Label fx:id="lblUserCreated" style="-fx-font-size: 14px; -fx-text-fill: #6B7280;" text="User since Jan 2025" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0" />
+                        <ImageView fitHeight="70.0" fitWidth="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+                           <image>
+                              <Image url="@/Images/john.png" />
+                           </image>
+                        </ImageView>
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;" text="First Name" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="160.0" />
+                        <Label fx:id="lblFirstName" style="-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;" text="John" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="185.0" />
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;" text="Last Name" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="160.0" />
+                        <Label fx:id="lblLastName" style="-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;" text="Cooper" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="185.0" />
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;" text="Email" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="240.0" />
+                        <Label fx:id="lblEmail" style="-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;" text="john@example.com" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="265.0" />
+                        <Label style="-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #4B5563;" text="Phone" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="240.0" />
+                        <Label fx:id="lblPhoneNumber" style="-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;" text="+1 (555) 123-4567" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="265.0" />
+                        <Button prefHeight="46.0" prefWidth="185.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Assign to Event" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="420.0" />
+                        <Label fx:id="lblRole" prefHeight="30.0" prefWidth="100.0" style="-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #166534; -fx-background-color: #b2fbcd; -fx-background-radius: 8px; -fx-text-alignment: center;" text="  Coordinator" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="430.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </Pane>
+            <Pane fx:id="customPane3" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+               <children>
+                  <VBox>
+                  <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Your Events" />
+                  <ScrollPane prefHeight="415.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-border-color: #FFF;">
+                     <content>
+                        <VBox fx:id="vbox3">
+                           <children>
+                           </children>
+                        </VBox>
+                     </content>
+                     <hbarPolicy>NEVER</hbarPolicy>
+                  </ScrollPane>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane fx:id="customPane4" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+               <children>
+                  <VBox prefHeight="485.0" prefWidth="460.0" spacing="10.0">
+                     <children>
+                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;" text="Summer Music Festival" />
+                        <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Central Park, New York" />
+                        <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="July 15, 2025" />
+                        <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="2:00 PM - 10:00 PM" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Tickets Sold" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="1,500" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="VIP Package" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="199 kr" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="General Admission" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="59 kr" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Coordinators Assigned" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="1" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Sarah Wilson" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Label style="-fx-font-size: 16px; -fx-text-fill: #0059ff;" text="Remove" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Pane>
+         </FlowPane>
+      </ScrollPane>
+   </center>
+   <top>
+      <BorderPane prefHeight="56.0" prefWidth="956.0" BorderPane.alignment="CENTER">
+         <left>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="User Management">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Manage users and assign coordinators" textFill="#6b7280" />
+               </children>
+            </VBox>
+         </left>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </BorderPane>
+   </top>
+</BorderPane>

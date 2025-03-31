@@ -1,7 +1,7 @@
-package dk.easv.ticket_system;
+package dk.easv.ticket_system.Controllers;
 
-import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
+import dk.easv.ticket_system.Controllers.Admin.AFrameController;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class LoginController {
     private TextField txtEmail;
     @FXML
     private TextField txtPassword;
-    private FrameController parent;
+    private AFrameController parent;
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
@@ -44,7 +45,7 @@ public class LoginController {
     }
 
 
-    public void setParent(FrameController parentParam) {
+    public void setParent(AFrameController parentParam) {
         this.parent = parentParam;
     }
 
@@ -58,6 +59,36 @@ public class LoginController {
         System.out.println(userModel.getObservableUsers());
     }
 
+    @FXML
+    public void initialize() {
+        txtPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    onLoginButtonClick(null);
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            }
+        });
+
+        // TODO: Remove this function later
+        txtEmail.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                try {
+                    openCoordinatorFrame();
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            } else if (event.getCode() == KeyCode.UP) {
+                try {
+                    openAdminFrame();
+                } catch (IOException e) {
+                    displayError(e);
+                }
+            }
+        });
+    }
+
     private void displayError(Exception e) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -69,7 +100,7 @@ public class LoginController {
 
     public void Start() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Login.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -85,13 +116,13 @@ public class LoginController {
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
         this.loginValidator = new LoginValidator();
+
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
-            openEventFrame();
-            System.out.println(getTxtEmail().getText());
+            openCoordinatorFrame();
         } else {
             lblLoginError.setText("Incorrect email or password");
         }
@@ -99,7 +130,7 @@ public class LoginController {
     }
 
     private void openAdminFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/AFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -112,8 +143,8 @@ public class LoginController {
         currentStage.close();
     }
 
-    private void openEventFrame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EventFrame.fxml"));
+    private void openCoordinatorFrame() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource( "/dk/easv/ticket_system/Coordinator/CFrame.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));

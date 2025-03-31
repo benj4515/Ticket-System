@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.FrameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AFrameController">
    <left>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
             <VBox prefWidth="256.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="lblTitle" styleClass="lblTitle" stylesheets="@../../../style.css" text="EASV EventHub" textFill="#0097ff">
+                  <Label fx:id="lblTitle" styleClass="lblTitle" stylesheets="@../../../../style.css" text="EASV EventHub" textFill="#009fda">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
@@ -47,43 +47,12 @@
                         <Insets top="6.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnEventManagement" mnemonicParsing="false" onAction="#onEventManagement" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
-                     <graphic>
-                        <AnchorPane fx:id="apnEvent" prefHeight="48.0" prefWidth="240.0">
-                           <children>
-                              <ImageView fx:id="imgEventIcon" fitHeight="32.0" fitWidth="32.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="lblEvent" layoutX="47.0" layoutY="8.0" prefHeight="34.0" prefWidth="185.0" text="Event Management">
-                                 <font>
-                                    <Font name="Inter" size="16.0" />
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </Button>
                   <Button fx:id="btnUniversalTicket" mnemonicParsing="false" onAction="#onUniversalTicket" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
                         <AnchorPane fx:id="apnUTicket" prefHeight="48.0" prefWidth="240.0">
                            <children>
                               <ImageView fx:id="imgUTicketIcon" fitHeight="32.0" fitWidth="32.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
                               <Label fx:id="lblUTicket" layoutX="47.0" layoutY="8.0" prefHeight="34.0" prefWidth="185.0" text="Universal Ticket">
-                                 <font>
-                                    <Font name="Inter" size="16.0" />
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="btnCheckout" mnemonicParsing="false" onAction="#onCheckout" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
-                     <graphic>
-                        <AnchorPane fx:id="apnCheckout" prefHeight="48.0" prefWidth="240.0">
-                           <children>
-                              <ImageView fx:id="imgCheckoutIcon" fitHeight="32.0" fitWidth="32.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="lblCheckout" layoutX="47.0" layoutY="8.0" prefHeight="34.0" prefWidth="185.0" text="Checkout">
                                  <font>
                                     <Font name="Inter" size="16.0" />
                                     <Font size="16.0" />
