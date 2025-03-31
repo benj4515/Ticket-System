@@ -1,6 +1,8 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,9 +26,19 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class CUserController {
+    public Label lblEventTitle;
+    public Label lblLocationEvent;
+    public Label lblEventDate;
+    public Label lblEventTime;
+    public Label lblTicketsSold;
+    public Label lblVipPackage;
+    public Label lblGeneralAdmission;
+    public Label lblCoordinatorsAssigned;
+    public Label lblEventCreatedBy;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
+    private EventModel eventModel;
     @FXML
     private Pane customPane1;
     @FXML
@@ -63,6 +75,7 @@ public class CUserController {
     public CUserController() {
         try {
             userModel = new UserModel();
+            eventModel = new EventModel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,30 +138,53 @@ public class CUserController {
         }
     }
 
-    public void showEventList(){
 
-        Button button1 = new Button(); // TODO: Make dynamic with a loop later.
-        button1.setPrefSize(460, 75);
-        button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-        vbox3.getChildren().add(button1);
-        AnchorPane anchorPaneUser1 = new AnchorPane();
-        button1.setGraphic(anchorPaneUser1);
-        Label labelName1 = new Label("Summer Music Festival");
-        labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        anchorPaneUser1.getChildren().add(labelName1);
-        AnchorPane.setTopAnchor(labelName1, 10.0);
-        AnchorPane.setLeftAnchor(labelName1, 68.0);
-        ImageView imageViewUser1 = new ImageView();
-        imageViewUser1.setFitHeight(50.0);
-        imageViewUser1.setFitWidth(50.0);
-        anchorPaneUser1.getChildren().add(imageViewUser1);
-        imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/festival.png"))));
-        AnchorPane.setTopAnchor(imageViewUser1, 8.0);
-        AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
-        Label labelEmail1 = new Label("Central Park, New York");
-        anchorPaneUser1.getChildren().add(labelEmail1);
-        AnchorPane.setTopAnchor(labelEmail1, 30.0);
-        AnchorPane.setLeftAnchor(labelEmail1, 68.0);
+    public void showEventList() {
+        vbox3.getChildren().clear(); // Clear existing children
+
+        for (Event event : eventModel.getObservableEvents()) {
+            Button button = new Button();
+            button.setPrefSize(460, 75);
+            button.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+            vbox3.getChildren().add(button);
+            AnchorPane anchorPaneEvent = new AnchorPane();
+            button.setGraphic(anchorPaneEvent);
+            Label labelName = new Label(event.geteventTitle());
+            labelName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
+            anchorPaneEvent.getChildren().add(labelName);
+            AnchorPane.setTopAnchor(labelName, 10.0);
+            AnchorPane.setLeftAnchor(labelName, 68.0);
+            ImageView imageViewEvent = new ImageView();
+            imageViewEvent.setFitHeight(50.0);
+            imageViewEvent.setFitWidth(50.0);
+            anchorPaneEvent.getChildren().add(imageViewEvent);
+            imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/festival.png"))));
+            AnchorPane.setTopAnchor(imageViewEvent, 8.0);
+            AnchorPane.setLeftAnchor(imageViewEvent, 6.0);
+            Label labelLocation = new Label(event.getLocation());
+            anchorPaneEvent.getChildren().add(labelLocation);
+            AnchorPane.setTopAnchor(labelLocation, 30.0);
+            AnchorPane.setLeftAnchor(labelLocation, 68.0);
+
+            button.setOnAction(events -> updateSelectedEvent(event, button));
+        }
     }
+
+    private void updateSelectedEvent(Event event, Button button) {
+        if (selectedUserButton != null) {
+            selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        }
+        selectedUserButton = button;
+        selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+
+        lblEventTitle.setText(event.geteventTitle());
+        lblLocationEvent.setText(event.getLocation());
+        lblEventDate.setText(event.geteventStartDate().toString());
+        lblEventTime.setText(event.getEventEndDate().toString());
+        lblTicketsSold.setText(event.geteventStartTime() + " - " + event.geteventEndTime());
+        lblVipPackage.setText(event.geteventDescription());
+        System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
+    }
+
 
 }

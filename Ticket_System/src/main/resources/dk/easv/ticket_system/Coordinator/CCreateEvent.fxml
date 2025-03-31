@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CCreateEventController">
    <center>
       <VBox spacing="20.0" BorderPane.alignment="CENTER">
@@ -93,10 +92,10 @@
             <Separator />
             <BorderPane>
                <left>
-                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" text="Cancel" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" text="Cancel" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button fx:id="btnCreateEvent" mnemonicParsing="false" text="Create Event" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#HandleCreateEvent" text="Create Event" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </children>
