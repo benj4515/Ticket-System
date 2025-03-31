@@ -35,4 +35,28 @@ public class UserManager {
     public List<User> getAllUserDetails() throws Exception {
     return dataAccess.getAllUserDetails();
     }
+
+    public String getRoleName() throws Exception {
+        return  dataAccess.getUserRoleName();
+    }
+
+    public String getFirstName() throws Exception {
+        return dataAccess.getFirstName();
+    }
+
+    public String getLastName() throws Exception {
+        return dataAccess.getLastName();
+    }
+
+    public String getEmail() throws Exception {
+        return dataAccess.getEmail();
+    }
+
+    public List <User> getAllUserEmails() throws Exception {
+        return dataAccess.getAllUserEmails();
+    }
+
+    public List <User> getAllUserNames() throws Exception {
+        return dataAccess.getAllUserNames();
+    }
 }

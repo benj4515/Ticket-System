@@ -59,4 +59,28 @@ public class UserModel {
     }
 
 
+    public String getUserRoleName() throws Exception {
+        return userManager.getRoleName();
+    }
+
+    public String getFirstName() throws Exception {
+        return userManager.getFirstName();
+    }
+
+    public String getLastName() throws Exception {
+        return userManager.getLastName();
+    }
+
+    public String getEmail() throws Exception {
+        return userManager.getEmail();
+    }
+
+    public List <User> getAllUserNames() throws Exception {
+        return userManager.getAllUserNames();
+    }
+
+    public List <User> getAllUserEmails() throws Exception {
+        return userManager.getAllUserEmails();
+    }
+
 }

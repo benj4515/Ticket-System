@@ -1,7 +1,8 @@
-package dk.easv.ticket_system.Controllers;
+package dk.easv.ticket_system;
 
+import dk.easv.ticket_system.BLL.Util.UserSession;
+import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
-import dk.easv.ticket_system.Controllers.Admin.AFrameController;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -31,10 +31,11 @@ public class LoginController {
     private TextField txtEmail;
     @FXML
     private TextField txtPassword;
-    private AFrameController parent;
+    private FrameController parent;
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
+    private UserSession userSession;
 
 
     private UserModel userModel;
@@ -45,13 +46,14 @@ public class LoginController {
     }
 
 
-    public void setParent(AFrameController parentParam) {
+    public void setParent(FrameController parentParam) {
         this.parent = parentParam;
     }
 
     public LoginController() {
         try {
             userModel = new UserModel();
+            userSession = new UserSession();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -100,7 +102,7 @@ public class LoginController {
 
     public void Start() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -119,12 +121,19 @@ public class LoginController {
 
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
+
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
             openCoordinatorFrame();
         } else {
             lblLoginError.setText("Incorrect email or password");
+        }
+        User loggedInUser = UserSession.getLoggedInUser();
+        if (loggedInUser != null) {
+            System.out.println(loggedInUser);
+        } else {
+            System.out.println("fuck man ");
         }
 
     }
@@ -138,6 +147,8 @@ public class LoginController {
         stage.getIcons().add(icon);
         stage.setMaximized(true);
         stage.show();
+
+
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
@@ -155,5 +166,6 @@ public class LoginController {
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
+
     }
 }
