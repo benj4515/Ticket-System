@@ -1,5 +1,9 @@
 package dk.easv.ticket_system;
 
+
+import dk.easv.ticket_system.BLL.Util.UserSession;
+
+
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
 import dk.easv.ticket_system.Models.UserModel;
@@ -34,6 +38,7 @@ public class LoginController {
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
+    private UserSession userSession;
 
 
     private UserModel userModel;
@@ -100,7 +105,7 @@ public class LoginController {
 
     public void Start() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent scene = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(scene));
@@ -117,6 +122,7 @@ public class LoginController {
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
         this.loginValidator = new LoginValidator();
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
+
 
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
@@ -144,6 +150,8 @@ public class LoginController {
         stage.setMaximized(true);
         stage.show();
 
+
+
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
     }
@@ -160,5 +168,6 @@ public class LoginController {
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
+
     }
 }

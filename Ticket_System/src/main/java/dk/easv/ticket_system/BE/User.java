@@ -139,6 +139,12 @@ public class User {
                 ", email='" + email + '\'' +
                 ", roleName='" + roleName + '\'' +
                 '}';
+
+    }
+
+
+    public String getRoleName() {
+        return roleName;
     }
 }
 
