@@ -79,6 +79,9 @@ public class User {
     public User(String firstName, String lastName) {
     }
 
+    public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {
+    }
+
     public int getUserId() {
         return id;
     }
