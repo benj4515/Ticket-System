@@ -66,7 +66,7 @@ public class AUserController {
 
     @FXML
     public void onNewUser(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ACreateUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/ACreateUser.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
