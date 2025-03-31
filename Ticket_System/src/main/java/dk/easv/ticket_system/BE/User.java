@@ -29,7 +29,7 @@ public class User {
 
     }
 
-    public User( String email, String password, int role, String firstName, String lastName, String phoneNumber) {
+    public User(String email, String password, int role, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -139,18 +139,12 @@ public class User {
                 ", email='" + email + '\'' +
                 ", roleName='" + roleName + '\'' +
                 '}';
+
     }
-}
+
 
     public String getRoleName() {
         return roleName;
     }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-
 }
-
 

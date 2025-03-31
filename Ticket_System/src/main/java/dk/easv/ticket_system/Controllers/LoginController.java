@@ -1,6 +1,9 @@
 package dk.easv.ticket_system;
 
+
 import dk.easv.ticket_system.BLL.Util.UserSession;
+
+
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
 import dk.easv.ticket_system.Models.UserModel;
@@ -118,7 +121,6 @@ public class LoginController {
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
         this.loginValidator = new LoginValidator();
-
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
 
