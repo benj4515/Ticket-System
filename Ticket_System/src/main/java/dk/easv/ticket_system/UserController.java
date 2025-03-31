@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws Exception {
         pane1();
 
         pane2();
@@ -37,7 +37,7 @@ public class UserController {
         pane4();
     }
 
-    public void pane1(){
+    public void pane1() throws Exception {
         Pane customPane1 = new Pane();
         customPane1.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane1);
@@ -48,14 +48,14 @@ public class UserController {
         label1.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
-        for (User user : userModel.getObservableUsers()) {
+        for (User user : userModel.getAllUsers()) {
             Button button1 = new Button(); // TODO: Make dynamic with a loop later.
             button1.setPrefSize(460, 75);
             button1.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
             vbox1.getChildren().add(button1);
             AnchorPane anchorPaneUser1 = new AnchorPane();
             button1.setGraphic(anchorPaneUser1);
-            Label labelName1 = new Label(user.getEmail());
+            Label labelName1 = new Label(userModel.getFirstName() + " " + userModel.getLastName());
             labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
             anchorPaneUser1.getChildren().add(labelName1);
             AnchorPane.setTopAnchor(labelName1, 10.0);
@@ -67,7 +67,7 @@ public class UserController {
             imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
             AnchorPane.setTopAnchor(imageViewUser1, 8.0);
             AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
-            Label labelEmail1 = new Label(user.getEmail());
+            Label labelEmail1 = new Label(userModel.getEmail());
             anchorPaneUser1.getChildren().add(labelEmail1);
             AnchorPane.setTopAnchor(labelEmail1, 30.0);
             AnchorPane.setLeftAnchor(labelEmail1, 68.0);
@@ -123,7 +123,7 @@ public class UserController {
          */
     }
 
-    public void pane2(){
+    public void pane2() throws Exception {
 
 
 
@@ -139,7 +139,7 @@ public class UserController {
 
         AnchorPane anchorPaneUserDetails = new AnchorPane();
         customPane2.getChildren().add(anchorPaneUserDetails);
-        Label labelName2 = new Label("John Cooper");
+        Label labelName2 = new Label(userModel.getFirstName()+" "+userModel.getLastName());
         labelName2.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000;");
         anchorPaneUserDetails.getChildren().add(labelName2);
         AnchorPane.setTopAnchor(labelName2, 70.0);
@@ -161,7 +161,7 @@ public class UserController {
         anchorPaneUserDetails.getChildren().add(labelUserName);
         AnchorPane.setTopAnchor(labelUserName, 160.0);
         AnchorPane.setLeftAnchor(labelUserName, 25.0);
-        Label labelUserNameValue = new Label("John");
+        Label labelUserNameValue = new Label(userModel.getFirstName());
         labelUserNameValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
         anchorPaneUserDetails.getChildren().add(labelUserNameValue);
         AnchorPane.setTopAnchor(labelUserNameValue, 185.0);
@@ -171,7 +171,7 @@ public class UserController {
         anchorPaneUserDetails.getChildren().add(labelUserLastName);
         AnchorPane.setTopAnchor(labelUserLastName, 160.0);
         AnchorPane.setLeftAnchor(labelUserLastName, 230.0);
-        Label labelUserLastNameValue = new Label("Cooper");
+        Label labelUserLastNameValue = new Label(userModel.getLastName());
         labelUserLastNameValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
         anchorPaneUserDetails.getChildren().add(labelUserLastNameValue);
         AnchorPane.setTopAnchor(labelUserLastNameValue, 185.0);
@@ -181,7 +181,7 @@ public class UserController {
         anchorPaneUserDetails.getChildren().add(labelUserEmail);
         AnchorPane.setTopAnchor(labelUserEmail, 240.0);
         AnchorPane.setLeftAnchor(labelUserEmail, 30.0);
-        Label labelUserEmailValue = new Label("john@example.com");
+        Label labelUserEmailValue = new Label(userModel.getEmail());
         labelUserEmailValue.setStyle("-fx-font-size: 18px; -fx-font-weight: 400; -fx-text-fill: #000;");
         anchorPaneUserDetails.getChildren().add(labelUserEmailValue);
         AnchorPane.setTopAnchor(labelUserEmailValue, 265.0);
@@ -202,7 +202,7 @@ public class UserController {
         anchorPaneUserDetails.getChildren().add(buttonAssign);
         AnchorPane.setTopAnchor(buttonAssign, 420.0);
         AnchorPane.setLeftAnchor(buttonAssign, 20.0);
-        Label labelUserType = new Label("Coordinator");
+        Label labelUserType = new Label(userModel.getUserRoleName());
         labelUserType.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #166534; -fx-background-color: #b2fbcd; -fx-background-radius: 8px; -fx-text-alignment: center;");
         labelUserType.setPrefSize(100, 30);
         anchorPaneUserDetails.getChildren().add(labelUserType);

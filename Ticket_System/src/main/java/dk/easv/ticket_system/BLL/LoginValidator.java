@@ -1,5 +1,6 @@
 package dk.easv.ticket_system.BLL;
 
+import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.DAL.UserDAO;
 
 import dk.easv.ticket_system.Models.UserModel;

@@ -2,6 +2,7 @@ package dk.easv.ticket_system.DAL;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.BLL.Util.UserSession;
 
 import java.io.IOException;
 import java.sql.*;
@@ -17,7 +18,10 @@ public class UserDAO implements IUserDataAccess {
     }
 
     public boolean checkUserCredentials(String email, String password) {
-            String query = "SELECT passwordHash FROM TrueUsers WHERE email = ?";
+            String query = "SELECT u.userID, u.email, r.roleName, u.passwordHash " +
+                    "FROM TrueUsers u " +
+                    "JOIN roles r ON u.roleID = r.roleID " +
+                    "WHERE u.email = ?";
 
             try (Connection conn = dbConnector.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -27,7 +31,16 @@ public class UserDAO implements IUserDataAccess {
 
                 if (rs.next()) {
                     String storedPassword = rs.getString("passwordHash");
-                    return BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified;
+                    if (BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified) {
+                        int id = rs.getInt("userID");
+                        String roleName = rs.getString("roleName");
+
+                        User loggedInUser = new User(id, email, roleName);
+                        UserSession.setLoggedInUser(loggedInUser);
+
+
+                        return true;
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -226,5 +239,113 @@ public class UserDAO implements IUserDataAccess {
         return users;
     }
 
+    public String getUserRoleName() throws Exception {
+        String role = "";
+        String query = "SELECT roleName FROM Roles";
+
+        try (Connection conn = dbConnector.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String roleName = rs.getString("roleName");
+                role = roleName;
+            }
+        }
+        return role;
+    }
+
+    @Override
+    public String getFirstName() throws Exception {
+        String firstName = "";
+        String query = "SELECT firstName FROM UserDetails";
+
+        try (Connection conn = dbConnector.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String firstname = rs.getString("firstName");
+                firstName = firstname;
+            }
+        }
+        return firstName;
+    }
+
+    @Override
+    public String getLastName() throws Exception {
+        String lastName = "";
+        String query = "SELECT lastName FROM UserDetails";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String lastname = rs.getString("lastName");
+                lastName = lastname;
+            }
+        }
+        return lastName;
+    }
+
+    @Override
+    public String getEmail() throws Exception {
+        String eMail = "";
+        String query = "SELECT email FROM TrueUsers";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                eMail = email;
+            }
+        }
+        return eMail;
+    }
+
+    @Override
+    public List<User> getAllUserEmails() throws Exception {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT email FROM TrueUsers;";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+
+                User user = new User(email);
+                users.add(user);
+            }
+        }
+
+        return users;
+    }
+
+    @Override
+    public List<User> getAllUserNames() throws Exception {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT fullName, lastName FROM UserDetails;";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                String firstName = rs.getString("fullName");
+                String lastName = rs.getString("lastName");
+
+
+                User user = new User(firstName, lastName);
+                users.add(user);
+            }
+        }
+
+        return users;
+    }
 }
 

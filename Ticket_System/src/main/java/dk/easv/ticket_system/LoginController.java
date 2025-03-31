@@ -1,5 +1,6 @@
 package dk.easv.ticket_system;
 
+import dk.easv.ticket_system.BLL.Util.UserSession;
 import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.LoginValidator;
 import dk.easv.ticket_system.Models.UserModel;
@@ -34,6 +35,7 @@ public class LoginController {
     @FXML
     private Label lblLoginError;
     private LoginValidator loginValidator;
+    private UserSession userSession;
 
 
     private UserModel userModel;
@@ -51,11 +53,12 @@ public class LoginController {
     public LoginController() {
         try {
             userModel = new UserModel();
+            userSession = new UserSession();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
-        System.out.println(userModel.getObservableUsers());
+
     }
 
     private void displayError(Exception e) {
@@ -87,6 +90,7 @@ public class LoginController {
         this.loginValidator = new LoginValidator();
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
+
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
@@ -94,6 +98,12 @@ public class LoginController {
             System.out.println(getTxtEmail().getText());
         } else {
             lblLoginError.setText("Incorrect email or password");
+        }
+        User loggedInUser = UserSession.getLoggedInUser();
+        if (loggedInUser != null) {
+            System.out.println(loggedInUser);
+        } else {
+            System.out.println("fuck man ");
         }
 
     }
@@ -107,6 +117,8 @@ public class LoginController {
         stage.getIcons().add(icon);
         stage.setMaximized(true);
         stage.show();
+
+
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
@@ -124,5 +136,6 @@ public class LoginController {
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
+
     }
 }
