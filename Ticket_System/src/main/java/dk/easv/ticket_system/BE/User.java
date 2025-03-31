@@ -2,9 +2,11 @@ package dk.easv.ticket_system.BE;
 
 public class User {
     private int id;
+    private int userID;
     private String email;
     private String password;
     private int role;
+    private int roleID;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -17,6 +19,17 @@ public class User {
         this.password = password;
         this.role = role;
 
+    }
+
+    public User(int userID, String email, String password, int roleID, String roleName, String firstName, String lastName, String phoneNumber) {
+        this.userID = userID;
+        this.email = email;
+        this.password = password;
+        this.roleID = roleID;
+        this.roleName = roleName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public User(String email, String password, int role, String firstName, String lastName) {

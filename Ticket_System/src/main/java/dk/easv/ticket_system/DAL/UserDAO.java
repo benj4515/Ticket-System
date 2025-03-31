@@ -124,34 +124,26 @@ public class UserDAO implements IUserDataAccess {
 
     public List<User> getAllUsers() throws Exception {
         ArrayList<User> users = new ArrayList<>();
-
-        //String sql = "SELECT userID, email, passwordHash, roleID FROM TrueUsers ";
-        String sql = "SELECT u.userID,  u.email, u.passwordHash, u.roleID, r.roleName, d.firstName, d.lastName, d.phoneNumber FROM TrueUsers u JOIN Roles r ON u.roleID = r.roleID JOIN UserDetails d ON u.userID = d.userID";
+        String sql = "SELECT u.userID, u.email, u.passwordHash, u.roleID, r.roleName, d.firstName, d.lastName, d.phoneNumber " +
+                "FROM TrueUsers u " +
+                "JOIN Roles r ON u.roleID = r.roleID " +
+                "JOIN UserDetails d ON u.userID = d.userID";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-
-                /*
                 int id = rs.getInt("userID");
                 String email = rs.getString("email");
                 String password = rs.getString("passwordHash");
                 int roleID = rs.getInt("roleID");
-                */
-
-                //userID, email, passwordHash, roleName, firstName, lastName, phoneNumber
-                int id = rs.getInt("userID");
-                String email = rs.getString("email");
-                String password = rs.getString("passwordHash");
                 String roleName = rs.getString("roleName");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String phoneNumber = rs.getString("phoneNumber");
 
-
-                User user = new User(id, email, password, roleName, firstName, lastName, phoneNumber);
+                User user = new User(id, email, password, roleID, roleName, firstName, lastName, phoneNumber);
                 users.add(user);
             }
             return users;
