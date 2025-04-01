@@ -7,43 +7,49 @@ public class TicketType {
     private int eventID;
     private BigDecimal ticketPrice;
     private String ticketDescription;
+    private int ticketsSold;
 
-    private TicketType(int ticketTypeID, int eventID, BigDecimal ticketPrice, String ticketDescription) {
+    public TicketType(int ticketTypeID, int eventID, BigDecimal ticketPrice, String ticketDescription, int ticketsSold) {
         this.ticketTypeID = ticketTypeID;
         this.eventID = eventID;
         this.ticketPrice = ticketPrice;
         this.ticketDescription = ticketDescription;
+        this.ticketsSold = ticketsSold;
     }
 
-    private int getTicketTypeID() {
+    public int getTicketTypeID() {
         return ticketTypeID;
     }
 
-    private void setTicketTypeID(int ticketTypeID) {
+    public void setTicketTypeID(int ticketTypeID) {
         this.ticketTypeID = ticketTypeID;
     }
 
-    private int getEventID() {
+    public int getEventID() {
         return eventID;
     }
 
-    private void setEventID(int eventID) {
+    public void setEventID(int eventID) {
         this.eventID = eventID;
     }
 
-    private BigDecimal getTicketPrice() {
+    public BigDecimal getTicketPrice() {
         return ticketPrice;
     }
 
-    private void setTicketPrice(BigDecimal ticketPrice) {
+    public void setTicketPrice(BigDecimal ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
-    private String getTicketDescription() {
+    public String getTicketDescription() {
         return ticketDescription;
     }
 
-    private void setTicketDescription(String ticketDescription) {
+    public void setTicketDescription(String ticketDescription) {
         this.ticketDescription = ticketDescription;
     }
+
+    public int getTicketsSold() {return ticketsSold;}
+
+    public void setTicketsSold(int ticketsSold) {this.ticketsSold = ticketsSold;}
 }
