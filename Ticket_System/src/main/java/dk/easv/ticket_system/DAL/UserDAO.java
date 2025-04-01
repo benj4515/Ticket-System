@@ -48,7 +48,7 @@ public class UserDAO implements IUserDataAccess {
             return false;
         }
 
-
+//ticket name, description, price
 
     public User createUser(User newUser) throws Exception {
 
@@ -93,20 +93,7 @@ public class UserDAO implements IUserDataAccess {
                 detailsStmt.executeUpdate();
             }
 
-            /*
-            // old piece of code for  when user constructor relied on roleName instead of ID.
-            String roleName = null;
-            try (PreparedStatement roleStmt = conn.prepareStatement(roleQuery)) {
-                roleStmt.setInt(1, newUser.getRoleID());
-                try (ResultSet roleResult = roleStmt.executeQuery()) {
-                    if (roleResult.next()) {
-                        roleName = roleResult.getString("roleName");
-                    } else {
-                        throw new Exception("Role not found for given roleID.");
-                    }
-                }
-            }
-            */
+
 
 
             return new User(generatedUserID, newUser.getEmail(), newUser.getPassword(), newUser.getRoleID(), // Updated to roleName

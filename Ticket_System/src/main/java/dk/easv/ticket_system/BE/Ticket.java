@@ -13,6 +13,7 @@ public class Ticket {
         this.userID = userID;
         this.ticketTypeID = ticketTypeID;
         this.purchaseDate = purchaseDate;
+
     }
 
     public int getTicketID() {
