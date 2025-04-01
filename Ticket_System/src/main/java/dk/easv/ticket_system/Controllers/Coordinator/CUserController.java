@@ -179,12 +179,17 @@ public class CUserController {
 
         lblEventTitle.setText(event.geteventTitle());
         lblLocationEvent.setText(event.getLocation());
-        lblEventDate.setText(event.geteventStartDate().toString());
-        lblEventTime.setText(event.getEventEndDate().toString());
-        lblTicketsSold.setText(event.geteventStartTime() + " - " + event.geteventEndTime());
-        lblVipPackage.setText(event.geteventDescription());
+        if (event.getEventEndDate() != null) {
+            lblEventDate.setText(event.geteventStartDate().toString() + " - " + event.getEventEndDate().toString());
+        } else {
+            lblEventDate.setText(event.geteventStartDate().toString());
+        }
+        //lblEventTime.setText(event.getEventEndDate().toString()); // TODO: There is only EventDate in the DB not Start Date or End Date.
+        if (event.geteventEndTime() != null) {
+            lblEventTime.setText(event.geteventStartTime() + " - " + event.geteventEndTime());
+        } else {
+            lblEventTime.setText(event.geteventStartTime());
+        }
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
-
-
 }
