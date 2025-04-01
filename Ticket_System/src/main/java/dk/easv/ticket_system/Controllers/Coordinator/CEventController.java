@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +19,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -40,6 +42,8 @@ public class CEventController {
     private boolean listenersAdded = false;
 
     private double width;
+    @FXML
+    private ScrollPane scpScrollPane;
 
     public CEventController() {
         try {
@@ -67,6 +71,8 @@ public class CEventController {
 
             listenersAdded = true;
         }
+
+        flowPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() - 265);
 
         showEvents();
         pane2();
