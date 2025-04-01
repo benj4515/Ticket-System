@@ -1,7 +1,9 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
+import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +29,7 @@ public class CEventController {
 
     @FXML
     public FlowPane flowPane;
-    private Event eventModel;
+    private EventModel eventModel;
     @FXML
     public Button btnCreateEvent;
     @FXML
@@ -38,6 +40,14 @@ public class CEventController {
     private boolean listenersAdded = false;
 
     private double width;
+
+    public CEventController() {
+        try {
+            eventModel = new EventModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void initialize() {
@@ -63,7 +73,7 @@ public class CEventController {
     }
 
     public void showEvents() {
-        //for (Event event : eventModel.getObservableEvents()) {
+        for (Event event : eventModel.getObservableEvents()) {
         Pane customPane1 = new Pane();
         customPane1.setPrefSize(460, 485);
         flowPane.getChildren().add(customPane1);
@@ -78,28 +88,28 @@ public class CEventController {
         imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         vbox1.getChildren().add(imageViewEvent);
 
-        /*
-        Label label1 = new Label(event.getEventName());
+
+        Label label1 = new Label(event.geteventTitle());
         label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
-        Label label2 = new Label(event.getEventDate());
+        Label label2 = new Label(event.geteventStartDate().toString());
         label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
         vbox1.getChildren().add(label2);
 
-        Label label3 = new Label(event.getEventStart);
+        Label label3 = new Label(event.geteventStartTime() + " - " + event.geteventEndTime());
         label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #E000000FF; -fx-padding: 10px;");
         vbox1.getChildren().add(label3);
 
-        Label label4 = new Label(event.getEventLocation);
+        Label label4 = new Label(event.getLocation());
         label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
         vbox1.getChildren().add(label4);
 
-        Label label5 = new Label(event.getEventPrice);
+        Label label5 = new Label("ticket price"); // TODO: Add price price of the cheapest access ticket
         label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
         vbox1.getChildren().add(label5);
-        */
 
+        /*
         Label label1 = new Label("Summer music festival");
         label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
@@ -119,7 +129,8 @@ public class CEventController {
         Label label5 = new Label("From $59");
         label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
         vbox1.getChildren().add(label5);
-        //}
+         */
+        }
     }
 
     public void pane2(){
