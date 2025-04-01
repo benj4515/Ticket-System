@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AUserController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AUserController">
    <center>
       <ScrollPane fx:id="scpScrollPane" hbarPolicy="NEVER" prefHeight="930.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
          <FlowPane fx:id="flowPane" hgap="24.0" prefWrapLength="1200.0" vgap="24.0" BorderPane.alignment="CENTER">
@@ -103,6 +103,7 @@
                   <VBox prefHeight="485.0" prefWidth="460.0" spacing="10.0">
                      <children>
                         <Label fx:id="lblEventTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;" text="Summer Music Festival" />
+                        <Button fx:id="btnDeleteEvent" mnemonicParsing="false" onAction="#HandlebtnDeleteEvent" text="Delete Event" />
                         <Label fx:id="lblLocationEvent" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Central Park, New York" />
                         <Label fx:id="lblEventDate" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="July 15, 2025" />
                         <Label fx:id="lblEventTime" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="2:00 PM - 10:00 PM" />

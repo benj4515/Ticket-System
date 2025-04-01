@@ -69,7 +69,7 @@ public class EventDAO implements IEventsDataAccess {
     public List<Event> getAllEvents() throws Exception {
         ArrayList<Event> events = new ArrayList<>();
 
-        String sql = "SELECT eventID, eventName, eventDate, location, eventStart, eventEnd, eventDescription, recommendedTransport FROM Events";
+        String sql = "SELECT eventID, eventName, eventDate, location, eventDescription, eventStart, eventEnd  FROM Events";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
@@ -85,9 +85,9 @@ public class EventDAO implements IEventsDataAccess {
                 String eventStartTime = String.valueOf(rs.getTime("eventStart").toLocalTime());
                 String eventEndTime = String.valueOf(rs.getTime("eventEnd").toLocalTime());
                 String eventDescription = rs.getString("eventDescription");
-                String recTransport = rs.getString("recommendedTransport");
+                //String recTransport = rs.getString("recommendedTransport");
 
-                Event event = new Event(eventID, eventTitle, eventStartDate, location, eventStartTime, eventEndTime, eventDescription, recTransport);
+                Event event = new Event(eventID, eventTitle, eventStartDate, location, eventStartTime, eventEndTime, eventDescription);
                 events.add(event);
             }
             return events;

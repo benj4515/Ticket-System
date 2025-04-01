@@ -65,6 +65,16 @@ public class Event {
 
     }
 
+    public Event(int eventID, String eventTitle, Date eventStartDate, String location, String eventStartTime, String eventEndTime, String eventDescription) {
+        this.eventID = eventID;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
+        this.location = location;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventDescription = eventDescription;
+    }
+
 
     public int getEventID() {
         return eventID;

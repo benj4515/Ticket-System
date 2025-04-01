@@ -32,6 +32,7 @@ public class AUserController {
     public Label lblGeneralAdmission;
     public Label lblCoordinatorsAssigned;
     public Label lblEventCreatedBy;
+    public Button btnDeleteEvent;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -67,6 +68,7 @@ public class AUserController {
     @FXML
     private ScrollPane scpScrollPane;
     private Button selectedUserButton;
+    private Button selectedEventButton;
 
 
     public AUserController() {
@@ -179,11 +181,11 @@ public class AUserController {
     }
 
     private void updateSelectedEvent(Event event, Button button) {
-        if (selectedUserButton != null) {
-            selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        if (selectedEventButton != null) {
+            selectedEventButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
-        selectedUserButton = button;
-        selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        selectedEventButton = button;
+        selectedEventButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblEventTitle.setText(event.geteventTitle());
         lblLocationEvent.setText(event.getLocation());
@@ -199,5 +201,20 @@ public class AUserController {
             lblEventTime.setText(event.geteventStartTime());
         }
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
+    }
+
+    public void HandlebtnDeleteEvent(ActionEvent actionEvent) {
+
+        if (selectedEventButton != null) {
+            Button button = (Button) selectedEventButton.getParent();
+            Event event = (Event) button.getUserData();
+            try {
+                eventModel.deleteEvent(event);
+                showEventList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

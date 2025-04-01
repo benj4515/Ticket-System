@@ -132,6 +132,7 @@ public class LoginController {
             openAdminFrame();
 
 
+
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
             openCoordinatorFrame();
         } else {
