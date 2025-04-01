@@ -96,19 +96,19 @@ public class CEventController {
 
 
         Label label1 = new Label(event.geteventTitle());
-        label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000FF; -fx-padding: 16px;");
+        label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
         Label label2 = new Label(event.geteventStartDate().toString());
-        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000; -fx-padding: 10px;");
         vbox1.getChildren().add(label2);
 
         Label label3 = new Label(event.geteventStartTime() + " - " + event.geteventEndTime());
-        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #E000000FF; -fx-padding: 10px;");
+        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #E000000; -fx-padding: 10px;");
         vbox1.getChildren().add(label3);
 
         Label label4 = new Label(event.getLocation());
-        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000FF; -fx-padding: 10px;");
+        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000; -fx-padding: 10px;");
         vbox1.getChildren().add(label4);
 
         Label label5 = new Label("ticket price"); // TODO: Add price price of the cheapest access ticket

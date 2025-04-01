@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -74,21 +75,14 @@
                   </Label>
                </left>
                <right>
-                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" text="+ Add Ticket Type" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" onAction="#HandleBtnAddTicketType" text="+ Add Ticket Type" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
-            <Pane prefHeight="270.0" prefWidth="522.0" style="-fx-border-color: Black;">
-               <children>
-                  <Label layoutX="20.0" layoutY="14.0" text="Ticket Name" />
-                  <TextField layoutX="20.0" layoutY="42.0" prefHeight="26.0" prefWidth="491.0" promptText="e.g., VIP General Admission, Luxury Seating" />
-                  <Label layoutX="20.0" layoutY="82.0" text="Ticket Description" />
-                  <TextArea layoutX="20.0" layoutY="100.0" prefHeight="97.0" prefWidth="491.0" promptText="Describe what's included with this ticket type" />
-                  <Label layoutX="20.0" layoutY="210.0" text="Price" />
-                  <TextField layoutX="15.0" layoutY="228.0" promptText="0.00 KR." />
-                  <TextField layoutX="287.0" layoutY="228.0" promptText="100" />
-                  <Label layoutX="287.0" layoutY="210.0" text="Quantity Available" />
-               </children>
-            </Pane>
+            <ScrollPane fx:id="spTicketTypeEvent" prefHeight="272.0">
+               <content>
+                  <FlowPane fx:id="fpAddTicketType" />
+               </content>
+            </ScrollPane>
             <Separator />
             <BorderPane>
                <left>

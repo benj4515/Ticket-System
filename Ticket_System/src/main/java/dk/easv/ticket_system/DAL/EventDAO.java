@@ -19,7 +19,7 @@ public class EventDAO implements IEventsDataAccess {
 
     @Override
     public Event createEvent(Event newEvent) throws Exception {
-        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventStart, eventEnd, eventDescription, recommendedTransport) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd ) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
@@ -27,10 +27,10 @@ public class EventDAO implements IEventsDataAccess {
             eventStmt.setString(1, newEvent.geteventTitle());
             eventStmt.setDate(2, newEvent.geteventStartDate());
             eventStmt.setString(3, newEvent.getLocation());
-            eventStmt.setTime(4, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
-            eventStmt.setTime(5, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
-            eventStmt.setString(6, newEvent.geteventDescription());
-            eventStmt.setString(7, newEvent.getRecTransport());
+            eventStmt.setString(4, newEvent.geteventDescription());
+            eventStmt.setTime(5, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
+            eventStmt.setTime(6, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
+            eventStmt.setDate(7, newEvent.getEventEndDate());
             eventStmt.executeUpdate();
 
         } catch (SQLException e) {
