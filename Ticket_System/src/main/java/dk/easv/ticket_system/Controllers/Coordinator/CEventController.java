@@ -71,6 +71,8 @@ public class CEventController {
         }
 
         flowPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() - 265);
+        flowPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
+        scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
 
         showEvents();
     }
