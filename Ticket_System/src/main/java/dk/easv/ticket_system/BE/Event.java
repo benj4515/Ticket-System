@@ -75,14 +75,25 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public Event(String eventTitle, String eventDescription, String eventLocation, Date startDate, String startTime, String endTime, Date endDate) {
+    public Event(String eventTitle, String eventDescription, String eventLocation, Date startDate, String startTime, String endTime, Date eventEndDate) {
         this.eventTitle = eventTitle;
         this.eventDescription = eventDescription;
         this.location = eventLocation;
         this.eventStartDate = startDate;
-        this.eventEndDate = endDate;
         this.eventStartTime = startTime;
         this.eventEndTime = endTime;
+        this.eventEndDate = eventEndDate;
+    }
+
+    public Event(int eventID, String eventTitle, Date eventStartDate, String location, String eventDescription, String eventStartTime, String eventEndTime, Date eventEndDate) {
+        this.eventID = eventID;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
+        this.location = location;
+        this.eventDescription = eventDescription;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventEndDate = eventEndDate;
     }
 
 
