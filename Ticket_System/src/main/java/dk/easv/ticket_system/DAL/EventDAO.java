@@ -19,25 +19,23 @@ public class EventDAO implements IEventsDataAccess {
 
     @Override
     public Event createEvent(Event newEvent) throws Exception {
-
-        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventStart, eventEnd, eventDescription, recommendedTransport) VALUES (?, ?, ?, ?, ?, ?; ?)";
+        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd ) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-
-            eventStmt.setString(1, newEvent.getEventName());
-            eventStmt.setDate(2, newEvent.getEventDate());
+            eventStmt.setString(1, newEvent.geteventTitle());
+            eventStmt.setDate(2, newEvent.geteventStartDate());
             eventStmt.setString(3, newEvent.getLocation());
-            eventStmt.setTime(4, java.sql.Time.valueOf(newEvent.getEventStart()));
-            eventStmt.setTime(5, java.sql.Time.valueOf(newEvent.getEventEnd()));
-            eventStmt.setString(6, newEvent.geteDescription());
-            eventStmt.setString(7, newEvent.getRecTransport());
+            eventStmt.setString(4, newEvent.geteventDescription());
+            eventStmt.setTime(5, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
+            eventStmt.setTime(6, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
+            eventStmt.setDate(7, newEvent.getEventEndDate());
             eventStmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Couldn't create new Event");
+            throw new Exception("Couldn't create new Event", e);
         }
         return null;
     }
@@ -71,7 +69,7 @@ public class EventDAO implements IEventsDataAccess {
     public List<Event> getAllEvents() throws Exception {
         ArrayList<Event> events = new ArrayList<>();
 
-        String sql = "SELECT eventID, eventName, eventDate, location, eventStart, eventEnd, eventDescription, recommendedTransport FROM Events";
+        String sql = "SELECT eventID, eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd  FROM Events";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
@@ -81,15 +79,16 @@ public class EventDAO implements IEventsDataAccess {
 
 
                 int eventID = rs.getInt("eventID");
-                String eventName = rs.getString("eventName");
-                Date eventDate = rs.getDate("eventDate");
+                String eventTitle = rs.getString("eventName");
+                Date eventStartDate = rs.getDate("eventDate");
                 String location = rs.getString("location");
-                LocalTime eventStart = rs.getTime("eventStart").toLocalTime();
-                LocalTime eventEnd = rs.getTime("eventEnd").toLocalTime();
-                String eDescription = rs.getString("eventDescription");
-                String recTransport = rs.getString("recommendedTransport");
+                String eventDescription = rs.getString("eventDescription");
+                String eventStartTime = String.valueOf(rs.getTime("eventStart").toLocalTime());
+                String eventEndTime = String.valueOf(rs.getTime("eventEnd").toLocalTime());
+                Date eventEndDate = rs.getDate("eventDateEnd");
+                //String recTransport = rs.getString("recommendedTransport");
 
-                Event event = new Event(eventID, eventName, eventDate, location, eventStart, eventEnd, eDescription, recTransport);
+                Event event = new Event(eventID, eventTitle, eventStartDate, location,eventDescription, eventStartTime, eventEndTime, eventEndDate);
                 events.add(event);
             }
             return events;
@@ -110,19 +109,19 @@ public class EventDAO implements IEventsDataAccess {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
-            String eventName = rs.getString("eventName");
-            Date eventDate = rs.getDate("eventDate");
+            String eventTitle = rs.getString("eventName");
+            Date eventStartDate = rs.getDate("eventDate");
             String location = rs.getString("location");
-            LocalTime eventStart = rs.getTime("eventStart").toLocalTime();
-            LocalTime eventEnd = rs.getTime("eventEnd").toLocalTime();
+            String eventStartTime = String.valueOf(rs.getTime("eventStart").toLocalTime());
+            String eventEnd = String.valueOf(rs.getTime("eventEnd").toLocalTime());
             String recTransport = rs.getString("recommendedTransport");
 
-            Event event = new Event(eventName, eventDate, location, eventStart, eventEnd, recTransport);
-            event.setEventName(eventName);
-            event.setEventDate(eventDate);
+            Event event = new Event(eventTitle, eventStartDate, location, eventStartTime, eventEnd, recTransport);
+            event.seteventTitle(eventTitle);
+            event.seteventStartDate(eventStartDate);
             event.setLocation(location);
-            event.setEventStart(eventStart);
-            event.setEventEnd(eventEnd);
+            event.seteventStartTime(eventStartTime);
+            event.seteventEndTime(eventEnd);
             event.setRecTransport(recTransport);
 
             return event;
@@ -142,12 +141,12 @@ public class EventDAO implements IEventsDataAccess {
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
 
-            stmt.setString(1, updatedEvent.getEventName());
-            stmt.setDate(2, updatedEvent.getEventDate());
+            stmt.setString(1, updatedEvent.geteventTitle());
+            stmt.setDate(2, updatedEvent.geteventStartDate());
             stmt.setString(3, updatedEvent.getLocation());
-            stmt.setTime(4, java.sql.Time.valueOf(updatedEvent.getEventStart()));
-            stmt.setTime(5, java.sql.Time.valueOf(updatedEvent.getEventEnd()));
-            stmt.setString(6, updatedEvent.geteDescription());
+            stmt.setTime(4, java.sql.Time.valueOf(updatedEvent.geteventStartTime()));
+            stmt.setTime(5, java.sql.Time.valueOf(updatedEvent.geteventEndTime()));
+            stmt.setString(6, updatedEvent.geteventDescription());
             stmt.setString(7, updatedEvent.getRecTransport());
             stmt.setInt(8, updatedEvent.getEventID());
 

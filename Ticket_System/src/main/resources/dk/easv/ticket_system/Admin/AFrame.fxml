@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -70,14 +69,14 @@
                <graphic>
                   <AnchorPane prefHeight="48.0" prefWidth="240.0">
                      <children>
-                        <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="49.0" prefHeight="19.0" prefWidth="185.0" text="Username">
+                        <ImageView fx:id="imgLoggedImg" fitHeight="58.0" fitWidth="58.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="lblLoggedUser" layoutX="49.0" prefHeight="19.0" prefWidth="185.0" text="Username">
                            <font>
                               <Font name="Inter" size="16.0" />
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="49.0" layoutY="26.0" prefHeight="19.0" prefWidth="185.0" text="Email" textFill="#4b5563">
+                        <Label fx:id="lblLoggedEmail" layoutX="49.0" layoutY="26.0" prefHeight="19.0" prefWidth="185.0" text="Email" textFill="#4b5563">
                            <font>
                               <Font name="Inter" size="16.0" />
                               <Font size="14.0" />

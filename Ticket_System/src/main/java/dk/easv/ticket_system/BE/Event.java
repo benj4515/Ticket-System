@@ -7,50 +7,94 @@ import java.time.LocalTime;
 
 public class Event {
     private int eventID;
-    private String eventName;
-    private Date eventDate;
+    private String eventTitle;
+    private String eventDescription;
     private String location;
-    private LocalTime eventStart;
-    private LocalTime eventEnd;
-    private String eDescription;
+
+
+
+    private Date eventStartDate;
+    private Date eventEndDate;
+    private String eventStartTime;
+    private String eventEndTime;
     private String recTransport;
 
-    public Event(int eventID, String eventName, Date eventDate, String location,
-                 LocalTime eventStart, LocalTime eventEnd, String eDescription, String recTransport) {
+    public Event(int eventID, String eventTitle, Date eventStartDate, String location,
+                 String eventStartTime, String eventEndTime, String eventDescription, String recTransport) {
         this.eventID = eventID;
-        this.eventName = eventName;
-        this.eventDate = eventDate;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
         this.location = location;
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
-        this.eDescription = eDescription;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventDescription = eventDescription;
         this.recTransport = recTransport;
     }
 
-    public Event(String eventName, Date eventDate, String location,
-                 LocalTime eventStart, LocalTime eventEnd, String eDescription, String recTransport) {
+    public Event(String eventTitle, Date eventStartDate, String location,
+                 String eventStartTime, String eventEndTime, String eventDescription, String recTransport) {
 
-        this.eventName = eventName;
-        this.eventDate = eventDate;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
         this.location = location;
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
-        this.eDescription = eDescription;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventDescription = eventDescription;
         this.recTransport = recTransport;
     }
 
-    public Event(String eventName, Date eventDate, String location,
-                 LocalTime eventStart, LocalTime eventEnd, String recTransport) {
-        this.eventName = eventName;
-        this.eventDate = eventDate;
+    public Event(String eventTitle, Date eventStartDate, String location,
+                 String eventStartTime, String eventEndTime, String recTransport) {
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
         this.location = location;
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
         this.recTransport = recTransport;
 
     }
 
+    public Event(String eventTitle, String eventDescription, String eventLocation, Date eventStartDate, Date endDate, String startTime, String endTime) {
+        this.eventTitle = eventTitle;
+        this.eventDescription = eventDescription;
+        this.location = eventLocation;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = endDate;
+        this.eventStartTime = startTime;
+        this.eventEndTime = endTime;
 
+    }
+
+    public Event(int eventID, String eventTitle, Date eventStartDate, String location, String eventStartTime, String eventEndTime, String eventDescription) {
+        this.eventID = eventID;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
+        this.location = location;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventDescription = eventDescription;
+    }
+
+    public Event(String eventTitle, String eventDescription, String eventLocation, Date startDate, String startTime, String endTime, Date eventEndDate) {
+        this.eventTitle = eventTitle;
+        this.eventDescription = eventDescription;
+        this.location = eventLocation;
+        this.eventStartDate = startDate;
+        this.eventStartTime = startTime;
+        this.eventEndTime = endTime;
+        this.eventEndDate = eventEndDate;
+    }
+
+    public Event(int eventID, String eventTitle, Date eventStartDate, String location, String eventDescription, String eventStartTime, String eventEndTime, Date eventEndDate) {
+        this.eventID = eventID;
+        this.eventTitle = eventTitle;
+        this.eventStartDate = eventStartDate;
+        this.location = location;
+        this.eventDescription = eventDescription;
+        this.eventStartTime = eventStartTime;
+        this.eventEndTime = eventEndTime;
+        this.eventEndDate = eventEndDate;
+    }
 
 
     public int getEventID() {
@@ -58,20 +102,20 @@ public class Event {
     }
 
 
-    public String getEventName() {
-        return eventName;
+    public String geteventTitle() {
+        return eventTitle;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void seteventTitle(String eventTitle) {
+        this.eventTitle = eventTitle;
     }
 
-    public Date getEventDate() {
-        return eventDate;
+    public Date geteventStartDate() {
+        return eventStartDate;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void seteventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
     }
 
     public String getLocation() {
@@ -82,27 +126,28 @@ public class Event {
         this.location = location;
     }
 
-    public   LocalTime getEventStart() {
-        return eventStart;
-    }
-    public void setEventStart(LocalTime eventStart) {
-        this.eventStart = eventStart;
+    public   String geteventStartTime() {
+        return eventStartTime;
     }
 
-    public LocalTime getEventEnd() {
-        return eventEnd;
+    public void seteventStartTime(String eventStartTime) {
+        this.eventStartTime = eventStartTime;
     }
 
-    public void setEventEnd(LocalTime eventEnd) {
-        this.eventEnd = eventEnd;
+    public String geteventEndTime() {
+        return eventEndTime;
     }
 
-    public String geteDescription() {
-        return eDescription;
+    public void seteventEndTime(String eventEndTime) {
+        this.eventEndTime = eventEndTime;
     }
 
-    public void seteDescription(String eDescription) {
-        this.eDescription = eDescription;
+    public String geteventDescription() {
+        return eventDescription;
+    }
+
+    public void seteventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
     public String getRecTransport() {
@@ -111,5 +156,21 @@ public class Event {
 
     public void setRecTransport(String recTransport) {
         this.recTransport = recTransport;
+    }
+
+    public Date getEventStartDate() {
+        return eventStartDate;
+    }
+
+    public void setEventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
+    }
+
+    public Date getEventEndDate() {
+        return eventEndDate;
+    }
+
+    public void setEventEndDate(Date eventEndDate) {
+        this.eventEndDate = eventEndDate;
     }
 }

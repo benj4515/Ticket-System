@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TicketDAO implements ITicketDataAccess {
@@ -75,6 +76,7 @@ public class TicketDAO implements ITicketDataAccess {
                 throw new Exception("Something happened, cannot retrieve tickets.");
             }
         }
+
     @Override
     public void deleteTicket(Ticket ticketToDelete) throws Exception {
 
@@ -93,6 +95,74 @@ public class TicketDAO implements ITicketDataAccess {
             //throw an exception if it fails
         } catch (SQLException e) {
             throw new Exception("Couldn't delete Ticket from database", e);
+        }
+    }
+
+    @Override
+    public int getTicketID() throws Exception {
+        int tID = 0;
+        String query = "SELECT ticketID FROM Tickets";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int  ticketId = rs.getInt("ticketID");
+                tID = ticketId;
+            }
+            return tID;
+        }
+    }
+
+    @Override
+    public int getTicketUserID() throws Exception {
+        int tUserID = 0;
+        String query = "SELECT userID FROM Tickets";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int  ticketUserId = rs.getInt("userID");
+                tUserID = ticketUserId;
+            }
+            return tUserID;
+        }
+    }
+
+    @Override
+    public int getTicketTypeID() throws Exception {
+        int tickettypeID = 0;
+        String query = "SELECT ticketTypeID FROM Tickets";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int  ticketTipeId = rs.getInt("ticketTypeID");
+                tickettypeID = ticketTipeId;
+            }
+            return tickettypeID;
+        }
+    }
+
+    @Override
+    public Date getPurchaseDate() throws Exception {
+        Date buyDate = new Date();
+        String query = "SELECT purchaseDate FROM Tickets";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Date  buyThicket = rs.getDate("purchaseDate");
+                buyDate = buyThicket;
+            }
+            return buyDate;
         }
     }
 

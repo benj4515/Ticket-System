@@ -3,23 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bpnFullPane" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventController">
+<?import javafx.scene.layout.FlowPane?>
+<BorderPane fx:id="bpnFullPane" prefHeight="979.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventController">
    <center>
-      <ScrollPane fx:id="scpScrollPane" BorderPane.alignment="CENTER">
-         <content>
-            <FlowPane fx:id="flowPane" hgap="24.0" vgap="24.0">
-               <padding>
-                  <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
-               </padding>
-            </FlowPane>
-         </content>
-      </ScrollPane>   </center>
+      <FlowPane fx:id="flowPane" hgap="24.0" prefWidth="2700.0" vgap="24.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding>
+      </FlowPane>   </center>
    <top>
       <BorderPane fx:id="bpnTopBar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -38,7 +34,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <right>
-            <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#onCreateEvent" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #4F46E5; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER" />
+            <Button fx:id="btnCreateEvent" onAction="#onCreateEvent" mnemonicParsing="false" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #4F46E5; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </top>

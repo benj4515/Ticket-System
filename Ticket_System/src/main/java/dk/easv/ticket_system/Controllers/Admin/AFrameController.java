@@ -44,6 +44,9 @@ public class AFrameController {
     public Label lblUsername;
     public ImageView imgUser;
     public Label lblEmail;
+    public ImageView imgLoggedImg;
+    public Label lblLoggedUser;
+    public Label lblLoggedEmail;
     private UserModel userModel;
     private User loggedInUser;
 

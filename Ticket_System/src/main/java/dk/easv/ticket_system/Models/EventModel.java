@@ -3,9 +3,9 @@ package dk.easv.ticket_system.Models;
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BLL.Util.EventManager;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class EventModel {

@@ -41,6 +41,7 @@ public class LoginController {
     private Label lblLoginError;
     private LoginValidator loginValidator;
     private UserSession userSession;
+    private AFrameController aFrameController;
 
 
     private UserModel userModel;
@@ -59,6 +60,7 @@ public class LoginController {
         try {
             userModel = new UserModel();
             userSession = new UserSession();
+            aFrameController = new AFrameController();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -128,6 +130,9 @@ public class LoginController {
 
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
             openAdminFrame();
+
+
+
         } else if (success && loginValidator.isEventCoordinator(txtEmail.getText())) {
             openCoordinatorFrame();
         } else {
