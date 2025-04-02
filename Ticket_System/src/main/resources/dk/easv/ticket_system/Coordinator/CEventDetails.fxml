@@ -2,12 +2,63 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventDetailsController">
+<AnchorPane prefHeight="858.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventDetailsController">
    <children>
-      <Button fx:id="btnEditEvent" layoutX="526.0" layoutY="20.0" mnemonicParsing="false" onAction="#HandleBtnEditEvent" text="Edit Event" />
-      <Label fx:id="lblEventDetails" layoutX="14.0" layoutY="24.0" text="Event Details" />
+      <Button fx:id="btnEditEvent" layoutX="739.0" layoutY="14.0" mnemonicParsing="false" onAction="#HandleBtnEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Edit Event" textFill="WHITE" />
+      <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="&lt;- Back to Events" textFill="#009fda" />
+      <Pane layoutX="38.0" layoutY="48.0" prefHeight="490.0" prefWidth="554.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+         <children>
+            <ImageView fx:id="imvEventImage" fitHeight="285.0" fitWidth="512.0" layoutX="17.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lblEventTitle" layoutX="17.0" layoutY="320.0" text="EventTitle">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblEventStartDate" layoutX="14.0" layoutY="348.0" text="Event Start Date" />
+            <Label fx:id="lblEventEndDate" layoutX="14.0" layoutY="366.0" text="Event End Date" />
+            <Label fx:id="lblEventStartTime" layoutX="152.0" layoutY="348.0" text="Event Start Time" />
+            <Label fx:id="lblEventLocation" layoutX="308.0" layoutY="348.0" text="Event Location" />
+            <Label fx:id="lblEventEndTime" layoutX="152.0" layoutY="366.0" text="Event End Time" />
+            <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="14.0" layoutY="385.0" prefHeight="91.0" prefWidth="512.0" text="Event Description" />
+         </children>
+      </Pane>
+      <Pane layoutX="38.0" layoutY="555.0" prefHeight="236.0" prefWidth="554.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+         <children>
+            <Pane layoutX="10.0" layoutY="46.0" prefHeight="171.0" prefWidth="504.0" style="-fx-border-color: black;">
+               <children>
+                  <ImageView fx:id="imvQrPreview" fitHeight="137.0" fitWidth="143.0" layoutX="355.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="lblEventTitle1" layoutX="3.0" layoutY="13.0" text="EventTitle">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblEventStartDate1" layoutY="41.0" text="Event Start Date" />
+                  <Label fx:id="lblEventEndDate1" layoutY="59.0" text="Event End Date" />
+                  <Label fx:id="lblEventStartTime1" layoutX="138.0" layoutY="41.0" text="Event Start Time" />
+                  <Label fx:id="lblEventLocation1" layoutX="256.0" layoutY="41.0" text="Event Location" />
+                  <Label fx:id="lblEventEndTime1" layoutX="138.0" layoutY="59.0" text="Event End Time" />
+                  <Label fx:id="lblEventDescription1" alignment="TOP_LEFT" layoutY="78.0" prefHeight="91.0" prefWidth="347.0" text="Event Description" />
+               </children>
+            </Pane>
+            <Label layoutX="17.0" layoutY="14.0" text="Ticket Preview">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ScrollPane layoutX="617.0" layoutY="48.0" style="-fx-background-color: FFF; -fx-background-radius: 8;">
+         <content>
+            <VBox fx:id="vbxTicketTypes" prefHeight="490.0" prefWidth="238.0" style="-fx-background-color: FFF; -fx-background-radius: 8;" />
+         </content>
+      </ScrollPane>
+      <Button layoutX="617.0" layoutY="555.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="238.0" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Add To Checkout" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -23,9 +23,15 @@
                </font>
             </Label>
             <Label text="Fill in the details below to edit your event" />
-            <Label text="Event title" />
+            <Label text="Event title">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
             <TextField fx:id="txtEventTitle" prefHeight="26.0" prefWidth="522.0" promptText="Enter event title" />
-            <Label text="Description" />
+            <Label text="Description">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
             <TextArea fx:id="txtDescribeEvent" prefHeight="97.0" prefWidth="522.0" promptText="Describe your event" />
             <Label text="Location" />
             <TextField fx:id="txtLocationEvent" prefHeight="26.0" prefWidth="522.0" promptText="Enter location" />
@@ -75,7 +81,7 @@
                   </Label>
                </left>
                <right>
-                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" onAction="#HandleBtnAddTicketType" text="+ Add Ticket Type" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" onAction="#HandleBtnAddTicketType" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="+ Add Ticket Type" textFill="WHITE" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
             <ScrollPane fx:id="spTicketTypeEvent" prefHeight="272.0">
@@ -86,10 +92,10 @@
             <Separator />
             <BorderPane>
                <left>
-                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" text="Cancel" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" style="-fx-background-color: #C00D0D; -fx-background-radius: 6;" text="Cancel" textFill="WHITE" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button fx:id="btnEditEvent" mnemonicParsing="false" onAction="#HandleEditEvent" text="Create Event" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnEditEvent" mnemonicParsing="false" onAction="#HandleEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Create Event" textFill="WHITE" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </children>

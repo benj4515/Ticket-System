@@ -42,7 +42,7 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
              PreparedStatement ttStmt = conn.prepareStatement(ttQuery, Statement.RETURN_GENERATED_KEYS)) {
 
             ttStmt.setInt(1, newTicketType.getEventID());
-            ttStmt.setBigDecimal(2, newTicketType.getTicketPrice());
+            ttStmt.setFloat(2, newTicketType.getTicketPrice());
             ttStmt.setString(3, newTicketType.getTicketDescription());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         ArrayList<TicketType> tTypes = new ArrayList<>();
 
         String sql = "SELECT ticketTypeID, eventID, ticketPrice," +
-                "ticketDescription, ticketsSold FROM TicketTypes";
+                "ticketDescription, soldTickets FROM TicketTypes";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
@@ -85,9 +85,9 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
             while (rs.next()) {
                 int ticketTypeID = rs.getInt("ticketTypeID");
                 int eventID = rs.getInt("eventID");
-                BigDecimal ticketPrice = rs.getBigDecimal("ticketPrice");
+                float ticketPrice = rs.getFloat("ticketPrice");
                 String ticketDescription = rs.getString("ticketDescription");
-                int ticketsSold = rs.getInt("ticketsSold");
+                int ticketsSold = rs.getInt("soldTickets");
 
                 TicketType typeTicket = new TicketType(ticketTypeID, eventID, ticketPrice, ticketDescription, ticketsSold);
                 tTypes.add(typeTicket);

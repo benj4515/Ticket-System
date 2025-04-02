@@ -75,7 +75,7 @@
                   </Label>
                </left>
                <right>
-                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" onAction="#HandleBtnAddTicketType" text="+ Add Ticket Type" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnAddTicketTypeEvent" mnemonicParsing="false" onAction="#HandleBtnAddTicketType" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="+ Add Ticket Type" textFill="WHITE" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
             <ScrollPane fx:id="spTicketTypeEvent" prefHeight="272.0">
@@ -86,10 +86,10 @@
             <Separator />
             <BorderPane>
                <left>
-                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" text="Cancel" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" style="-fx-background-color: #C00D0D; -fx-background-radius: 6;" text="Cancel" textFill="WHITE" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#HandleCreateEvent" text="Create Event" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#HandleCreateEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Create Event" textFill="WHITE" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </children>
