@@ -23,7 +23,7 @@ public class HelloApplication extends Application {
       Hello world
       Best regards,
       EventHub
-       """, File("target/sample.pdf"));
+       """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
         launch();
 
     }
