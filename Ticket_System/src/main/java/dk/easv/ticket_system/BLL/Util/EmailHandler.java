@@ -16,9 +16,15 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 import org.apache.commons.codec.binary.Base64;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +46,7 @@ public class EmailHandler {
         service = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport, jsonFactory))
                 .setApplicationName("EventHub")
                 .build();
+
     }
     private final Gmail service;
     private static final String fromEmailAddress = "eventhubticket@gmail.com";
@@ -68,7 +75,7 @@ public class EmailHandler {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 
     }
-    public void send(String subject, String message) throws Exception {
+    public void send(String subject, String message, File attachment) throws Exception {
 
 
         // Encode as MIME message
@@ -80,6 +87,16 @@ public class EmailHandler {
         email.setSubject(subject);
         email.setText(message);
 
+        MimeBodyPart mimeBodyPart = new MimeBodyPart();
+        mimeBodyPart.setContent(message, "text/plain");
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(mimeBodyPart);
+        mimeBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(attachment);
+        mimeBodyPart.setDataHandler(new DataHandler(source));
+        mimeBodyPart.setFileName("sample.pdf");
+        multipart.addBodyPart(mimeBodyPart);
+        email.setContent(multipart);
 
         // Encode and wrap the MIME message into a gmail message
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -90,18 +107,20 @@ public class EmailHandler {
         msg.setRaw(encodedEmail);
 
         try {
-            // Create the draft message
-            msg = service.users().messages().send("me", msg).execute();
-            System.out.println("msg id: " + msg.getId());
-            System.out.println(msg.toPrettyString());
+            // Create and send the mail
+            // Draft creation is optional; you can send a message directly without it
+            Message sentMessage = service.users().messages().send("me", msg).execute();  // Send the message directly
+            System.out.println("Message sent: " + sentMessage.getId());
+            System.out.println(sentMessage.toPrettyString());
         } catch (GoogleJsonResponseException e) {
-            // TODO - handle error appropriately
+            // Handle error appropriately
             GoogleJsonError error = e.getDetails();
             if (error.getCode() == 403) {
-                System.err.println("Unable to create msg: " + e.getDetails());
+                System.err.println("Unable to send message: " + e.getDetails());
             } else {
                 throw e;
             }
+
         }
     }
 }

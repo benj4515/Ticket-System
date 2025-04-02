@@ -7,6 +7,7 @@ import dk.easv.ticket_system.Controllers.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
@@ -22,7 +23,7 @@ public class HelloApplication extends Application {
       Hello world
       Best regards,
       EventHub
-       """);
+       """, File("target/sample.pdf"));
         launch();
 
     }
