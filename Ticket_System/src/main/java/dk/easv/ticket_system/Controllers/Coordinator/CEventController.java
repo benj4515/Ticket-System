@@ -12,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -124,11 +121,9 @@ public class CEventController {
             Parent root = loader.load();
             CEventDetailsController eventDetailsController = loader.getController();
             eventDetailsController.setEvent(event);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Event Details");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            bpnFullPane.getChildren().clear();
+            bpnFullPane.getChildren().add(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

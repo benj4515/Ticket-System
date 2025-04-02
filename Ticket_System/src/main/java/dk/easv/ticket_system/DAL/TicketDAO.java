@@ -180,7 +180,7 @@ public class TicketDAO implements ITicketDataAccess {
 
                 int tickeTypeID = rs.getInt("ticketTypeID");
                 int eventID = rs.getInt("eventID");
-                BigDecimal ticketPrice = rs.getBigDecimal("ticketPrice");
+                float ticketPrice = rs.getFloat("ticketPrice");
                 String ticketDescription = rs.getString("ticketDescription");
                 int soldTickets = rs.getInt("soldTickets");
 

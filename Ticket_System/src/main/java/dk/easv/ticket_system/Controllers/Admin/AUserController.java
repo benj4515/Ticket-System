@@ -156,6 +156,7 @@ public class AUserController {
             Button button = new Button();
             button.setPrefSize(460, 75);
             button.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+            button.setUserData(event); // Set the event as user data
             vbox3.getChildren().add(button);
             AnchorPane anchorPaneEvent = new AnchorPane();
             button.setGraphic(anchorPaneEvent);
@@ -206,9 +207,9 @@ public class AUserController {
     public void HandlebtnDeleteEvent(ActionEvent actionEvent) {
 
         if (selectedEventButton != null) {
-            Button button = (Button) selectedEventButton.getParent();
-            Event event = (Event) button.getUserData();
+            Event event = (Event) selectedEventButton.getUserData();
             try {
+                System.out.printf(event.getEventID()+"");
                 eventModel.deleteEvent(event);
                 showEventList();
             } catch (Exception e) {

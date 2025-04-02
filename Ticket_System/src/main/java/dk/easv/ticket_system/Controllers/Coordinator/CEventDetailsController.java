@@ -42,6 +42,8 @@ public class CEventDetailsController {
     public VBox vbxTicketTypes;
     public ImageView imvQrPreview;
     public ImageView imvEventImage;
+    public Button btnBackToEvents;
+    public AnchorPane apPane;
     private Event event;
     private TicketTypeModel ticketTypeModel;
 
@@ -125,4 +127,14 @@ public class CEventDetailsController {
     }
 
 
+    public void HandleBackToEventsButton(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CEventPane.fxml"));
+            Parent root = loader.load();
+            apPane.getChildren().clear();
+            apPane.getChildren().add(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
