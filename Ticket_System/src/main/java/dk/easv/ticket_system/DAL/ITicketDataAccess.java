@@ -2,6 +2,7 @@ package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.Ticket;
+import dk.easv.ticket_system.BE.TicketType;
 
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,8 @@ public interface ITicketDataAccess {
     public int getTicketTypeID() throws Exception;
 
     public Date getPurchaseDate() throws Exception;
+
+    public TicketType getTicketType() throws Exception;
 
 
 }

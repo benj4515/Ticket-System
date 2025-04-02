@@ -2,9 +2,11 @@ package dk.easv.ticket_system.DAL;
 
 
 import dk.easv.ticket_system.BE.Ticket;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BE.User;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -164,6 +166,28 @@ public class TicketDAO implements ITicketDataAccess {
             }
             return buyDate;
         }
+    }
+
+    @Override
+    public TicketType getTicketType() throws Exception {
+        TicketType ticketType = null;
+        String sql = "SELECT * FROM TicketType WHERE ticketTypeID";
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+
+                int tickeTypeID = rs.getInt("ticketTypeID");
+                int eventID = rs.getInt("eventID");
+                BigDecimal ticketPrice = rs.getBigDecimal("ticketPrice");
+                String ticketDescription = rs.getString("ticketDescription");
+                int soldTickets = rs.getInt("soldTickets");
+
+                ticketType = new TicketType(tickeTypeID, eventID, ticketPrice, ticketDescription, soldTickets);
+            }
+        }
+        return ticketType;
     }
 
     /*
