@@ -5,6 +5,7 @@ import dk.easv.ticket_system.BE.Event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -92,20 +93,50 @@ public class CEventController {
 
 
         Label label1 = new Label(event.geteventTitle());
-        label1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-padding: 16px;");
+        label1.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-padding: 16px;");
         vbox1.getChildren().add(label1);
 
+        HBox hbox1 = new HBox();
+        ImageView imageViewCalender = new ImageView();
+        imageViewCalender.setFitHeight(16);
+        imageViewCalender.setFitWidth(16);
+        imageViewCalender.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
+        hbox1.getChildren().add(imageViewCalender);
         Label label2 = new Label(event.geteventStartDate().toString());
-        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000; -fx-padding: 10px;");
-        vbox1.getChildren().add(label2);
+        label2.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000;");
+        hbox1.getChildren().add(label2);
+        hbox1.setMaxHeight(16);
+        hbox1.setSpacing(5);
+        hbox1.setPadding(new Insets(5, 0, 5, 10));
+        vbox1.getChildren().add(hbox1);
 
+        HBox hbox2 = new HBox();
+        ImageView imageViewTime = new ImageView();
+        imageViewTime.setFitHeight(16);
+        imageViewTime.setFitWidth(16);
+        imageViewTime.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
+        hbox2.getChildren().add(imageViewTime);
         Label label3 = new Label(event.geteventStartTime() + " - " + event.geteventEndTime());
-        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000; -fx-padding: 10px;");
-        vbox1.getChildren().add(label3);
+        label3.setStyle("-fx-font-size: 14px; -fx-text-fill: #000000;");
+        hbox2.getChildren().add(label3);
+        hbox2.setMaxHeight(16);
+        hbox2.setSpacing(5);
+        hbox2.setPadding(new Insets(5, 0, 5, 10));
+        vbox1.getChildren().add(hbox2);
 
+        HBox hbox3 = new HBox();
+        ImageView imageViewLocation = new ImageView();
+        imageViewLocation.setFitHeight(16);
+        imageViewLocation.setFitWidth(16);
+        imageViewLocation.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Location.png"))));
+        hbox3.getChildren().add(imageViewLocation);
         Label label4 = new Label(event.getLocation());
-        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000; -fx-padding: 10px;");
-        vbox1.getChildren().add(label4);
+        label4.setStyle("-fx-font-size: 14px;  -fx-text-fill: #000000;");
+        hbox3.getChildren().add(label4);
+        hbox3.setMaxHeight(16);
+        hbox3.setSpacing(5);
+        hbox3.setPadding(new Insets(5, 0, 5, 10));
+        vbox1.getChildren().add(hbox3);
 
         Label label5 = new Label("ticket price"); // TODO: Add price price of the cheapest access ticket
         label5.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;  -fx-text-fill: #4F46E5; -fx-padding: 10px;");
