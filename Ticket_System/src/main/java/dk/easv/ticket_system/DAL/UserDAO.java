@@ -13,6 +13,7 @@ import java.util.List;
 public class UserDAO implements IUserDataAccess {
     private DBConnector dbConnector = new DBConnector();
 
+
     public UserDAO() throws IOException {
         this.dbConnector = new DBConnector();
     }
@@ -68,11 +69,13 @@ public class UserDAO implements IUserDataAccess {
             userStmt.setString(1, newUser.getEmail());
             userStmt.setString(2, newUser.getPassword());
             userStmt.setInt(3, newUser.getRoleID());
+            /*
             int affectedRows = userStmt.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new Exception("User creation failed, no rows affected.");
             }
+            */
 
             //We store the generated userID, so we can use it in our UserDetails insert.
             int generatedUserID;

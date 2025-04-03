@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class TicketType {
     private int ticketTypeID;
+    private String TicketName;
     private int eventID;
     private BigDecimal ticketPrice;
     private String ticketDescription;
@@ -15,6 +16,12 @@ public class TicketType {
         this.ticketPrice = ticketPrice;
         this.ticketDescription = ticketDescription;
         this.ticketsSold = ticketsSold;
+    }
+
+    public TicketType( String ticketName, String ticketDescription, String ticketPrice) {
+        this.TicketName = ticketName;
+        this.ticketDescription = ticketDescription;
+        this.ticketPrice = Float.parseFloat(ticketPrice);
     }
 
     public int getTicketTypeID() {

@@ -1,9 +1,11 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EventManager;
 import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.Models.TicketModel;
+import dk.easv.ticket_system.Models.TicketTypeModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -11,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.sql.Date;
 
+import static java.lang.Thread.sleep;
 
 
 public class CCreateEventController {
@@ -28,10 +31,12 @@ public class CCreateEventController {
     public FlowPane fpAddTicketType;
     private EventModel eventModel;
     private int ticketTypeCounter = 0;
+    private TicketTypeModel ticketTypeModel;
 
     public CCreateEventController() {
         try {
             eventModel = new EventModel();
+            ticketTypeModel = new TicketTypeModel();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -62,31 +67,37 @@ public class CCreateEventController {
              eventModel.createEvent(event);
             // Create the event
             System.out.println("Event Created: " + eventTitle);
+
+
+
+
+            for(int i = 0; i < ticketTypeCounter; i++) {
+
+                String TicketName = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtTicketName")).getText();
+                String TicketDescription = ((TextArea)fpAddTicketType.getChildren().get(i).lookup("#txtTicketDescription")).getText();
+                String TicketPrice = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtPrice")).getText();
+
+
+                if(TicketName.isEmpty() || TicketDescription.isEmpty() || TicketPrice.isEmpty()){
+                    // Display error message
+                    System.out.println("Please fill in all fields.");
+                } else {
+                    // Create the event object
+                    TicketType ticketType = new TicketType( TicketName, TicketDescription, TicketPrice);
+                    ticketTypeModel.createTicketType(ticketType);
+                    System.out.println("Ticket Type Created: " + TicketName);
+                }
+
+
+                System.out.println("Ticket Type Created: " + TicketName + " with description: " + TicketDescription + " and price: " + TicketPrice);
+            }
+
             // Close the window
             Stage stage = (Stage) btnCreateEvent.getScene().getWindow();
             stage.close();
         }
 
-        for(int i = 0; i < ticketTypeCounter; i++) {
 
-            String TicketName = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtTicketName")).getText();
-            String TicketDescription = ((TextArea)fpAddTicketType.getChildren().get(i).lookup("#txtTicketDescription")).getText();
-            String TicketPrice = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtPrice")).getText();
-
-            /*
-            if(TicketName.isEmpty() || TicketDescription.isEmpty() || TicketPrice.isEmpty()){
-                // Display error message
-                System.out.println("Please fill in all fields.");
-            } else {
-                // Create the event object
-                TicketModel ticketModel = new TicketModel();
-                ticketModel.createTicketType(event, TicketName, TicketDescription, TicketPrice);
-                System.out.println("Ticket Type Created: " + TicketName);
-            }
-             */
-
-            System.out.println("Ticket Type Created: " + TicketName + " with description: " + TicketDescription + " and price: " + TicketPrice);
-        }
 
     }
 

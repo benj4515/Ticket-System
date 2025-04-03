@@ -30,6 +30,7 @@ public class CEditEventController {
     }
 
     public void HandleEditEvent(ActionEvent actionEvent) {
+
     }
 
     public void setEvent(Event event) {

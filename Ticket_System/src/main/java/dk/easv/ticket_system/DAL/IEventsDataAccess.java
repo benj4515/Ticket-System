@@ -1,6 +1,7 @@
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BE.User;
 
 import java.sql.Date;
@@ -21,6 +22,8 @@ public interface IEventsDataAccess {
     List<Event> getAllEvents() throws Exception;
 
     Event eventForEventManager() throws Exception;
+
+
 
 
 

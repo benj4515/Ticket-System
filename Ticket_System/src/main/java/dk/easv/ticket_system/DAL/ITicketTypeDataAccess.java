@@ -1,5 +1,6 @@
 package dk.easv.ticket_system.DAL;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BE.User;
 
@@ -27,4 +28,9 @@ public interface ITicketTypeDataAccess {
     public int getSoldTickets() throws Exception;
 
     public int getEventIDByName(String eventName) throws Exception;
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 }

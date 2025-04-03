@@ -1,8 +1,8 @@
 package dk.easv.ticket_system.BLL.Util;
 
 import dk.easv.ticket_system.BE.TicketType;
+import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.DAL.ITicketTypeDataAccess;
-import dk.easv.ticket_system.DAL.TicketTypeDAO;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ public class TicketTypeManager {
     private final ITicketTypeDataAccess dataAccess;
 
     public TicketTypeManager() throws IOException {
-        dataAccess = new TicketTypeDAO();
+        dataAccess = new EventDAO();
     }
 
     public int getEventIDByName(String eventName) throws Exception {

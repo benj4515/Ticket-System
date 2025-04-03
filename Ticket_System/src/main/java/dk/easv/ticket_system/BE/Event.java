@@ -173,4 +173,7 @@ public class Event {
     public void setEventEndDate(Date eventEndDate) {
         this.eventEndDate = eventEndDate;
     }
+
+    public void setEventID(int generatedEventID) {
+    }
 }

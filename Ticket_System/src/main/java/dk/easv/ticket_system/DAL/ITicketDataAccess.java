@@ -30,4 +30,6 @@ public interface ITicketDataAccess {
     public Date getPurchaseDate() throws Exception;
 
 
+
+
 }

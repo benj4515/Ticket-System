@@ -1,6 +1,7 @@
 package dk.easv.ticket_system.BLL.Util;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.DAL.IEventsDataAccess;
 
