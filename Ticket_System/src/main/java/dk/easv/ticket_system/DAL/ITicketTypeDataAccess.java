@@ -28,15 +28,5 @@ public interface ITicketTypeDataAccess {
     public int getSoldTickets() throws Exception;
 
     public int getEventIDByName(String eventName) throws Exception;
-<<<<<<< Updated upstream
-=======
 
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
