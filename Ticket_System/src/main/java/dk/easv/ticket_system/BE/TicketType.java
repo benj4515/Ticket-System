@@ -1,16 +1,14 @@
 package dk.easv.ticket_system.BE;
 
-import java.math.BigDecimal;
-
 public class TicketType {
     private int ticketTypeID;
     private String TicketName;
     private int eventID;
-    private BigDecimal ticketPrice;
+    private float ticketPrice;
     private String ticketDescription;
     private int ticketsSold;
 
-    public TicketType(int ticketTypeID, int eventID, BigDecimal ticketPrice, String ticketDescription, int ticketsSold) {
+    public TicketType(int ticketTypeID, int eventID, float ticketPrice, String ticketDescription, int ticketsSold) {
         this.ticketTypeID = ticketTypeID;
         this.eventID = eventID;
         this.ticketPrice = ticketPrice;
@@ -40,11 +38,11 @@ public class TicketType {
         this.eventID = eventID;
     }
 
-    public BigDecimal getTicketPrice() {
+    public float getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(BigDecimal ticketPrice) {
+    public void setTicketPrice(float ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
