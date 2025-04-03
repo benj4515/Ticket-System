@@ -51,14 +51,14 @@ public class EmailHandler {
     private final Gmail service;
     private static final String fromEmailAddress = "eventhubticket@gmail.com";
     private static final String toEmailAddress = "eventhubticket@gmail.com";
-    /*
-     * new EmailHandler().send("A new message", """
-     * Dear reader,
-     *
-     * Hello world
-     * Best regards,
-     * EventHub
-     * """)
+    /* how to send a mail
+      new EmailHandler().send("EventHub ticket", """
+      Dear reader,
+
+      Hello world
+      Best regards,
+      EventHub
+       """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
      * */
     public Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {

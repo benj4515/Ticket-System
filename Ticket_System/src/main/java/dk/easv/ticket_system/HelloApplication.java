@@ -17,15 +17,7 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws Exception {
-        new EmailHandler().send("A new message", """
-      Dear reader,
-     
-      Hello world
-      Best regards,
-      EventHub
-       """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
         launch();
-
     }
 
     @Override
