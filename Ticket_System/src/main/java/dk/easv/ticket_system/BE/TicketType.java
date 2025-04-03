@@ -9,13 +9,15 @@ public class TicketType {
     private float ticketPrice;
     private String ticketDescription;
     private int ticketsSold;
+    private String ticketColor;
 
-    public TicketType(int ticketTypeID, int eventID, float ticketPrice, String ticketDescription, int ticketsSold) {
+    public TicketType(int ticketTypeID, int eventID, float ticketPrice, String ticketDescription, int ticketsSold, String ticketColor) {
         this.ticketTypeID = ticketTypeID;
         this.eventID = eventID;
         this.ticketPrice = ticketPrice;
         this.ticketDescription = ticketDescription;
         this.ticketsSold = ticketsSold;
+        this.ticketColor = ticketColor;
     }
 
     public TicketType( String ticketName, String ticketDescription, String ticketPrice) {
@@ -23,6 +25,8 @@ public class TicketType {
         this.ticketDescription = ticketDescription;
         this.ticketPrice = Float.parseFloat(ticketPrice);
     }
+
+
 
     public int getTicketTypeID() {
         return ticketTypeID;
@@ -59,4 +63,8 @@ public class TicketType {
     public int getTicketsSold() {return ticketsSold;}
 
     public void setTicketsSold(int ticketsSold) {this.ticketsSold = ticketsSold;}
+
+    public String getTicketTypeColor() {
+        return ticketColor;
+    }
 }

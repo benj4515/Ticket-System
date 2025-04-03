@@ -76,7 +76,7 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         ArrayList<TicketType> tTypes = new ArrayList<>();
 
         String sql = "SELECT ticketTypeID, eventID, ticketPrice," +
-                "ticketDescription, soldTickets FROM TicketTypes";
+                "ticketDescription, soldTickets, ticketColor FROM TicketTypes";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
@@ -88,8 +88,9 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
                 float ticketPrice = rs.getFloat("ticketPrice");
                 String ticketDescription = rs.getString("ticketDescription");
                 int ticketsSold = rs.getInt("soldTickets");
+                String ticketColor = rs.getString("ticketColor");
 
-                TicketType typeTicket = new TicketType(ticketTypeID, eventID, ticketPrice, ticketDescription, ticketsSold);
+                TicketType typeTicket = new TicketType(ticketTypeID, eventID, ticketPrice, ticketDescription, ticketsSold, ticketColor);
                 tTypes.add(typeTicket);
             }
             return tTypes;

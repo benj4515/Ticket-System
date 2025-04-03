@@ -183,8 +183,9 @@ public class TicketDAO implements ITicketDataAccess {
                 float ticketPrice = rs.getFloat("ticketPrice");
                 String ticketDescription = rs.getString("ticketDescription");
                 int soldTickets = rs.getInt("soldTickets");
+                String ticketColor = rs.getString("ticketColor");
 
-                ticketType = new TicketType(tickeTypeID, eventID, ticketPrice, ticketDescription, soldTickets);
+                ticketType = new TicketType(tickeTypeID, eventID, ticketPrice, ticketDescription, soldTickets, ticketColor);
             }
         }
         return ticketType;

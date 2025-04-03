@@ -127,7 +127,8 @@ public class CEventDetailsController {
             if (ticketType.getEventID() == event.getEventID()) {
                 Button button1 = new Button();
                 button1.setPrefSize(460, 75);
-                button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+                button1.setStyle("-fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0; -fx-background-color: linear-gradient(to left, #FFF, " + ticketType.getTicketTypeColor() + ");");
+                System.out.printf("TicketType color: %s%n", ticketType.getTicketTypeColor());
                 vbxTicketTypes.getChildren().add(button1);
                 AnchorPane anchorPaneUser1 = new AnchorPane();
                 button1.setGraphic(anchorPaneUser1);
