@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
+    public TextField txtShowPassword;
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
     @FXML
     private Label welcomeText;
@@ -80,6 +81,10 @@ public class LoginController {
             }
         });
 
+        txtShowPassword.setVisible(false);
+
+
+
         // TODO: Remove this function later
         txtEmail.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
@@ -126,6 +131,8 @@ public class LoginController {
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
         this.loginValidator = new LoginValidator();
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
+
+        
 
 
         if (success && loginValidator.isAdmin(txtEmail.getText())) {
@@ -175,6 +182,18 @@ public class LoginController {
 
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
         currentStage.close();
+
+    }
+
+    public void HandleShowPWD(ActionEvent actionEvent) {
+        if(!txtShowPassword.isVisible()) {
+            txtShowPassword.setVisible(true);
+            txtShowPassword.setText(txtPassword.getText());
+        } else if (txtShowPassword.isVisible()) {
+        txtShowPassword.setVisible(false);
+
+        }
+
 
     }
 }
