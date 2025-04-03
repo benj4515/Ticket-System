@@ -66,6 +66,9 @@
             <VBox fx:id="vbxTicketTypes" prefHeight="711.0" prefWidth="238.0" style="-fx-background-color: FFF; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" />
          </content>
       </ScrollPane>
-      <Button fx:id="btnAddToCheckout" layoutX="689.0" layoutY="777.0" mnemonicParsing="false" onAction="#HandleBtnAddToCheckout" prefHeight="39.0" prefWidth="238.0" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Add To Checkout" textFill="WHITE" />
+      <Button fx:id="btnAddToCheckout" layoutX="689.0" layoutY="777.0" mnemonicParsing="false" onAction="#HandleBtnAddToCheckout" prefHeight="39.0" prefWidth="238.0" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Add To Checkout" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>
