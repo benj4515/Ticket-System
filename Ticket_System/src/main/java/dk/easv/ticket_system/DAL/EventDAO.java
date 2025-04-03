@@ -1,6 +1,8 @@
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
+import dk.easv.ticket_system.BE.User;
 
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class EventDAO implements IEventsDataAccess {
         this.dbConnector = new DBConnector();
     }
 
-
+    /*
     @Override
     public Event createEvent(Event newEvent) throws Exception {
         String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd ) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -39,7 +41,62 @@ public class EventDAO implements IEventsDataAccess {
         }
         return null;
     }
+    */
 
+    @Override
+    public Event createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
+        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String tTypeQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
+
+        try (Connection conn = dbConnector.getConnection()) {
+            conn.setAutoCommit(false); // Start transaction
+
+
+            int generatedEventID;
+            try (PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
+                eventStmt.setString(1, newEvent.geteventTitle());
+                eventStmt.setDate(2, newEvent.getEventStartDate());
+                eventStmt.setString(3, newEvent.getLocation());
+                eventStmt.setString(4, newEvent.geteventDescription());
+                eventStmt.setTime(5, Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
+                eventStmt.setTime(6, Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
+                eventStmt.setDate(7, newEvent.getEventEndDate());
+
+                int affectedRows = eventStmt.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new Exception("Event creation failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = eventStmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedEventID = generatedKeys.getInt(1);
+                    } else {
+                        throw new Exception("Event creation failed, no eventID returned.");
+                    }
+                }
+            }
+
+
+            try (PreparedStatement tTypeStmt = conn.prepareStatement(tTypeQuery)) {
+                for (TicketType ticketType : newTicketTypes) {
+                    tTypeStmt.setInt(1, generatedEventID);
+                    tTypeStmt.setFloat(2, ticketType.getTicketPrice());
+                    tTypeStmt.setString(3, ticketType.getTicketDescription());
+                    tTypeStmt.addBatch();
+
+                }
+                tTypeStmt.executeBatch();
+            }
+
+            conn.commit();
+            return new Event(generatedEventID, newEvent.geteventTitle(), newEvent.getEventStartDate(), newEvent.getLocation(),
+                    newEvent.geteventDescription(), newEvent.geteventStartTime(), newEvent.geteventEndTime(), newEvent.getEventEndDate());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Couldn't create new event.", e);
+        }
+    }
 
 
     @Override

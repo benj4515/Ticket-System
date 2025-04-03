@@ -1,6 +1,7 @@
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BE.User;
 
 import java.sql.Date;
@@ -12,7 +13,7 @@ public interface IEventsDataAccess {
 
 
 
-    Event createEvent (Event newEvent) throws Exception;
+    Event createEvent (Event newEvent, List<TicketType> newTicketTypes) throws Exception;
 
     void deleteEvent(Event eventToDelete) throws Exception;
 

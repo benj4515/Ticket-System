@@ -17,6 +17,9 @@ public class TicketType {
         this.ticketsSold = ticketsSold;
     }
 
+    public TicketType(String ticketName, String ticketDescription, float ticketPrice) {
+    }
+
     public int getTicketTypeID() {
         return ticketTypeID;
     }
