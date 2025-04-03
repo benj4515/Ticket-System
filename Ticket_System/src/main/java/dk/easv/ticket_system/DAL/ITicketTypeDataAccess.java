@@ -32,5 +32,8 @@ public interface ITicketTypeDataAccess {
 =======
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
