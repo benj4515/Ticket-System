@@ -16,7 +16,7 @@ public class EventManager {
     }
 
     public Event createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
-        return dataAccess.createEvent(newEvent, newTicketTypes);
+        return dataAccess.createEventAndTicketTypes(newEvent, newTicketTypes);
     }
 
     public void deleteEvent(Event eventToDelete) throws Exception {

@@ -13,7 +13,7 @@ public interface IEventsDataAccess {
 
 
 
-    Event createEvent (Event newEvent, List<TicketType> newTicketTypes) throws Exception;
+    Event createEventAndTicketTypes (Event newEvent, List<TicketType> TicketTypes) throws Exception;
 
     void deleteEvent(Event eventToDelete) throws Exception;
 

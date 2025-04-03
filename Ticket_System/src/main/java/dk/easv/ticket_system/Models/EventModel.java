@@ -23,8 +23,8 @@ public class EventModel {
         return observableEvents;
     }
 
-    public void createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
-        Event e = eventManager.createEvent(newEvent, newTicketTypes);
+    public void createEvent(Event newEvent, List<TicketType> ticketTypes) throws Exception {
+        Event e = eventManager.createEvent(newEvent, ticketTypes);
         observableEvents.add(e);
     }
 

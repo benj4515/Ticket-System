@@ -1,5 +1,6 @@
 package dk.easv.ticket_system.DAL;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 
 
@@ -11,11 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketTypeDAO implements ITicketTypeDataAccess {
+    private EventDAO eventDao;
     private DBConnector dbConnector = new DBConnector();
+
+
+
 
     public TicketTypeDAO() throws IOException {
         this.dbConnector = new DBConnector();
+        this.eventDao = new EventDAO();
+
     }
+
 
     @Override
     public int getEventIDByName(String eventName) throws Exception {
@@ -34,7 +42,6 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
     }
 
     @Override
-    //ticket name, description, price - probably dont work since you have to manually KNOW and ENTER eventID
     public TicketType createTicketType(TicketType newTicketType) throws Exception {
         String ttQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
 
@@ -42,14 +49,18 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
              PreparedStatement ttStmt = conn.prepareStatement(ttQuery, Statement.RETURN_GENERATED_KEYS)) {
 
             ttStmt.setInt(1, newTicketType.getEventID());
-            ttStmt.setFloat(2, newTicketType.getTicketPrice());
+            ttStmt.setDouble(2, newTicketType.getTicketPrice());
             ttStmt.setString(3, newTicketType.getTicketDescription());
+            ttStmt.executeUpdate();
+
+            return newTicketType;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Couldn't create new TicketType", e);
         }
-        return null;
     }
+
+
 
     @Override
     public void deleteTicketType(TicketType ticketTypeToBeDeleted) throws Exception {

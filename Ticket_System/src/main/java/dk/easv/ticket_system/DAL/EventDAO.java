@@ -44,13 +44,12 @@ public class EventDAO implements IEventsDataAccess {
     */
 
     @Override
-    public Event createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
+    public Event createEventAndTicketTypes(Event newEvent, List<TicketType> TicketTypes) throws Exception {
         String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String tTypeQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
+        String tTypeQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription, ticketName) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = dbConnector.getConnection()) {
             conn.setAutoCommit(false); // Start transaction
-
 
             int generatedEventID;
             try (PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
@@ -70,27 +69,28 @@ public class EventDAO implements IEventsDataAccess {
                 try (ResultSet generatedKeys = eventStmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         generatedEventID = generatedKeys.getInt(1);
+                        newEvent.setGeneratedEventID(generatedEventID);
                     } else {
                         throw new Exception("Event creation failed, no eventID returned.");
                     }
                 }
             }
 
-
             try (PreparedStatement tTypeStmt = conn.prepareStatement(tTypeQuery)) {
-                for (TicketType ticketType : newTicketTypes) {
-                    tTypeStmt.setInt(1, generatedEventID);
-                    tTypeStmt.setFloat(2, ticketType.getTicketPrice());
+                for (TicketType ticketType : TicketTypes) {
+                    tTypeStmt.setInt(1, newEvent.getGeneratedEventID());
+                    tTypeStmt.setDouble(2, ticketType.getTicketPrice());
                     tTypeStmt.setString(3, ticketType.getTicketDescription());
+                    tTypeStmt.setString(4, ticketType.getTicketName());
                     tTypeStmt.addBatch();
-
                 }
                 tTypeStmt.executeBatch();
             }
 
+
+
             conn.commit();
-            return new Event(generatedEventID, newEvent.geteventTitle(), newEvent.getEventStartDate(), newEvent.getLocation(),
-                    newEvent.geteventDescription(), newEvent.geteventStartTime(), newEvent.geteventEndTime(), newEvent.getEventEndDate());
+            return newEvent;
 
         } catch (SQLException e) {
             e.printStackTrace();
