@@ -62,7 +62,7 @@
                         </AnchorPane>
                      </graphic>
                   </Button>
-                  
+
                   <Separator prefWidth="200.0" />
                   <Button fx:id="btnCheckout" mnemonicParsing="false" onAction="#onCheckout" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white;">
                      <graphic>
