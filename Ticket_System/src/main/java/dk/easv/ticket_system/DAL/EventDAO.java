@@ -262,7 +262,7 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
              PreparedStatement ttStmt = conn.prepareStatement(ttQuery, Statement.RETURN_GENERATED_KEYS)) {
 
             ttStmt.setInt(1, CreatedEventID);
-            ttStmt.setFloat(2, newTicketType.getTicketPrice());
+            ttStmt.setDouble(2, newTicketType.getTicketPrice());
             ttStmt.setString(3, newTicketType.getTicketDescription());
         } catch (SQLException e) {
             e.printStackTrace();
