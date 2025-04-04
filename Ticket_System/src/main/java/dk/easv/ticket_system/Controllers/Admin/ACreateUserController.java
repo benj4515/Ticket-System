@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 public class ACreateUserController {
     public TextField txtName;
+    public TextField txtShowPWD;
     private String selectedUserType;
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));
     @FXML
@@ -52,6 +53,11 @@ public class ACreateUserController {
             e.printStackTrace();
         }
         System.out.println(userModel.getObservableUsers());
+    }
+
+    @FXML
+    private void initialize() {
+        txtShowPWD.setVisible(false);
     }
 
 
@@ -136,5 +142,15 @@ public class ACreateUserController {
         stage.close();
     }
 
+    public void HandleShowPassowrd(ActionEvent actionEvent) {
+        if (txtLoginPassword.isVisible()) {
+            txtLoginPassword.setVisible(false);
+            txtShowPWD.setVisible(true);
+            txtShowPWD.setText(txtLoginPassword.getText());
+        } else {
+            txtLoginPassword.setVisible(true);
+            txtShowPWD.setVisible(false);
+        }
+    }
 }
 

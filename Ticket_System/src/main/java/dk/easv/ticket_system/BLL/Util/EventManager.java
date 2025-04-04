@@ -1,6 +1,7 @@
 package dk.easv.ticket_system.BLL.Util;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.DAL.IEventsDataAccess;
 
@@ -14,8 +15,8 @@ public class EventManager {
         dataAccess = new EventDAO();
     }
 
-    public Event createEvent(Event newEvent) throws Exception {
-        return dataAccess.createEvent(newEvent);
+    public Event createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
+        return dataAccess.createEventAndTicketTypes(newEvent, newTicketTypes);
     }
 
     public void deleteEvent(Event eventToDelete) throws Exception {

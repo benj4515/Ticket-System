@@ -19,6 +19,10 @@ public class Event {
     private String eventEndTime;
     private String recTransport;
 
+
+
+    private int generatedEventID;
+
     public Event(int eventID, String eventTitle, Date eventStartDate, String location,
                  String eventStartTime, String eventEndTime, String eventDescription, String recTransport) {
         this.eventID = eventID;
@@ -172,5 +176,13 @@ public class Event {
 
     public void setEventEndDate(Date eventEndDate) {
         this.eventEndDate = eventEndDate;
+    }
+
+    public int getGeneratedEventID() {
+        return generatedEventID;
+    }
+
+    public void setGeneratedEventID(int generatedEventID) {
+        this.generatedEventID = generatedEventID;
     }
 }

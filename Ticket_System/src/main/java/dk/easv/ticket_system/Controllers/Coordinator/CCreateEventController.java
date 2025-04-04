@@ -1,16 +1,20 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EventManager;
+import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.Models.TicketModel;
+import dk.easv.ticket_system.Models.TicketTypeModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.sql.Date;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CCreateEventController {
@@ -28,10 +32,14 @@ public class CCreateEventController {
     public FlowPane fpAddTicketType;
     private EventModel eventModel;
     private int ticketTypeCounter = 0;
+    private TicketTypeModel ticketTypeModel;
+    private Event event;
 
     public CCreateEventController() {
         try {
             eventModel = new EventModel();
+            ticketTypeModel = new TicketTypeModel();
+
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -45,6 +53,7 @@ public class CCreateEventController {
 
 
     public void HandleCreateEvent(ActionEvent actionEvent) throws Exception {
+
         String eventTitle = txtEventTitle.getText();
         String eventDescription = txtDescribeEvent.getText();
         String eventLocation = txtLocationEvent.getText();
@@ -53,41 +62,40 @@ public class CCreateEventController {
         String endTime = txtEndTimeEvent.getText();
         Date endDate = Date.valueOf(dpEndDateEvent.getValue());
 
-        if(eventTitle.isEmpty() || eventDescription.isEmpty() || eventLocation.isEmpty() ||  startTime.isEmpty() || endTime.isEmpty()){
-            // Display error message
+        if (eventTitle.isEmpty() || eventDescription.isEmpty() || eventLocation.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
             System.out.println("Please fill in all fields.");
-        } else {
-            // Create the event object
-             Event event = new Event(eventTitle, eventDescription, eventLocation, startDate, startTime, endTime, endDate);
-             eventModel.createEvent(event);
-            // Create the event
-            System.out.println("Event Created: " + eventTitle);
-            // Close the window
-            Stage stage = (Stage) btnCreateEvent.getScene().getWindow();
-            stage.close();
+            return;
         }
 
-        for(int i = 0; i < ticketTypeCounter; i++) {
 
-            String TicketName = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtTicketName")).getText();
-            String TicketDescription = ((TextArea)fpAddTicketType.getChildren().get(i).lookup("#txtTicketDescription")).getText();
-            String TicketPrice = ((TextField)fpAddTicketType.getChildren().get(i).lookup("#txtPrice")).getText();
+        Event event = new Event(eventTitle, eventDescription, eventLocation, startDate, startTime, endTime, endDate);
 
-            /*
-            if(TicketName.isEmpty() || TicketDescription.isEmpty() || TicketPrice.isEmpty()){
-                // Display error message
-                System.out.println("Please fill in all fields.");
+
+        List<TicketType> ticketTypes = new ArrayList<>();
+
+        for (int i = 0; i < ticketTypeCounter; i++) {
+
+            String ticketName = ((TextField) fpAddTicketType.getChildren().get(i).lookup("#txtTicketName")).getText();
+            String ticketDescription = ((TextArea) fpAddTicketType.getChildren().get(i).lookup("#txtTicketDescription")).getText();
+            String ticketPriceStr = ((TextField) fpAddTicketType.getChildren().get(i).lookup("#txtPrice")).getText();
+
+            if (ticketName.isEmpty() || ticketDescription.isEmpty() || ticketPriceStr.isEmpty()) {
+                System.out.println("Please fill in all fields for tickets.");
+
             } else {
-                // Create the event object
-                TicketModel ticketModel = new TicketModel();
-                ticketModel.createTicketType(event, TicketName, TicketDescription, TicketPrice);
-                System.out.println("Ticket Type Created: " + TicketName);
+                ticketTypes.add(new TicketType(ticketName, ticketDescription, Double.parseDouble(ticketPriceStr)));
             }
-             */
 
-            System.out.println("Ticket Type Created: " + TicketName + " with description: " + TicketDescription + " and price: " + TicketPrice);
+
+
+
         }
 
+        eventModel.createEvent(event, ticketTypes);
+        System.out.println("Event and tickets created successfully!");
+
+        Stage stage = (Stage) btnCreateEvent.getScene().getWindow();
+        stage.close();
     }
 
     public void HandleCancelEvent(ActionEvent actionEvent) {
@@ -132,22 +140,20 @@ public class CCreateEventController {
         txtPrice.setLayoutY(228);
         txtPrice.setPromptText("0.00 KR.");
 
-        // Create Delete Button
+
         Button btnDelete = new Button("Delete");
         btnDelete.setLayoutX(420);
         btnDelete.setLayoutY(228);
         btnDelete.setOnAction(e -> {
-            fpAddTicketType.getChildren().remove(pane); // Remove the specific ticket pane
-            ticketTypeCounter--; // Decrease the counter
-            System.out.println("Ticket Type Removed. Remaining: " + ticketTypeCounter);
+            fpAddTicketType.getChildren().remove(pane);
+            ticketTypeCounter--;
         });
 
         pane.getChildren().addAll(lblTicketName, txtTicketName, lblTicketDescription, txtTicketDescription,
                 lblPrice, txtPrice, btnDelete);
 
-        fpAddTicketType.getChildren().add(pane); // Add the new pane to the container
-        ticketTypeCounter++; // Increment counter
-        System.out.println("Ticket Type Added. Total: " + ticketTypeCounter);
+        fpAddTicketType.getChildren().add(pane);
+        ticketTypeCounter++;
     }
 
 }
