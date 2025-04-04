@@ -4,6 +4,7 @@ import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.TicketTypeManager;
 import dk.easv.ticket_system.Models.TicketTypeModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +14,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class CEventDetailsController {
@@ -44,8 +50,19 @@ public class CEventDetailsController {
     public ImageView imvEventImage;
     public Button btnBackToEvents;
     public AnchorPane apPane;
+    public Button btnAddToCheckout;
+    public ImageView imvBarPreview;
+    public ImageView imvCalenderPreview;
+    public ImageView imvTimePreview;
+    public ImageView imvLocationPreview;
+    public ImageView imvCalenderPreview1;
+    public ImageView imvTimePreview1;
+    public ImageView imvLocationPreview1;
     private Event event;
     private TicketTypeModel ticketTypeModel;
+
+    private Map<Integer, Integer> ticketCounts = new HashMap<>();
+    private ObservableList<TicketType> selectedTickets = FXCollections.observableArrayList();
 
     public CEventDetailsController() {
         try{
@@ -77,6 +94,15 @@ public class CEventDetailsController {
         // Set the image for the event
         imvEventImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
+        imvBarPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/barcodePreview.png"))));
+
+        imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
+        imvTimePreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
+        imvLocationPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Location.png"))));
+
+        imvCalenderPreview1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
+        imvTimePreview1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
+        imvLocationPreview1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Location.png"))));
 
         ShowTicketTypes();
         System.out.println(event.getEventID());
@@ -101,7 +127,8 @@ public class CEventDetailsController {
             if (ticketType.getEventID() == event.getEventID()) {
                 Button button1 = new Button();
                 button1.setPrefSize(460, 75);
-                button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+                button1.setStyle("-fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0; -fx-background-color: linear-gradient(to left, #FFF, " + ticketType.getTicketTypeColor() + ");");
+                System.out.printf("TicketType color: %s%n", ticketType.getTicketTypeColor());
                 vbxTicketTypes.getChildren().add(button1);
                 AnchorPane anchorPaneUser1 = new AnchorPane();
                 button1.setGraphic(anchorPaneUser1);
@@ -121,9 +148,64 @@ public class CEventDetailsController {
                 anchorPaneUser1.getChildren().add(labelEmail1);
                 AnchorPane.setTopAnchor(labelEmail1, 30.0);
                 AnchorPane.setLeftAnchor(labelEmail1, 68.0);
-            }
 
+                // Initialize ticket count
+                ticketCounts.put(ticketType.getTicketTypeID(), 0);
+
+                // Add a circle and label to display the count
+                Circle countCircle = new Circle(15, javafx.scene.paint.Color.BLUE);
+                countCircle.setVisible(false);
+                anchorPaneUser1.getChildren().add(countCircle);
+                AnchorPane.setTopAnchor(countCircle, 5.0);
+                AnchorPane.setRightAnchor(countCircle, 5.0);
+
+                Label countLabel = new Label("0");
+                countLabel.setStyle("-fx-text-fill: #FFF; -fx-font-weight: bold; -fx-font-size: 14px; -fx-alignment: center;");
+                countLabel.setVisible(false);
+                anchorPaneUser1.getChildren().add(countLabel);
+                AnchorPane.setTopAnchor(countLabel, 10.0);
+                AnchorPane.setRightAnchor(countLabel, 15.0);
+
+                // Add event handlers for left and right clicks
+                button1.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        // Left click: increase count
+                        int count = ticketCounts.get(ticketType.getTicketTypeID());
+                        ticketCounts.put(ticketType.getTicketTypeID(), count + 1);
+                        countLabel.setText("" + (count + 1));
+                        countCircle.setVisible(true);
+                        countLabel.setVisible(true);
+                    } else if (event.getButton() == MouseButton.SECONDARY) {
+                        // Right click: decrease count, minimum 0
+                        int count = ticketCounts.get(ticketType.getTicketTypeID());
+                        if (count > 0) {
+                            ticketCounts.put(ticketType.getTicketTypeID(), count - 1);
+                            countLabel.setText("" + (count - 1));
+                            if (count - 1 == 0) {
+                                countCircle.setVisible(false);
+                                countLabel.setVisible(false);
+                            }
+                        }
+                    }
+                });
+            }
         }
+    }
+
+    public void HandleBtnAddToCheckout(ActionEvent actionEvent) {
+        selectedTickets.clear();
+        for (Map.Entry<Integer, Integer> entry : ticketCounts.entrySet()) {
+            int ticketID = entry.getKey();
+            int count = entry.getValue();
+            if (count > 0) {
+                TicketType ticketType = ticketTypeModel.getTicketTypeByID(ticketID);
+                for (int i = 0; i < count; i++) {
+                    selectedTickets.add(ticketType);
+                }
+            }
+        }
+        // Now selectedTickets contains all the selected ticket IDs and their respective amounts
+        System.out.printf("Selected tickets: %s%n", selectedTickets);
     }
 
 

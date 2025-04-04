@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bpnFullPane" prefWidth="1119.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventController">
+<BorderPane fx:id="bpnFullPane" prefWidth="1119.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventController">
    <center>
       <ScrollPane fx:id="scpScrollPane" BorderPane.alignment="CENTER">
          <content>
@@ -38,7 +38,10 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <right>
-            <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#onCreateEvent" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #4F46E5; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER" />
+            <Button fx:id="btnCreateEvent" mnemonicParsing="false" onAction="#onCreateEvent" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #009FDA; -fx-background-radius: 8;" text="Create New Event" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
          </right>
       </BorderPane>
    </top>

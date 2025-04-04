@@ -9,42 +9,49 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="apPane" prefHeight="858.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventDetailsController">
+<AnchorPane fx:id="apPane" prefHeight="992.0" prefWidth="1302.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CEventDetailsController">
    <children>
-      <Button fx:id="btnEditEvent" layoutX="739.0" layoutY="14.0" mnemonicParsing="false" onAction="#HandleBtnEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Edit Event" textFill="WHITE" />
-      <Button fx:id="btnBackToEvents" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#HandleBackToEventsButton" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="&lt;- Back to Events" textFill="#009fda" />
-      <Pane layoutX="38.0" layoutY="48.0" prefHeight="490.0" prefWidth="554.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+      <Button fx:id="btnEditEvent" layoutX="859.0" layoutY="12.0" mnemonicParsing="false" onAction="#HandleBtnEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Edit Event" textFill="WHITE" />
+      <Button fx:id="btnBackToEvents" layoutX="36.0" layoutY="17.0" mnemonicParsing="false" onAction="#HandleBackToEventsButton" style="-fx-border-color: transparent; -fx-background-color: transparent;" text="&lt;- Back to Events" textFill="#009fda" />
+      <Pane layoutX="38.0" layoutY="48.0" prefHeight="492.0" prefWidth="634.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
          <children>
-            <ImageView fx:id="imvEventImage" fitHeight="285.0" fitWidth="519.0" layoutX="17.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="lblEventTitle" layoutX="17.0" layoutY="320.0" text="EventTitle">
+            <ImageView fx:id="imvEventImage" fitHeight="297.0" fitWidth="597.0" layoutX="17.0" layoutY="17.0" pickOnBounds="true" />
+            <Label fx:id="lblEventTitle" layoutX="21.0" layoutY="316.0" text="EventTitle">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblEventStartDate" layoutX="14.0" layoutY="348.0" text="Event Start Date" />
-            <Label fx:id="lblEventEndDate" layoutX="14.0" layoutY="366.0" text="Event End Date" />
-            <Label fx:id="lblEventStartTime" layoutX="152.0" layoutY="348.0" text="Event Start Time" />
-            <Label fx:id="lblEventLocation" layoutX="308.0" layoutY="348.0" text="Event Location" />
-            <Label fx:id="lblEventEndTime" layoutX="152.0" layoutY="366.0" text="Event End Time" />
-            <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="14.0" layoutY="385.0" prefHeight="91.0" prefWidth="512.0" text="Event Description" />
+            <Label fx:id="lblEventStartDate" layoutX="31.0" layoutY="349.0" text="July 15, 2025" />
+            <Label fx:id="lblEventEndDate" layoutX="31.0" layoutY="367.0" text="Event End Date" />
+            <Label fx:id="lblEventStartTime" layoutX="149.0" layoutY="349.0" text="11:00 PM" />
+            <Label fx:id="lblEventLocation" layoutX="274.0" layoutY="349.0" prefHeight="17.0" prefWidth="247.0" text="Event Location" />
+            <Label fx:id="lblEventEndTime" layoutX="149.0" layoutY="367.0" text="Event End Time" />
+            <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="15.0" layoutY="391.0" prefHeight="91.0" prefWidth="604.0" text="Event Description" wrapText="true" />
+            <ImageView fx:id="imvCalenderPreview1" fitHeight="16.0" fitWidth="16.0" layoutX="12.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imvTimePreview1" fitHeight="16.0" fitWidth="16.0" layoutX="129.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imvLocationPreview1" fitHeight="16.0" fitWidth="16.0" layoutX="254.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Pane layoutX="38.0" layoutY="555.0" prefHeight="236.0" prefWidth="554.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+      <Pane layoutX="38.0" layoutY="556.0" prefHeight="260.0" prefWidth="634.0" style="-fx-background-color: FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
          <children>
-            <Pane layoutX="10.0" layoutY="46.0" prefHeight="171.0" prefWidth="533.0" style="-fx-border-color: black; -fx-border-radius: 8;">
+            <Pane layoutX="10.0" layoutY="46.0" prefHeight="204.0" prefWidth="614.0" style="-fx-border-color: black; -fx-border-radius: 8;">
                <children>
-                  <ImageView fx:id="imvQrPreview" fitHeight="140.0" fitWidth="140.0" layoutX="358.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="lblEventTitle1" layoutX="3.0" layoutY="13.0" text="EventTitle">
+                  <ImageView fx:id="imvQrPreview" fitHeight="155.0" fitWidth="155.0" layoutX="395.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="lblEventTitle1" layoutX="12.0" layoutY="11.0" prefHeight="21.0" prefWidth="180.0" text="EventTitle">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblEventStartDate1" layoutX="5.0" layoutY="40.0" text="Event Start Date" />
-                  <Label fx:id="lblEventEndDate1" layoutX="5.0" layoutY="58.0" text="Event End Date" />
-                  <Label fx:id="lblEventStartTime1" layoutX="135.0" layoutY="41.0" text="Event Start Time" />
-                  <Label fx:id="lblEventLocation1" layoutX="253.0" layoutY="41.0" text="Event Location" />
+                  <Label fx:id="lblEventStartDate1" layoutX="22.0" layoutY="41.0" text="July 15, 2025" />
+                  <Label fx:id="lblEventEndDate1" layoutX="22.0" layoutY="59.0" text="Event End Date" />
+                  <Label fx:id="lblEventStartTime1" layoutX="135.0" layoutY="41.0" text="11:00 PM" />
+                  <Label fx:id="lblEventLocation1" layoutX="268.0" layoutY="41.0" prefHeight="17.0" prefWidth="126.0" text="Event Location" />
                   <Label fx:id="lblEventEndTime1" layoutX="135.0" layoutY="59.0" text="Event End Time" />
-                  <Label fx:id="lblEventDescription1" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="347.0" text="Event Description" />
+                  <Label fx:id="lblEventDescription1" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="363.0" text="Event Description" wrapText="true" />
+                  <ImageView fx:id="imvBarPreview" fitHeight="196.0" fitWidth="42.0" layoutX="565.0" layoutY="4.0" pickOnBounds="true" />
+                  <ImageView fx:id="imvCalenderPreview" fitHeight="16.0" fitWidth="16.0" layoutX="4.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imvTimePreview" fitHeight="16.0" fitWidth="16.0" layoutX="117.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
             <Label layoutX="17.0" layoutY="14.0" text="Ticket Preview">
@@ -54,11 +61,14 @@
             </Label>
          </children>
       </Pane>
-      <ScrollPane layoutX="609.0" layoutY="47.0" style="-fx-background-color: FFF; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+      <ScrollPane layoutX="688.0" layoutY="48.0" style="-fx-background-color: FFF; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
          <content>
-            <VBox fx:id="vbxTicketTypes" prefHeight="490.0" prefWidth="238.0" style="-fx-background-color: FFF; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" />
+            <VBox fx:id="vbxTicketTypes" prefHeight="711.0" prefWidth="238.0" style="-fx-background-color: FFF; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" />
          </content>
       </ScrollPane>
-      <Button layoutX="609.0" layoutY="555.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="238.0" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Add To Checkout" textFill="WHITE" />
+      <Button fx:id="btnAddToCheckout" layoutX="689.0" layoutY="777.0" mnemonicParsing="false" onAction="#HandleBtnAddToCheckout" prefHeight="39.0" prefWidth="238.0" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Add To Checkout" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>
