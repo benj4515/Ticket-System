@@ -149,7 +149,7 @@ public class LoginController {
         if (loggedInUser != null) {
             System.out.println(loggedInUser);
         } else {
-            System.out.println("fuck man ");
+            System.out.println("Wrong");
         }
 
     }
