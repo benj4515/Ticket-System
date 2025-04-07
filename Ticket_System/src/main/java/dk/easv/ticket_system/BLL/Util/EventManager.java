@@ -39,4 +39,8 @@ public class EventManager {
     public Event assignCoordinatorToEvent(User user, Event event) throws Exception {
         return dataAccess.assignCoordinatorToEvent( user, event);
     }
+
+    public List<User> getCoordinatorsForEvent(int eventID) {
+        return dataAccess.getCoordinatorsForEvent(eventID);
+    }
 }

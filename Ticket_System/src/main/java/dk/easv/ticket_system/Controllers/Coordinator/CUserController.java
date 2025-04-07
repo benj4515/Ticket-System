@@ -34,7 +34,8 @@ public class CUserController {
     public Label lblVipPackage;
     public Label lblGeneralAdmission;
     public Label lblCoordinatorsAssigned;
-    public Label lblEventCreatedBy;
+    public Label lblCoordinatorsAmount;
+    public Label lblEventAssignees;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -193,6 +194,41 @@ public class CUserController {
         } else {
             lblEventTime.setText(event.geteventStartTime());
         }
+
+        // Get coordinators assigned to this event
+        try {
+            java.util.List<User> assignedCoordinators = eventModel.getCoordinatorsForEvent(event.getEventID());
+
+            // Update coordinator count
+            int coordinatorCount = assignedCoordinators.size();
+            lblCoordinatorsAmount.setText(String.valueOf(coordinatorCount));
+
+            // Add this inside updateSelectedEvent after retrieving coordinators
+            for (User coordinator : assignedCoordinators) {
+                System.out.println("Coordinator in UI: ID=" + coordinator.getUserID() +
+                        ", firstName=" + coordinator.getFirstName() +
+                        ", lastName=" + coordinator.getLastName());
+            }
+
+            // Update assigned coordinators names
+            StringBuilder assigneesList = new StringBuilder();
+            for (int i = 0; i < assignedCoordinators.size(); i++) {
+                User coordinator = assignedCoordinators.get(i);
+                assigneesList.append(coordinator.getFirstName()).append(" ").append(coordinator.getLastName());
+                if (i < assignedCoordinators.size() - 1) {
+                    assigneesList.append(", ");
+                }
+            }
+
+
+            lblEventAssignees.setText(assigneesList.toString());
+
+        } catch (Exception e) {
+            lblCoordinatorsAmount.setText("0");
+            lblEventAssignees.setText("None");
+            e.printStackTrace();
+        }
+
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
 

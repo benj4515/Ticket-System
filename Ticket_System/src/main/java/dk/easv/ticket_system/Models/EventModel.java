@@ -53,4 +53,8 @@ public class EventModel {
     public void assignCoordinatorToEvent(User user, Event event) throws Exception {
         eventManager.assignCoordinatorToEvent(user, event);
     }
+
+    public List<User> getCoordinatorsForEvent(int eventID) {
+        return eventManager.getCoordinatorsForEvent(eventID);
+    }
 }
