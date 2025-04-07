@@ -43,4 +43,8 @@ public class EventManager {
     public List<User> getCoordinatorsForEvent(int eventID) {
         return dataAccess.getCoordinatorsForEvent(eventID);
     }
+
+    public void removeCoordinatorFromEvent(User coordinator, Event event) throws Exception {
+        dataAccess.removeCoordinatorFromEvent(coordinator, event);
+    }
 }

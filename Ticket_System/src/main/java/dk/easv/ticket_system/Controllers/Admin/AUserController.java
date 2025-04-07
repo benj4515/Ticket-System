@@ -35,6 +35,7 @@ public class AUserController {
     public Button btnAssignToEvent;
     public Label lblCoordinatorsAmount;
     public Label lblEventAssignees;
+    public Label lblRemoveAssignee;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -118,6 +119,9 @@ public class AUserController {
                 updateSelectedEvent(firstEvent, firstEventButton);
             }
         }
+
+        // Add click handler for the remove assignee label
+        lblRemoveAssignee.setOnMouseClicked(event -> handleRemoveAssignee());
 
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
@@ -241,13 +245,14 @@ public class AUserController {
                         ", lastName=" + coordinator.getLastName());
             }
 
-            // Update assigned coordinators names
+            // Update assigned coordinators names - each on a new line
             StringBuilder assigneesList = new StringBuilder();
             for (int i = 0; i < assignedCoordinators.size(); i++) {
                 User coordinator = assignedCoordinators.get(i);
                 assigneesList.append(coordinator.getFirstName()).append(" ").append(coordinator.getLastName());
+                // Add a new line instead of a comma
                 if (i < assignedCoordinators.size() - 1) {
-                    assigneesList.append(", ");
+                    assigneesList.append("\n");
                 }
             }
 
@@ -276,6 +281,66 @@ public class AUserController {
         }
 
     }
+
+    private void handleRemoveAssignee() {
+        if (selectedEventButton == null) return;
+
+        Event event = (Event) selectedEventButton.getUserData();
+        try {
+            // Get coordinators assigned to this event
+            java.util.List<User> assignedCoordinators = eventModel.getCoordinatorsForEvent(event.getEventID());
+            if (assignedCoordinators.isEmpty()) {
+                return; // No coordinators to remove
+            }
+
+            // Create the dialog
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Remove Coordinator Assignment");
+
+            VBox layout = new VBox(10);
+            layout.setPadding(new javafx.geometry.Insets(20));
+            layout.getChildren().add(new Label("Select coordinator to remove:"));
+
+            // Create buttons for each coordinator
+            for (User coordinator : assignedCoordinators) {
+                Button btn = new Button(coordinator.getFirstName() + " " + coordinator.getLastName());
+                btn.setPrefWidth(200);
+                btn.setOnAction(e -> {
+                    try {
+                        // Remove the selected coordinator
+                        eventModel.removeCoordinatorFromEvent(coordinator, event);
+                        popupStage.close();
+
+                        // Refresh the event list and details
+                        showEventList();
+
+                        // Reselect the current event to update the UI
+                        if (selectedEventButton != null) {
+                            updateSelectedEvent(event, selectedEventButton);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                layout.getChildren().add(btn);
+            }
+
+            // Add cancel button
+            Button cancelBtn = new Button("Cancel");
+            cancelBtn.setPrefWidth(200);
+            cancelBtn.setOnAction(e -> popupStage.close());
+            layout.getChildren().add(cancelBtn);
+
+            Scene scene = new Scene(layout);
+            popupStage.setScene(scene);
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void HandleBtnAssignToEvent(ActionEvent actionEvent) {
         if (selectedUserButton != null && selectedEventButton != null) {

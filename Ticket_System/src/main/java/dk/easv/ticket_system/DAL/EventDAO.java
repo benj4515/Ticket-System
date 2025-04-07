@@ -215,6 +215,27 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         return coordinators;
     }
 
+    @Override
+    public void removeCoordinatorFromEvent(User coordinator, Event event) {
+        String sql = "DELETE FROM AssignedEvents WHERE userID = ? AND eventID = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, coordinator.getUserID());
+            stmt.setInt(2, event.getEventID());
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                // Optional: Log that no records were deleted
+                System.out.println("No coordinator-event relationship found to delete");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Consider throwing this exception to be handled at a higher level
+        }
+    }
+
     public void updateEvent(Event updatedEvent) throws Exception {
 
         String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventDescription = ?, eventStart = ?, eventEnd = ?, eventDateEnd = ? WHERE eventID = ?";

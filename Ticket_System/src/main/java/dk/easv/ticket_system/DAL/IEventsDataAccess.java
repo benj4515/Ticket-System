@@ -28,4 +28,6 @@ public interface IEventsDataAccess {
 
 
     List<User> getCoordinatorsForEvent(int eventID);
+
+    void removeCoordinatorFromEvent(User coordinator, Event event);
 }

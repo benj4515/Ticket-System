@@ -57,4 +57,8 @@ public class EventModel {
     public List<User> getCoordinatorsForEvent(int eventID) {
         return eventManager.getCoordinatorsForEvent(eventID);
     }
+
+    public void removeCoordinatorFromEvent(User coordinator, Event event) throws Exception {
+        eventManager.removeCoordinatorFromEvent(coordinator, event);
+    }
 }
