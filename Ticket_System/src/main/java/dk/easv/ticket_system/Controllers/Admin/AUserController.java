@@ -33,6 +33,7 @@ public class AUserController {
     public Label lblCoordinatorsAssigned;
     public Label lblEventCreatedBy;
     public Button btnDeleteEvent;
+    public Button btnAssignToEvent;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -105,6 +106,7 @@ public class AUserController {
             selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
         selectedUserButton = button;
+        selectedUserButton.setUserData(user);
         selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblName.setText(user.getFirstName() + " " + user.getLastName());
@@ -186,6 +188,7 @@ public class AUserController {
             selectedEventButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
         selectedEventButton = button;
+        selectedEventButton.setUserData(event); // Set the event as user data
         selectedEventButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblEventTitle.setText(event.geteventTitle());
@@ -217,5 +220,18 @@ public class AUserController {
             }
         }
 
+    }
+
+    public void HandleBtnAssignToEvent(ActionEvent actionEvent) {
+        if (selectedUserButton != null && selectedEventButton != null) {
+            User user = (User) selectedUserButton.getUserData();
+            Event event = (Event) selectedEventButton.getUserData();
+            try {
+                eventModel.assignCoordinatorToEvent(user, event);
+                showEventList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

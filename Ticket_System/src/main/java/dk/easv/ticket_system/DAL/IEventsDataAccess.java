@@ -24,6 +24,7 @@ public interface IEventsDataAccess {
     Event eventForEventManager() throws Exception;
 
 
+    Event assignCoordinatorToEvent(User user, Event event) throws Exception;
 
 
 

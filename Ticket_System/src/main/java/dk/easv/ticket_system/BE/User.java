@@ -2,6 +2,15 @@ package dk.easv.ticket_system.BE;
 
 public class User {
     private int id;
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     private int userID;
     private String email;
     private String password;

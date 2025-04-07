@@ -70,6 +70,7 @@ public class CUserController {
     @FXML
     private ScrollPane scpScrollPane;
     private Button selectedUserButton;
+    private Button selectedEventButton;
 
 
     public CUserController() {
@@ -94,6 +95,7 @@ public class CUserController {
             selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
         selectedUserButton = button;
+        selectedUserButton.setUserData(user);
         selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblName.setText(user.getFirstName() + " " + user.getLastName());
@@ -171,11 +173,12 @@ public class CUserController {
     }
 
     private void updateSelectedEvent(Event event, Button button) {
-        if (selectedUserButton != null) {
-            selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        if (selectedEventButton != null) {
+            selectedEventButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
-        selectedUserButton = button;
-        selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        selectedEventButton = button;
+        selectedEventButton.setUserData(event); // Set the event as user data
+        selectedEventButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblEventTitle.setText(event.geteventTitle());
         lblLocationEvent.setText(event.getLocation());
@@ -192,4 +195,25 @@ public class CUserController {
         }
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
+
+
+    public void HandleBtnAssignToEvent(ActionEvent actionEvent) {
+
+
+        if (selectedUserButton != null && selectedEventButton != null) {
+            User user = (User) selectedUserButton.getUserData();
+            Event event = (Event) selectedEventButton.getUserData();
+            try {
+                eventModel.assignCoordinatorToEvent(user, event);
+                showEventList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+
+
 }
