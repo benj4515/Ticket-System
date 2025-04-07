@@ -1,7 +1,6 @@
 package dk.easv.ticket_system;
 
 
-import dk.easv.ticket_system.BLL.Util.EmailHandler;
 import dk.easv.ticket_system.BLL.Util.TicketManager;
 import dk.easv.ticket_system.Controllers.LoginController;
 import javafx.application.Application;

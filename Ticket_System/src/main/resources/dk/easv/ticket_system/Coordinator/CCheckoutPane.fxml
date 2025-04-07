@@ -46,14 +46,14 @@
                               <Label layoutX="569.0" layoutY="106.0" text="Phone Number" />
                               <TextField layoutX="51.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="First" />
                               <TextField layoutX="569.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="Last" />
-                              <TextField layoutX="51.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Email" />
+                              <TextField fx:id="txtEmail" layoutX="51.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Email" />
                               <TextField layoutX="569.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Phone" />
                               <Button fx:id="btnPrint" layoutX="1039.0" layoutY="177.0" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Print" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnEmail" layoutX="911.0" layoutY="177.0" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Email" textFill="WHITE">
+                              <Button fx:id="btnEmail" layoutX="911.0" layoutY="177.0" onAction="#onbtnEmailclick" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Email" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
