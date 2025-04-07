@@ -85,15 +85,4 @@ public class AFrameController {
         apnUser.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUser.setStyle("-fx-text-fill: #1D4ED8");
     }
-
-    @FXML
-    public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
-        resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/AU-TicketPane.fxml"));
-        Pane pane = loader.load();
-        ATicketController ticketController = loader.getController();
-        pnePane.getChildren().setAll(pane);
-        apnUTicket.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
-        lblUTicket.setStyle("-fx-text-fill: #1D4ED8");
-    }
 }

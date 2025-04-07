@@ -29,14 +29,6 @@
                         <HBox prefHeight="34.0" prefWidth="460.0" spacing="310.0">
                            <children>
                               <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Users" />
-                              <Button fx:id="btnNewUser" onAction="#onNewUser" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="+" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="30.0" />
-                                 </font>
-                              </Button>
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -85,16 +77,16 @@
             <Pane fx:id="customPane3" prefHeight="485.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
                <children>
                   <VBox>
-                  <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Your Events" />
-                  <ScrollPane prefHeight="415.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-border-color: #FFF;">
-                     <content>
-                        <VBox fx:id="vbox3">
-                           <children>
-                           </children>
-                        </VBox>
-                     </content>
-                     <hbarPolicy>NEVER</hbarPolicy>
-                  </ScrollPane>
+                     <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Your Events" />
+                     <ScrollPane prefHeight="415.0" prefWidth="460.0" style="-fx-background-color: #FFF; -fx-border-color: #FFF;">
+                        <content>
+                           <VBox fx:id="vbox3">
+                              <children>
+                              </children>
+                           </VBox>
+                        </content>
+                        <hbarPolicy>NEVER</hbarPolicy>
+                     </ScrollPane>
                   </VBox>
                </children>
             </Pane>
@@ -103,7 +95,6 @@
                   <VBox prefHeight="485.0" prefWidth="460.0" spacing="10.0">
                      <children>
                         <Label fx:id="lblEventTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;" text="Summer Music Festival" />
-                        <Button fx:id="btnDeleteEvent" mnemonicParsing="false" onAction="#HandlebtnDeleteEvent" text="Delete Event" />
                         <Label fx:id="lblLocationEvent" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Central Park, New York" />
                         <Label fx:id="lblEventDate" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="July 15, 2025" />
                         <Label fx:id="lblEventTime" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="2:00 PM - 10:00 PM" />
@@ -143,6 +134,9 @@
                            </children>
                         </HBox>
                      </children>
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
                   </VBox>
                </children>
             </Pane>
