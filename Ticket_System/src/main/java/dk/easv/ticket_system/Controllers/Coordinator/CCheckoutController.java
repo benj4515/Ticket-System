@@ -61,7 +61,7 @@ public class CCheckoutController {
                     Hello world
                     Best regards,
                     EventHub
-                    """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
+                    """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"), getEmail());
 
     }
     public void initialize(){

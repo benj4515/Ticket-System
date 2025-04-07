@@ -39,7 +39,7 @@ import java.util.Set;
 import static javax.mail.Message.RecipientType.TO;
 
 
-public class EmailHandler extends CCheckoutController{
+public class EmailHandler{
 
     public EmailHandler() throws GeneralSecurityException, IOException {
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -50,10 +50,9 @@ public class EmailHandler extends CCheckoutController{
 
     }
 
-
+    CCheckoutController checkoutController = new CCheckoutController();
     private final Gmail service;
     private static final String fromEmailAddress = "eventhubticket@gmail.com";
-    private String toEmailAddress = getEmail();
    // private static final String toEmailAddress = checkoutController.getEmail();
     /* how to send a mail
       new EmailHandler().send("EventHub ticket", """
@@ -80,7 +79,7 @@ public class EmailHandler extends CCheckoutController{
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 
     }
-    public void send(String subject, String message, File attachment) throws Exception {
+    public void send(String subject, String message, File attachment, String toEmailAddress) throws Exception {
 
 
 
