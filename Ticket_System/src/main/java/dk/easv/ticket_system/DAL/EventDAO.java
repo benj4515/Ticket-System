@@ -2,55 +2,37 @@ package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
+
+
 import dk.easv.ticket_system.BE.User;
 
 
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventDAO implements IEventsDataAccess {
+public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
     private DBConnector dbConnector = new DBConnector();
 
     public EventDAO() throws IOException {
         this.dbConnector = new DBConnector();
     }
 
-    /*
-    @Override
-    public Event createEvent(Event newEvent) throws Exception {
-        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd ) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = dbConnector.getConnection();
-             PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
+    int CreatedEventID;
 
-            eventStmt.setString(1, newEvent.geteventTitle());
-            eventStmt.setDate(2, newEvent.geteventStartDate());
-            eventStmt.setString(3, newEvent.getLocation());
-            eventStmt.setString(4, newEvent.geteventDescription());
-            eventStmt.setTime(5, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
-            eventStmt.setTime(6, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
-            eventStmt.setDate(7, newEvent.getEventEndDate());
-            eventStmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Couldn't create new Event", e);
-        }
-        return null;
-    }
-    */
 
     @Override
-    public Event createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
+    public Event createEventAndTicketTypes(Event newEvent, List<TicketType> TicketTypes) throws Exception {
         String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String tTypeQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
+        String tTypeQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription, ticketName) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = dbConnector.getConnection()) {
             conn.setAutoCommit(false); // Start transaction
-
 
             int generatedEventID;
             try (PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
@@ -70,27 +52,27 @@ public class EventDAO implements IEventsDataAccess {
                 try (ResultSet generatedKeys = eventStmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         generatedEventID = generatedKeys.getInt(1);
+                        newEvent.setGeneratedEventID(generatedEventID);
                     } else {
                         throw new Exception("Event creation failed, no eventID returned.");
                     }
                 }
             }
 
-
             try (PreparedStatement tTypeStmt = conn.prepareStatement(tTypeQuery)) {
-                for (TicketType ticketType : newTicketTypes) {
-                    tTypeStmt.setInt(1, generatedEventID);
-                    tTypeStmt.setFloat(2, ticketType.getTicketPrice());
+                for (TicketType ticketType : TicketTypes) {
+                    tTypeStmt.setInt(1, newEvent.getGeneratedEventID());
+                    tTypeStmt.setDouble(2, ticketType.getTicketPrice());
                     tTypeStmt.setString(3, ticketType.getTicketDescription());
+                    tTypeStmt.setString(4, ticketType.getTicketName());
                     tTypeStmt.addBatch();
-
                 }
                 tTypeStmt.executeBatch();
             }
 
+
             conn.commit();
-            return new Event(generatedEventID, newEvent.geteventTitle(), newEvent.getEventStartDate(), newEvent.getLocation(),
-                    newEvent.geteventDescription(), newEvent.geteventStartTime(), newEvent.geteventEndTime(), newEvent.getEventEndDate());
+            return newEvent;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,8 +89,7 @@ public class EventDAO implements IEventsDataAccess {
 
         //try with resources to connect to the database and execute the delete statement
         try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql))
-        {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, eventToDelete.getEventID());
 
@@ -119,7 +100,6 @@ public class EventDAO implements IEventsDataAccess {
             throw new Exception("Couldn't delete Event from database", e);
         }
     }
-
 
 
     @Override
@@ -145,7 +125,7 @@ public class EventDAO implements IEventsDataAccess {
                 Date eventEndDate = rs.getDate("eventDateEnd");
                 //String recTransport = rs.getString("recommendedTransport");
 
-                Event event = new Event(eventID, eventTitle, eventStartDate, location,eventDescription, eventStartTime, eventEndTime, eventEndDate);
+                Event event = new Event(eventID, eventTitle, eventStartDate, location, eventDescription, eventStartTime, eventEndTime, eventEndDate);
                 events.add(event);
             }
             return events;
@@ -154,7 +134,6 @@ public class EventDAO implements IEventsDataAccess {
             throw new Exception("Something happened, cannot retrieve events.");
         }
     }
-
 
 
     @Override
@@ -182,18 +161,38 @@ public class EventDAO implements IEventsDataAccess {
             event.setRecTransport(recTransport);
 
             return event;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Something happened, cannot retrieve event info for management thumbnail.");
         }
+    }
+
+    @Override
+    public Event assignCoordinatorToEvent(User user, Event event) throws Exception {
+        String sql = "INSERT INTO AssignedEvents (userID, eventID) VALUES (?, ?)";
+
+        try (Connection conn = dbConnector.getConnection()) {
+            conn.setAutoCommit(false); // Start transaction
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, user.getUserID());
+                stmt.setInt(2, event.getEventID());
+
+                stmt.executeUpdate();
+                conn.commit(); // Commit transaction
+            } catch (SQLException e) {
+                conn.rollback(); // Rollback transaction on error
+                throw new Exception("Couldn't assign coordinator to event.", e);
+            }
+        }
+        return event;
     }
 
 
 
     public void updateEvent(Event updatedEvent) throws Exception {
 
-        String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventStart = ?, eventEnd = ?, eventDescription = ?, recommendedTransport = ? WHERE eventID = ?";
+        String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventDescription = ?, eventStart = ?, eventEnd = ?, eventDateEnd = ? WHERE eventID = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
@@ -201,11 +200,13 @@ public class EventDAO implements IEventsDataAccess {
             stmt.setString(1, updatedEvent.geteventTitle());
             stmt.setDate(2, updatedEvent.geteventStartDate());
             stmt.setString(3, updatedEvent.getLocation());
-            stmt.setTime(4, java.sql.Time.valueOf(updatedEvent.geteventStartTime()));
-            stmt.setTime(5, java.sql.Time.valueOf(updatedEvent.geteventEndTime()));
-            stmt.setString(6, updatedEvent.geteventDescription());
-            stmt.setString(7, updatedEvent.getRecTransport());
+            stmt.setTime(5, Time.valueOf(LocalTime.parse(updatedEvent.geteventStartTime())));
+            stmt.setTime(6, Time.valueOf(LocalTime.parse(updatedEvent.geteventEndTime())));
+            stmt.setString(4, updatedEvent.geteventDescription());
+            stmt.setDate(7, updatedEvent.getEventEndDate());
             stmt.setInt(8, updatedEvent.getEventID());
+
+            stmt.executeUpdate();
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -216,6 +217,174 @@ public class EventDAO implements IEventsDataAccess {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Couldn't update Event");
+        }
+    }
+
+    @Override
+    public int getEventIDByName(String eventName) throws Exception {
+
+        String sql = "SELECT eventID FROM Event WHERE eventName = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("eventID");
+            }
+            return -1;
+        }
+    }
+
+    @Override
+    //ticket name, description, price - probably dont work since you have to manually KNOW and ENTER eventID
+    public TicketType createTicketType(TicketType newTicketType) throws Exception {
+        String ttQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement ttStmt = conn.prepareStatement(ttQuery, Statement.RETURN_GENERATED_KEYS)) {
+
+            ttStmt.setInt(1, CreatedEventID);
+            ttStmt.setDouble(2, newTicketType.getTicketPrice());
+            ttStmt.setString(3, newTicketType.getTicketDescription());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Couldn't create new TicketType", e);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteTicketType(TicketType ticketTypeToBeDeleted) throws Exception {
+        //create a string with the sql statement to delete a given TicketType from the database
+        String sql = "DELETE FROM TicketTypes WHERE ticketTypeID = ?;";
+
+        //try with resources to connect to the database and execute the delete statement
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1, ticketTypeToBeDeleted.getEventID());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new Exception("Couldn't delete TicketType  from database", e);
+        }
+
+
+    }
+
+    @Override
+    public List<TicketType> getAllTicketTypes() throws Exception {
+        ArrayList<TicketType> tTypes = new ArrayList<>();
+
+        String sql = "SELECT ticketTypeID, eventID, ticketPrice," +
+                "ticketDescription, soldTickets, ticketColor FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int ticketTypeID = rs.getInt("ticketTypeID");
+                int eventID = rs.getInt("eventID");
+                float ticketPrice = rs.getFloat("ticketPrice");
+                String ticketDescription = rs.getString("ticketDescription");
+                int ticketsSold = rs.getInt("soldTickets");
+                String ticketColor = rs.getString("ticketColor");
+
+                TicketType typeTicket = new TicketType(ticketTypeID, eventID, ticketPrice, ticketDescription, ticketsSold, ticketColor);
+                tTypes.add(typeTicket);
+            }
+            return tTypes;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Something happened, cannot retrieve TicketTypes.");
+        }
+    }
+
+    @Override
+    public int getTicketTypeID() throws Exception {
+        int ttid = 0;
+        String query = "SELECT ticketTypeID FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int ticketTypeID = rs.getInt("ticketTypeID");
+                ttid = ticketTypeID;
+            }
+            return ttid;
+        }
+    }
+
+    @Override
+    public int getTicketTypeEventID() throws Exception {
+        int tteid = 0;
+        String query = "SELECT eventID FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int ticketTypeEventID = rs.getInt("eventID");
+                tteid = ticketTypeEventID;
+            }
+            return tteid;
+        }
+    }
+
+    @Override
+    public BigDecimal getTicketPrice() throws Exception {
+        BigDecimal tPrice = BigDecimal.ZERO;
+        String query = "SELECT ticketPrice FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                BigDecimal ticketPrice = rs.getBigDecimal("ticketPrice");
+                tPrice = ticketPrice;
+            }
+            return tPrice;
+        }
+    }
+
+    @Override
+    public String getTicketTypeDescription() throws Exception {
+        String ttDescription = "";
+        String query = "SELECT ticketDescription FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String  tDescription = rs.getString("ticketDescription");
+                ttDescription = tDescription;
+            }
+            return ttDescription;
+        }
+    }
+
+    @Override
+    public int getSoldTickets() throws Exception {
+        int ttSold = 0;
+        String query = "SELECT ticketsSold FROM TicketTypes";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int  tSold = rs.getInt("ticketsSold");
+                ttSold = tSold;
+            }
+            return ttSold;
         }
     }
 

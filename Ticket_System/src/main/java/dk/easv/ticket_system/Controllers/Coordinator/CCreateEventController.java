@@ -3,8 +3,10 @@ package dk.easv.ticket_system.Controllers.Coordinator;
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EventManager;
+import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.Models.TicketModel;
+import dk.easv.ticket_system.Models.TicketTypeModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -30,10 +32,14 @@ public class CCreateEventController {
     public FlowPane fpAddTicketType;
     private EventModel eventModel;
     private int ticketTypeCounter = 0;
+    private TicketTypeModel ticketTypeModel;
+    private Event event;
 
     public CCreateEventController() {
         try {
             eventModel = new EventModel();
+            ticketTypeModel = new TicketTypeModel();
+
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -75,18 +81,14 @@ public class CCreateEventController {
 
             if (ticketName.isEmpty() || ticketDescription.isEmpty() || ticketPriceStr.isEmpty()) {
                 System.out.println("Please fill in all fields for tickets.");
-                return;
+
+            } else {
+                ticketTypes.add(new TicketType(ticketName, ticketDescription, Double.parseDouble(ticketPriceStr)));
             }
 
-            float ticketPrice;
-            try {
-                ticketPrice = Float.parseFloat(ticketPriceStr);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid ticket price: " + ticketPriceStr);
-                return;
-            }
-            TicketType ticket = new TicketType(ticketName, ticketDescription, ticketPrice);
-            ticketTypes.add(ticket);
+
+
+
         }
 
         eventModel.createEvent(event, ticketTypes);

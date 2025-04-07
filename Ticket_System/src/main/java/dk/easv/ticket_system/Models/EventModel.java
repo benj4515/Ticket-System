@@ -2,6 +2,7 @@ package dk.easv.ticket_system.Models;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
+import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.BLL.Util.EventManager;
 
 import javafx.collections.FXCollections;
@@ -23,8 +24,8 @@ public class EventModel {
         return observableEvents;
     }
 
-    public void createEvent(Event newEvent, List<TicketType> newTicketTypes) throws Exception {
-        Event e = eventManager.createEvent(newEvent, newTicketTypes);
+    public void createEvent(Event newEvent, List<TicketType> ticketTypes) throws Exception {
+        Event e = eventManager.createEvent(newEvent, ticketTypes);
         observableEvents.add(e);
     }
 
@@ -47,5 +48,9 @@ public class EventModel {
 
     public Event getEventForEventManagement() throws Exception {
         return eventManager.eventForEventManager();
+    }
+
+    public void assignCoordinatorToEvent(User user, Event event) throws Exception {
+        eventManager.assignCoordinatorToEvent(user, event);
     }
 }

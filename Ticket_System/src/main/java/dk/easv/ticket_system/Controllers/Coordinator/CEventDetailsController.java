@@ -62,7 +62,7 @@ public class CEventDetailsController {
     private TicketTypeModel ticketTypeModel;
 
     private Map<Integer, Integer> ticketCounts = new HashMap<>();
-    private ObservableList<TicketType> selectedTickets = FXCollections.observableArrayList();
+
 
     public CEventDetailsController() {
         try{
@@ -192,7 +192,9 @@ public class CEventDetailsController {
         }
     }
 
-    public void HandleBtnAddToCheckout(ActionEvent actionEvent) {
+
+    public void HandleBtnProceedToCheckout(ActionEvent actionEvent) {
+        ObservableList<TicketType> selectedTickets = FXCollections.observableArrayList();
         selectedTickets.clear();
         for (Map.Entry<Integer, Integer> entry : ticketCounts.entrySet()) {
             int ticketID = entry.getKey();
@@ -204,8 +206,18 @@ public class CEventDetailsController {
                 }
             }
         }
-        // Now selectedTickets contains all the selected ticket IDs and their respective amounts
+        // selectedTickets contains all the selected ticket IDs
         System.out.printf("Selected tickets: %s%n", selectedTickets);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CCheckoutPane.fxml"));
+            Parent root = loader.load();
+            CCheckoutController controller = loader.getController();
+            controller.setSelectedTickets(selectedTickets);
+            apPane.getChildren().clear();
+            apPane.getChildren().add(root);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

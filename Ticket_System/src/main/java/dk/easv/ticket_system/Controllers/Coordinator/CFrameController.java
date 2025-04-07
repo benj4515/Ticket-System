@@ -69,8 +69,8 @@ public class CFrameController {
         lblUser.setStyle("-fx-text-fill: black");
         apnEvent.setStyle("-fx-background-color: white");
         lblEvent.setStyle("-fx-text-fill: black");
-        apnUTicket.setStyle("-fx-background-color: white");
-        lblUTicket.setStyle("-fx-text-fill: black");
+        //apnUTicket.setStyle("-fx-background-color: white");
+        //lblUTicket.setStyle("-fx-text-fill: black");
         apnCheckout.setStyle("-fx-background-color: white");
         lblCheckout.setStyle("-fx-text-fill: black");
 
@@ -98,6 +98,7 @@ public class CFrameController {
         lblEvent.setStyle("-fx-text-fill: #1D4ED8");
     }
 
+    /*
     @FXML
     public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
         resetStyles();
@@ -108,6 +109,8 @@ public class CFrameController {
         apnUTicket.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUTicket.setStyle("-fx-text-fill: #1D4ED8");
     }
+
+     */
 
     @FXML
     public void onCheckout(ActionEvent actionEvent) throws IOException {
