@@ -99,6 +99,26 @@ public class AUserController {
         showUserList();
         showEventList();
 
+        // Automatically select the first user if available
+        if (!vbox1.getChildren().isEmpty() && vbox1.getChildren().getFirst() instanceof Button firstUserButton) {
+            // Get the associated user from userModel
+            if (!userModel.getObservableUsers().isEmpty()) {
+                User firstUser = userModel.getObservableUsers().getFirst();
+                // Programmatically trigger the button click to select the first user
+                updateSelectedUser(firstUser, firstUserButton);
+            }
+        }
+
+        // Automatically select the first event if available
+        if (!vbox3.getChildren().isEmpty() && vbox3.getChildren().getFirst() instanceof Button firstEventButton) {
+            // Get the associated event from eventModel
+            if (!eventModel.getObservableEvents().isEmpty()) {
+                Event firstEvent = eventModel.getObservableEvents().getFirst();
+                // Programmatically trigger the button click to select the first event
+                updateSelectedEvent(firstEvent, firstEventButton);
+            }
+        }
+
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
