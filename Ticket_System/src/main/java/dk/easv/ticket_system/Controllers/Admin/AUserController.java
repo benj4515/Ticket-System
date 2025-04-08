@@ -72,6 +72,8 @@ public class AUserController {
     private ScrollPane scpScrollPane;
     private Button selectedUserButton;
     private Button selectedEventButton;
+    @FXML
+    private ImageView imgSelectedUser;
 
 
     public AUserController() {
@@ -126,6 +128,42 @@ public class AUserController {
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
+    public void showUserList() {
+        for (User user : userModel.getObservableUsers()) {
+            Button button1 = new Button();
+            button1.setPrefSize(460, 75);
+            button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+            vbox1.getChildren().add(button1);
+            AnchorPane anchorPaneUser1 = new AnchorPane();
+            button1.setGraphic(anchorPaneUser1);
+
+            Label labelName1 = new Label(user.getFirstName() + " " + user.getLastName());
+            labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
+            anchorPaneUser1.getChildren().add(labelName1);
+            AnchorPane.setTopAnchor(labelName1, 10.0);
+            AnchorPane.setLeftAnchor(labelName1, 68.0);
+
+            // Display user's email
+            Label labelEmail1 = new Label(user.getEmail());
+            labelEmail1.setStyle("-fx-font-size: 12px; -fx-text-fill: #555;");
+            anchorPaneUser1.getChildren().add(labelEmail1);
+            AnchorPane.setTopAnchor(labelEmail1, 30.0);
+            AnchorPane.setLeftAnchor(labelEmail1, 68.0);
+
+            // Load Gravatar image based on email
+            ImageView imageViewUser1 = new ImageView();
+            imageViewUser1.setFitHeight(50.0);
+            imageViewUser1.setFitWidth(50.0);
+            String gravatarUrl = getGravatarUrl(user.getEmail());
+            imageViewUser1.setImage(new Image(gravatarUrl));
+            anchorPaneUser1.getChildren().add(imageViewUser1);
+            AnchorPane.setTopAnchor(imageViewUser1, 8.0);
+            AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
+
+            button1.setOnAction(event -> updateSelectedUser(user, button1));
+        }
+    }
+
     private void updateSelectedUser(User user, Button button) {
         if (selectedUserButton != null) {
             selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
@@ -141,38 +179,30 @@ public class AUserController {
         lblPhoneNumber.setText(user.getPhoneNumber());
         if (user.getRoleID() == 1) {
             lblRole.setText("      Admin");
-        } else if (user.getRoleID() == 2 ) {
+        } else if (user.getRoleID() == 2) {
             lblRole.setText("  Coordinator");
         }
-        System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getEmail() + " " + user.getPhoneNumber() + " " + user.getRoleID());
+
+        String gravatarUrl = getGravatarUrl(user.getEmail());
+        imgSelectedUser.setImage(new Image(gravatarUrl));
+
+        System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getEmail() + " " + user.getPhoneNumber() + " " + user.getRoleID());    }
+
+    // Method to get Gravatar URL
+    private String getGravatarUrl(String email) {
+        String baseUrl = "https://www.gravatar.com/avatar/";
+        String emailHash = md5Hash(email.trim().toLowerCase());
+        return baseUrl + emailHash + "?d=identicon&s=200"; // Default to 'identicon' if no image is found, size 200px
     }
 
-    public void showUserList(){
-        for (User user : userModel.getObservableUsers()) {
-            Button button1 = new Button();
-            button1.setPrefSize(460, 75);
-            button1.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-            vbox1.getChildren().add(button1);
-            AnchorPane anchorPaneUser1 = new AnchorPane();
-            button1.setGraphic(anchorPaneUser1);
-            Label labelName1 = new Label(user.getFirstName() + " " + user.getLastName());
-            labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-            anchorPaneUser1.getChildren().add(labelName1);
-            AnchorPane.setTopAnchor(labelName1, 10.0);
-            AnchorPane.setLeftAnchor(labelName1, 68.0);
-            ImageView imageViewUser1 = new ImageView();
-            imageViewUser1.setFitHeight(50.0);
-            imageViewUser1.setFitWidth(50.0);
-            anchorPaneUser1.getChildren().add(imageViewUser1);
-            imageViewUser1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/john.png"))));
-            AnchorPane.setTopAnchor(imageViewUser1, 8.0);
-            AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
-            Label labelEmail1 = new Label(user.getEmail());
-            anchorPaneUser1.getChildren().add(labelEmail1);
-            AnchorPane.setTopAnchor(labelEmail1, 30.0);
-            AnchorPane.setLeftAnchor(labelEmail1, 68.0);
-
-            button1.setOnAction(event -> updateSelectedUser(user, button1));
+    private String md5Hash(String input) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            java.math.BigInteger number = new java.math.BigInteger(1, messageDigest);
+            return String.format("%032x", number); // Convert to a 32-character hexadecimal string
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new RuntimeException("MD5 algorithm not found", e);
         }
     }
 
