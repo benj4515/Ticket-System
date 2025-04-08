@@ -1,3 +1,8 @@
+/**
+ * Handles email sending functionality using Gmail API.
+ * This utility class provides methods to authenticate with Google's OAuth2 and
+ * send emails with attachments from the application's email account.
+ */
 package dk.easv.ticket_system.BLL.Util;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -41,6 +46,13 @@ import static javax.mail.Message.RecipientType.TO;
 
 public class EmailHandler{
 
+    /**
+     * Constructor that initializes the Gmail API service.
+     * Sets up the transport, JSON factory, and credentials for API access.
+     *
+     * @throws GeneralSecurityException If there's an error with the security configuration
+     * @throws IOException If there's an error accessing the client secrets file
+     */
     public EmailHandler() throws GeneralSecurityException, IOException {
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -50,11 +62,11 @@ public class EmailHandler{
 
     }
 
-    CCheckoutController checkoutController = new CCheckoutController();
-    private final Gmail service;
-    private static final String fromEmailAddress = "eventhubticket@gmail.com";
-   // private static final String toEmailAddress = checkoutController.getEmail();
-    /* how to send a mail
+    CCheckoutController checkoutController = new CCheckoutController();   // Controller for checkout process
+    private final Gmail service;                                          // Gmail API service instance
+    private static final String fromEmailAddress = "eventhubticket@gmail.com";  // Sender email address
+    
+    /* Example of how to send an email:
       new EmailHandler().send("EventHub ticket", """
       Dear reader,
 
@@ -62,14 +74,24 @@ public class EmailHandler{
       Best regards,
       EventHub
        """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
-     * */
+     */
 
+    /**
+     * Gets OAuth2 credentials for Gmail API access.
+     * Loads client secrets from resources, builds an authorization flow,
+     * and manages user authentication through a local server.
+     *
+     * @param httpTransport The HTTP transport to use for requests
+     * @param jsonFactory The factory for parsing JSON responses
+     * @return Credential object containing the user's access and refresh tokens
+     * @throws IOException If there's an error reading credentials or client secrets
+     */
     public Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
-        // Load client secrets.
+        // Load client secrets from resource file
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Objects.requireNonNull(EmailHandler.class.getResourceAsStream("/client_secret_410927174607-63cbdr16t9fia65lds1hbe862cstmp9l.apps.googleusercontent.com.json"))));
 
-        // Build flow and trigger user authorization request.
+        // Build flow and trigger user authorization request
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GmailScopes.GMAIL_SEND))
                 .setDataStoreFactory(new FileDataStoreFactory(Paths.get("tokens").toFile()))
@@ -79,10 +101,19 @@ public class EmailHandler{
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 
     }
+
+    /**
+     * Sends an email with an attachment using the Gmail API.
+     * Creates a MIME message with the specified subject, message body, and attachment,
+     * then encodes and sends it via the Gmail API.
+     *
+     * @param subject The subject line of the email
+     * @param message The plain text body of the email
+     * @param attachment The file to attach to the email
+     * @param toEmailAddress The recipient's email address
+     * @throws Exception If there's an error creating or sending the email
+     */
     public void send(String subject, String message, File attachment, String toEmailAddress) throws Exception {
-
-
-
         // Encode as MIME message
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -92,10 +123,13 @@ public class EmailHandler{
         email.setSubject(subject);
         email.setText(message);
 
+        // Set up multipart message with text and attachment
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(message, "text/plain");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
+
+        // Add attachment
         mimeBodyPart = new MimeBodyPart();
         DataSource source = new FileDataSource(attachment);
         mimeBodyPart.setDataHandler(new DataHandler(source));
@@ -112,9 +146,8 @@ public class EmailHandler{
         msg.setRaw(encodedEmail);
 
         try {
-            // Create and send the mail
-            // Draft creation is optional; you can send a message directly without it
-            Message sentMessage = service.users().messages().send("me", msg).execute();  // Send the message directly
+            // Send the email and log success
+            Message sentMessage = service.users().messages().send("me", msg).execute();
             System.out.println("Message sent: " + sentMessage.getId());
             System.out.println(sentMessage.toPrettyString());
         } catch (GoogleJsonResponseException e) {
@@ -125,7 +158,6 @@ public class EmailHandler{
             } else {
                 throw e;
             }
-
         }
     }
 }

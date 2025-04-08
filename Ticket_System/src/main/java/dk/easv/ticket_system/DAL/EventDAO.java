@@ -1,12 +1,15 @@
+/**
+ * Data Access Object (DAO) for Event and TicketType entities in the ticket system.
+ * Provides methods to interact with the Events and TicketTypes tables in the database.
+ * Handles CRUD operations for events and ticket types, as well as coordinator assignments.
+ * Implements both IEventsDataAccess and ITicketTypeDataAccess interfaces to provide
+ * comprehensive data access capabilities for the event management subsystem.
+ */
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
-
-
 import dk.easv.ticket_system.BE.User;
-
-
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -16,16 +19,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
+    /**
+     * Database connector instance for establishing connections to the database.
+     */
     private DBConnector dbConnector = new DBConnector();
 
+    /**
+     * Constructs a new EventDAO with a fresh database connector.
+     *
+     * @throws IOException If there's an error initializing the DB connector
+     */
     public EventDAO() throws IOException {
         this.dbConnector = new DBConnector();
     }
 
-
+    /**
+     * Stores the ID of the most recently created event.
+     * Used for associating ticket types with their parent event.
+     */
     int CreatedEventID;
 
-
+    /**
+     * Creates a new event with associated ticket types in a single transaction.
+     * Inserts the event details into Events table and creates related ticket types 
+     * in the TicketTypes table. Uses a transaction to ensure data consistency.
+     *
+     * @param newEvent The event object containing event details to be inserted
+     * @param TicketTypes List of ticket types to be associated with the event
+     * @return The created event object with its generated ID
+     * @throws Exception If database operations fail or data constraints are violated
+     */
     @Override
     public Event createEventAndTicketTypes(Event newEvent, List<TicketType> TicketTypes) throws Exception {
         String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -70,7 +93,6 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
                 tTypeStmt.executeBatch();
             }
 
-
             conn.commit();
             return newEvent;
 
@@ -80,10 +102,17 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
-
+    /**
+     * Deletes an event from the database.
+     * Permanently removes the event record based on its ID.
+     * Note: This may trigger cascading deletes for related ticket types 
+     * depending on database constraints.
+     *
+     * @param eventToDelete The event object to be deleted
+     * @throws Exception If the deletion operation fails
+     */
     @Override
     public void deleteEvent(Event eventToDelete) throws Exception {
-
         //create a string with the sql statement to delete a given Event from the database
         String sql = "DELETE FROM dbo.Events WHERE eventID = ?;";
 
@@ -101,20 +130,25 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
-
+    /**
+     * Retrieves all events from the database.
+     * Fetches complete event information including dates, times, location and description.
+     * Does not load associated ticket types or coordinators.
+     *
+     * @return List of all Event objects in the database
+     * @throws Exception If the database query fails
+     */
     @Override
     public List<Event> getAllEvents() throws Exception {
         ArrayList<Event> events = new ArrayList<>();
 
-        String sql = "SELECT eventID, eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd  FROM Events";
+        String sql = "SELECT eventID, eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd FROM Events";
 
         try (Connection conn = dbConnector.getConnection();
              Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-
-
                 int eventID = rs.getInt("eventID");
                 String eventTitle = rs.getString("eventName");
                 Date eventStartDate = rs.getDate("eventDate");
@@ -135,10 +169,16 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
-
+    /**
+     * Retrieves event information specifically for the event manager interface.
+     * Gets a subset of event details focused on display needs for event management.
+     * Note: Currently retrieves only one event without specifying which one.
+     *
+     * @return An Event object with basic information
+     * @throws Exception If the database query fails
+     */
     @Override
     public Event eventForEventManager() throws Exception {
-
         String sql = "SELECT eventName, eventDate, location, eventStart, eventEnd, recommendedTransport FROM Events";
 
         try (Connection conn = dbConnector.getConnection();
@@ -167,6 +207,16 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Assigns a coordinator to an event.
+     * Creates a relationship in the AssignedEvents junction table linking
+     * the specified user (coordinator) with the given event.
+     *
+     * @param user The coordinator user to be assigned
+     * @param event The event to assign the coordinator to
+     * @return The event object that was updated
+     * @throws Exception If the assignment operation fails
+     */
     @Override
     public Event assignCoordinatorToEvent(User user, Event event) throws Exception {
         String sql = "INSERT INTO AssignedEvents (userID, eventID) VALUES (?, ?)";
@@ -188,6 +238,14 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         return event;
     }
 
+    /**
+     * Gets all coordinators assigned to a specific event.
+     * Retrieves user information from TrueUsers and UserDetails tables
+     * for coordinators linked to the specified event in AssignedEvents.
+     *
+     * @param eventID The ID of the event to get coordinators for
+     * @return List of User objects representing the assigned coordinators
+     */
     @Override
     public List<User> getCoordinatorsForEvent(int eventID) {
         List<User> coordinators = new ArrayList<>();
@@ -215,6 +273,14 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         return coordinators;
     }
 
+    /**
+     * Removes a coordinator's assignment from an event.
+     * Deletes the relationship between the coordinator and event
+     * from the AssignedEvents junction table.
+     *
+     * @param coordinator The coordinator user to be removed
+     * @param event The event to remove the coordinator from
+     */
     @Override
     public void removeCoordinatorFromEvent(User coordinator, Event event) {
         String sql = "DELETE FROM AssignedEvents WHERE userID = ? AND eventID = ?";
@@ -236,8 +302,14 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Updates an existing event's details in the database.
+     * Modifies all fields of the event record based on the provided Event object.
+     *
+     * @param updatedEvent The event object containing updated information
+     * @throws Exception If the update operation fails
+     */
     public void updateEvent(Event updatedEvent) throws Exception {
-
         String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventDescription = ?, eventStart = ?, eventEnd = ?, eventDateEnd = ? WHERE eventID = ?";
 
         try (Connection conn = dbConnector.getConnection();
@@ -266,9 +338,16 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Retrieves an event ID by its name.
+     * Searches for an event with the specified name and returns its ID.
+     *
+     * @param eventName The name of the event to find
+     * @return The event ID if found, -1 otherwise
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getEventIDByName(String eventName) throws Exception {
-
         String sql = "SELECT eventID FROM Event WHERE eventName = ?";
 
         try (Connection conn = dbConnector.getConnection();
@@ -282,8 +361,16 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Creates a new ticket type in the database.
+     * Uses the CreatedEventID field to associate with an event.
+     * Note: This method is incomplete as it doesn't execute the prepared statement.
+     *
+     * @param newTicketType The ticket type object containing details to insert
+     * @return Should return the created ticket type but currently returns null
+     * @throws Exception If the creation operation fails
+     */
     @Override
-    //ticket name, description, price - probably dont work since you have to manually KNOW and ENTER eventID
     public TicketType createTicketType(TicketType newTicketType) throws Exception {
         String ttQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
 
@@ -300,6 +387,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         return null;
     }
 
+    /**
+     * Deletes a ticket type from the database.
+     * Permanently removes the ticket type record based on its ID.
+     *
+     * @param ticketTypeToBeDeleted The ticket type to be deleted
+     * @throws Exception If the deletion operation fails
+     */
     @Override
     public void deleteTicketType(TicketType ticketTypeToBeDeleted) throws Exception {
         //create a string with the sql statement to delete a given TicketType from the database
@@ -314,12 +408,17 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new Exception("Couldn't delete TicketType  from database", e);
+            throw new Exception("Couldn't delete TicketType from database", e);
         }
-
-
     }
 
+    /**
+     * Retrieves all ticket types from the database.
+     * Gets complete ticket type information including price, description, and sales data.
+     *
+     * @return List of all TicketType objects in the database
+     * @throws Exception If the database query fails
+     */
     @Override
     public List<TicketType> getAllTicketTypes() throws Exception {
         ArrayList<TicketType> tTypes = new ArrayList<>();
@@ -349,6 +448,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket type ID from the database.
+     * Note: Currently returns only the last ID found since it doesn't filter results.
+     *
+     * @return The ticket type ID, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getTicketTypeID() throws Exception {
         int ttid = 0;
@@ -366,6 +472,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets the event ID associated with a ticket type.
+     * Note: Currently returns only the last ID found since it doesn't filter results.
+     *
+     * @return The event ID, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getTicketTypeEventID() throws Exception {
         int tteid = 0;
@@ -383,6 +496,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket price from the database.
+     * Note: Currently returns only the last price found since it doesn't filter results.
+     *
+     * @return The ticket price as a BigDecimal, or ZERO if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public BigDecimal getTicketPrice() throws Exception {
         BigDecimal tPrice = BigDecimal.ZERO;
@@ -400,6 +520,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket type description from the database.
+     * Note: Currently returns only the last description found since it doesn't filter results.
+     *
+     * @return The ticket description, or an empty string if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public String getTicketTypeDescription() throws Exception {
         String ttDescription = "";
@@ -410,13 +537,20 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String  tDescription = rs.getString("ticketDescription");
+                String tDescription = rs.getString("ticketDescription");
                 ttDescription = tDescription;
             }
             return ttDescription;
         }
     }
 
+    /**
+     * Gets the number of tickets sold for a ticket type.
+     * Note: Currently returns only the last count found since it doesn't filter results.
+     *
+     * @return The number of tickets sold, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getSoldTickets() throws Exception {
         int ttSold = 0;
@@ -427,11 +561,10 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                int  tSold = rs.getInt("ticketsSold");
+                int tSold = rs.getInt("ticketsSold");
                 ttSold = tSold;
             }
             return ttSold;
         }
     }
-
 }

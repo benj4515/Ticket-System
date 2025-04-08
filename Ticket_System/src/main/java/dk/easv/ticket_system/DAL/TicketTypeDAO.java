@@ -1,3 +1,10 @@
+/**
+ * Data Access Object (DAO) for TicketType entities in the ticket system.
+ * Provides methods to interact with the TicketTypes table in the database.
+ * Handles CRUD operations for ticket types including creation, retrieval, and deletion.
+ * Implements the ITicketTypeDataAccess interface to provide standardized access
+ * to ticket type data throughout the application.
+ */
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.Event;
@@ -12,12 +19,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketTypeDAO implements ITicketTypeDataAccess {
+    /**
+     * Reference to the EventDAO for any event-related operations.
+     */
     private EventDAO eventDao;
+
+    /**
+     * Database connector instance for establishing connections to the database.
+     */
     private DBConnector dbConnector = new DBConnector();
 
 
 
 
+    /**
+     * Constructs a new TicketTypeDAO with fresh database connector and event DAO.
+     *
+     * @throws IOException If there's an error initializing the DB connector
+     */
     public TicketTypeDAO() throws IOException {
         this.dbConnector = new DBConnector();
         this.eventDao = new EventDAO();
@@ -25,6 +44,14 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
     }
 
 
+    /**
+     * Retrieves an event ID by its name.
+     * Searches for an event with the specified name and returns its ID.
+     *
+     * @param eventName The name of the event to find
+     * @return The event ID if found, -1 otherwise
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getEventIDByName(String eventName) throws Exception {
 
@@ -41,6 +68,15 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Creates a new ticket type in the database.
+     * Inserts ticket type details including event ID, price, and description.
+     * Returns the created ticket type.
+     *
+     * @param newTicketType The ticket type object containing details to be inserted
+     * @return The created ticket type object
+     * @throws Exception If database operations fail or constraints are violated
+     */
     @Override
     public TicketType createTicketType(TicketType newTicketType) throws Exception {
         String ttQuery = "INSERT INTO TicketTypes (eventID, ticketPrice, ticketDescription) VALUES (?, ?, ?)";
@@ -62,6 +98,14 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
 
 
 
+    /**
+     * Deletes a ticket type from the database.
+     * Permanently removes the ticket type record based on its ID.
+     * Note: This method currently uses eventID instead of ticketTypeID in the WHERE clause.
+     *
+     * @param ticketTypeToBeDeleted The ticket type to be deleted
+     * @throws Exception If the deletion operation fails
+     */
     @Override
     public void deleteTicketType(TicketType ticketTypeToBeDeleted) throws Exception {
         //create a string with the sql statement to delete a given TicketType from the database
@@ -82,6 +126,14 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
 
     }
 
+    /**
+     * Retrieves all ticket types from the database.
+     * Gets complete ticket type information including price, description,
+     * sales data, and color coding.
+     *
+     * @return List of all TicketType objects in the database
+     * @throws Exception If the database query fails
+     */
     @Override
     public List<TicketType> getAllTicketTypes() throws Exception {
         ArrayList<TicketType> tTypes = new ArrayList<>();
@@ -111,6 +163,13 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket type ID from the database.
+     * Note: Currently returns only the last ID found since it doesn't filter results.
+     *
+     * @return The ticket type ID, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getTicketTypeID() throws Exception {
         int ttid = 0;
@@ -128,6 +187,13 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets the event ID associated with a ticket type.
+     * Note: Currently returns only the last ID found since it doesn't filter results.
+     *
+     * @return The event ID, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getTicketTypeEventID() throws Exception {
         int tteid = 0;
@@ -145,6 +211,13 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket price from the database.
+     * Note: Currently returns only the last price found since it doesn't filter results.
+     *
+     * @return The ticket price as a BigDecimal, or ZERO if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public BigDecimal getTicketPrice() throws Exception {
         BigDecimal tPrice = BigDecimal.ZERO;
@@ -162,6 +235,13 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets a ticket type description from the database.
+     * Note: Currently returns only the last description found since it doesn't filter results.
+     *
+     * @return The ticket description, or an empty string if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public String getTicketTypeDescription() throws Exception {
         String ttDescription = "";
@@ -179,6 +259,13 @@ public class TicketTypeDAO implements ITicketTypeDataAccess {
         }
     }
 
+    /**
+     * Gets the number of tickets sold for a ticket type.
+     * Note: Currently returns only the last count found since it doesn't filter results.
+     *
+     * @return The number of tickets sold, or 0 if none found
+     * @throws Exception If the database query fails
+     */
     @Override
     public int getSoldTickets() throws Exception {
         int ttSold = 0;

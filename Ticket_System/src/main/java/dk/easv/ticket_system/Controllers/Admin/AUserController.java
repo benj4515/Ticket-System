@@ -1,3 +1,9 @@
+/**
+ * Controller for the Admin User interface that manages users and their event assignments.
+ * This controller handles displaying users, events, and managing the relationships between them.
+ * It provides functionality for viewing user details, event information, assigning users to events,
+ * and removing assignments.
+ */
 package dk.easv.ticket_system.Controllers.Admin;
 
 import dk.easv.ticket_system.BE.Event;
@@ -23,59 +29,62 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class AUserController {
-    public Label lblEventTitle;
-    public Label lblLocationEvent;
-    public Label lblEventDate;
-    public Label lblEventTime;
-    public Label lblTicketsSold;
-    public Label lblVipPackage;
-    public Label lblGeneralAdmission;
-    public Label lblCoordinatorsAssigned;
-    public Button btnDeleteEvent;
-    public Button btnAssignToEvent;
-    public Label lblCoordinatorsAmount;
-    public Label lblEventAssignees;
-    public Label lblRemoveAssignee;
+    // UI components for displaying event details
+    public Label lblEventTitle;                // Label to display the title of the selected event
+    public Label lblLocationEvent;             // Label to display the location of the selected event
+    public Label lblEventDate;                 // Label to display the date of the selected event
+    public Label lblEventTime;                 // Label to display the time of the selected event
+    public Label lblTicketsSold;               // Label to display the number of tickets sold for the event
+    public Label lblVipPackage;                // Label to display VIP package information
+    public Label lblGeneralAdmission;          // Label to display general admission information
+    public Label lblCoordinatorsAssigned;      // Label to display coordinators assigned text
+    public Button btnDeleteEvent;              // Button to delete the selected event
+    public Button btnAssignToEvent;            // Button to assign a coordinator to the selected event
+    public Label lblCoordinatorsAmount;        // Label to display the number of coordinators assigned
+    public Label lblEventAssignees;            // Label to display the names of assigned coordinators
+    public Label lblRemoveAssignee;            // Label that acts as a button to remove an assignee
     @FXML
-    private FlowPane flowPane;
-    private UserModel userModel;
-    private EventModel eventModel;
+    private FlowPane flowPane;                 // Main container for the UI
+    private UserModel userModel;               // Model for user data management
+    private EventModel eventModel;             // Model for event data management
     @FXML
-    private Pane customPane1;
+    private Pane customPane1;                  // Container for user list
     @FXML
-    private VBox vbox1;
+    private VBox vbox1;                        // VBox containing user buttons
     @FXML
-    private Pane customPane2;
+    private Pane customPane2;                  // Container for user details
     @FXML
-    private Pane customPane3;
+    private Pane customPane3;                  // Container for event list
     @FXML
-    private VBox vbox3;
+    private VBox vbox3;                        // VBox containing event buttons
     @FXML
-    private Pane customPane4;
+    private Pane customPane4;                  // Container for event details
     @FXML
-    private Label lblFirstName;
+    private Label lblFirstName;                // Label to display the first name of the selected user
     @FXML
-    private Label lblLastName;
+    private Label lblLastName;                 // Label to display the last name of the selected user
     @FXML
-    private Label lblEmail;
+    private Label lblEmail;                    // Label to display the email of the selected user
     @FXML
-    private Label lblPhoneNumber;
+    private Label lblPhoneNumber;              // Label to display the phone number of the selected user
     @FXML
-    private Label lblRole;
+    private Label lblRole;                     // Label to display the role of the selected user
     @FXML
-    private Label lblName;
+    private Label lblName;                     // Label to display the full name of the selected user
     @FXML
-    private Label lblUserCreated;
+    private Label lblUserCreated;              // Label to display when the user was created
     @FXML
-    private Button btnNewUser;
+    private Button btnNewUser;                 // Button to create a new user
     @FXML
-    private ScrollPane scpScrollPane;
-    private Button selectedUserButton;
-    private Button selectedEventButton;
+    private ScrollPane scpScrollPane;          // ScrollPane for the main content
+    private Button selectedUserButton;         // Keeps track of the currently selected user button
+    private Button selectedEventButton;        // Keeps track of the currently selected event button
     @FXML
-    private ImageView imgSelectedUser;
+    private ImageView imgSelectedUser;         // ImageView for the avatar of the selected user
 
-
+    /**
+     * Constructor that initializes the user and event models.
+     */
     public AUserController() {
         try {
             userModel = new UserModel();
@@ -85,6 +94,12 @@ public class AUserController {
         }
     }
 
+    /**
+     * Opens a new modal window for creating a new user.
+     *
+     * @param actionEvent The action event that triggered this method
+     * @throws IOException If the FXML file cannot be loaded
+     */
     @FXML
     public void onNewUser(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/ACreateUser.fxml"));
@@ -94,9 +109,12 @@ public class AUserController {
         stage.setTitle("New User");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-
     }
 
+    /**
+     * Initializes the controller.
+     * Displays the user and event lists, selects first items, and sets up event handlers.
+     */
     @FXML
     public void initialize() {
         showUserList();
@@ -125,9 +143,14 @@ public class AUserController {
         // Add click handler for the remove assignee label
         lblRemoveAssignee.setOnMouseClicked(event -> handleRemoveAssignee());
 
+        // Set the scroll pane height to match the screen height
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
+    /**
+     * Populates the user list with user data from the model.
+     * Creates a button for each user with their name, email, and avatar.
+     */
     public void showUserList() {
         for (User user : userModel.getObservableUsers()) {
             Button button1 = new Button();
@@ -137,6 +160,7 @@ public class AUserController {
             AnchorPane anchorPaneUser1 = new AnchorPane();
             button1.setGraphic(anchorPaneUser1);
 
+            // Set up name label
             Label labelName1 = new Label(user.getFirstName() + " " + user.getLastName());
             labelName1.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
             anchorPaneUser1.getChildren().add(labelName1);
@@ -160,41 +184,68 @@ public class AUserController {
             AnchorPane.setTopAnchor(imageViewUser1, 8.0);
             AnchorPane.setLeftAnchor(imageViewUser1, 6.0);
 
+            // Set up button action
             button1.setOnAction(event -> updateSelectedUser(user, button1));
         }
     }
 
+    /**
+     * Updates the UI with details of the selected user.
+     * Also changes the button style to indicate selection.
+     *
+     * @param user The User object that was selected
+     * @param button The button that was clicked
+     */
     private void updateSelectedUser(User user, Button button) {
+        // Reset previous selected button style
         if (selectedUserButton != null) {
             selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
+        // Update selection and style
         selectedUserButton = button;
         selectedUserButton.setUserData(user);
         selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
+        // Update user details in UI
         lblName.setText(user.getFirstName() + " " + user.getLastName());
         lblEmail.setText(user.getEmail());
         lblFirstName.setText(user.getFirstName());
         lblLastName.setText(user.getLastName());
         lblPhoneNumber.setText(user.getPhoneNumber());
+        // Set role text based on roleID
         if (user.getRoleID() == 1) {
             lblRole.setText("      Admin");
         } else if (user.getRoleID() == 2) {
             lblRole.setText("  Coordinator");
         }
 
+        // Update avatar image
         String gravatarUrl = getGravatarUrl(user.getEmail());
         imgSelectedUser.setImage(new Image(gravatarUrl));
 
+        // Debug log
         System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getEmail() + " " + user.getPhoneNumber() + " " + user.getRoleID());    }
 
-    // Method to get Gravatar URL
+    /**
+     * Generates a Gravatar URL based on the user's email address.
+     * This URL is used to display the user's avatar image.
+     *
+     * @param email The email address to generate the avatar for
+     * @return URL string for the Gravatar image
+     */
     private String getGravatarUrl(String email) {
         String baseUrl = "https://www.gravatar.com/avatar/";
         String emailHash = md5Hash(email.trim().toLowerCase());
         return baseUrl + emailHash + "?d=identicon&s=200"; // Default to 'identicon' if no image is found, size 200px
     }
 
+    /**
+     * Generates an MD5 hash of the input string.
+     * Used for creating Gravatar email hashes.
+     *
+     * @param input The string to hash
+     * @return MD5 hash as a hexadecimal string
+     */
     private String md5Hash(String input) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -206,6 +257,10 @@ public class AUserController {
         }
     }
 
+    /**
+     * Populates the event list with event data from the model.
+     * Creates a button for each event with its title and location.
+     */
     public void showEventList() {
         vbox3.getChildren().clear(); // Clear existing children
 
@@ -213,15 +268,21 @@ public class AUserController {
             Button button = new Button();
             button.setPrefSize(460, 75);
             button.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-            button.setUserData(event); // Set the event as user data
+            button.setUserData(event); // Store the event object as user data
             vbox3.getChildren().add(button);
+
+            // Create layout for event button
             AnchorPane anchorPaneEvent = new AnchorPane();
             button.setGraphic(anchorPaneEvent);
+
+            // Event title
             Label labelName = new Label(event.geteventTitle());
             labelName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
             anchorPaneEvent.getChildren().add(labelName);
             AnchorPane.setTopAnchor(labelName, 10.0);
             AnchorPane.setLeftAnchor(labelName, 68.0);
+
+            // Event icon
             ImageView imageViewEvent = new ImageView();
             imageViewEvent.setFitHeight(50.0);
             imageViewEvent.setFitWidth(50.0);
@@ -229,31 +290,48 @@ public class AUserController {
             imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/festival.png"))));
             AnchorPane.setTopAnchor(imageViewEvent, 8.0);
             AnchorPane.setLeftAnchor(imageViewEvent, 6.0);
+
+            // Event location
             Label labelLocation = new Label(event.getLocation());
             anchorPaneEvent.getChildren().add(labelLocation);
             AnchorPane.setTopAnchor(labelLocation, 30.0);
             AnchorPane.setLeftAnchor(labelLocation, 68.0);
 
+            // Set up button action
             button.setOnAction(events -> updateSelectedEvent(event, button));
         }
     }
 
+    /**
+     * Updates the UI with details of the selected event.
+     * Changes button style to indicate selection, displays event information,
+     * and lists coordinators assigned to the event.
+     *
+     * @param event The Event object that was selected
+     * @param button The button that was clicked
+     */
     private void updateSelectedEvent(Event event, Button button) {
+        // Reset previous selected button style
         if (selectedEventButton != null) {
             selectedEventButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
+        // Update selection and style
         selectedEventButton = button;
-        selectedEventButton.setUserData(event); // Set the event as user data
+        selectedEventButton.setUserData(event);
         selectedEventButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
+        // Update event details in UI
         lblEventTitle.setText(event.geteventTitle());
         lblLocationEvent.setText(event.getLocation());
+
+        // Format and display event dates
         if (event.getEventEndDate() != null) {
             lblEventDate.setText(event.geteventStartDate().toString() + " - " + event.getEventEndDate().toString());
         } else {
             lblEventDate.setText(event.geteventStartDate().toString());
         }
-        //lblEventTime.setText(event.getEventEndDate().toString()); // TODO: There is only EventDate in the DB not Start Date or End Date.
+
+        // Format and display event times
         if (event.geteventEndTime() != null) {
             lblEventTime.setText(event.geteventStartTime() + " - " + event.geteventEndTime());
         } else {
@@ -268,14 +346,14 @@ public class AUserController {
             int coordinatorCount = assignedCoordinators.size();
             lblCoordinatorsAmount.setText(String.valueOf(coordinatorCount));
 
-            // Add this inside updateSelectedEvent after retrieving coordinators
+            // Debug log for coordinators
             for (User coordinator : assignedCoordinators) {
                 System.out.println("Coordinator in UI: ID=" + coordinator.getUserID() +
                         ", firstName=" + coordinator.getFirstName() +
                         ", lastName=" + coordinator.getLastName());
             }
 
-            // Update assigned coordinators names - each on a new line
+            // Format coordinator names for display
             StringBuilder assigneesList = new StringBuilder();
             for (int i = 0; i < assignedCoordinators.size(); i++) {
                 User coordinator = assignedCoordinators.get(i);
@@ -286,32 +364,46 @@ public class AUserController {
                 }
             }
 
-
+            // Display coordinator names
             lblEventAssignees.setText(assigneesList.toString());
 
         } catch (Exception e) {
+            // Handle error case with defaults
             lblCoordinatorsAmount.setText("0");
             lblEventAssignees.setText("None");
             e.printStackTrace();
         }
 
+        // Debug log
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
-    public void HandlebtnDeleteEvent(ActionEvent actionEvent) {
 
+    /**
+     * Handles the delete event button action.
+     * Deletes the currently selected event from the database and updates the UI.
+     * No action is taken if no event is selected.
+     *
+     * @param actionEvent The action event that triggered this method
+     */
+    public void HandlebtnDeleteEvent(ActionEvent actionEvent) {
         if (selectedEventButton != null) {
             Event event = (Event) selectedEventButton.getUserData();
             try {
                 System.out.printf(event.getEventID()+"");
                 eventModel.deleteEvent(event);
-                showEventList();
+                showEventList(); // Refresh the event list
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
 
+    /**
+     * Handles the remove assignee action.
+     * Displays a modal dialog with a list of coordinators assigned to the current event.
+     * User can select a coordinator to remove from the event assignment.
+     * Nothing happens if no event is selected or no coordinators are assigned.
+     */
     private void handleRemoveAssignee() {
         if (selectedEventButton == null) return;
 
@@ -371,14 +463,21 @@ public class AUserController {
         }
     }
 
-
+    /**
+     * Handles the assign to event button action.
+     * Assigns the currently selected user to the currently selected event as a coordinator.
+     * No action is taken if either a user or event is not selected.
+     * After assignment, the event list is refreshed to show the updated coordinator count.
+     *
+     * @param actionEvent The action event that triggered this method
+     */
     public void HandleBtnAssignToEvent(ActionEvent actionEvent) {
         if (selectedUserButton != null && selectedEventButton != null) {
             User user = (User) selectedUserButton.getUserData();
             Event event = (Event) selectedEventButton.getUserData();
             try {
                 eventModel.assignCoordinatorToEvent(user, event);
-                showEventList();
+                showEventList(); // Refresh the event list
             } catch (Exception e) {
                 e.printStackTrace();
             }
