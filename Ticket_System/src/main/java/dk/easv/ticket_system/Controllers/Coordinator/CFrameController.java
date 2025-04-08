@@ -65,8 +65,7 @@ public class CFrameController {
         lblUser.setStyle("-fx-text-fill: black");
         apnEvent.setStyle("-fx-background-color: white");
         lblEvent.setStyle("-fx-text-fill: black");
-        //apnUTicket.setStyle("-fx-background-color: white");
-        //lblUTicket.setStyle("-fx-text-fill: black");
+
         apnCheckout.setStyle("-fx-background-color: white");
         lblCheckout.setStyle("-fx-text-fill: black");
 

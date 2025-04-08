@@ -1,10 +1,13 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.TicketType;
+import dk.easv.ticket_system.BLL.Util.EmailHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +15,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Objects;
 
 public class CCheckoutController {
@@ -21,13 +27,43 @@ public class CCheckoutController {
     public VBox vbxTicketTypes;
     @FXML
     private FlowPane flowPane;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private Button btnEmail;
 
     private CEventDetailsController cEventDetailsController;
+
+    private EmailHandler emailHandler;
 
     public CCheckoutController() {
 
     }
+    private String Toemail;
+    public void setEmail() {
+        String inputEmail = txtEmail.getText();
+        if (inputEmail != null && inputEmail.contains("@")) {
+            this.Toemail = inputEmail;
+        }
+    }
+    public String getEmail() {
+        return Toemail;
+    }
 
+    @FXML
+    private void onbtnEmailclick (ActionEvent actionEvent) throws Exception {
+        setEmail();
+
+        // Forsøg at sende emailen
+        new EmailHandler().send("EventHub ticket", """
+                    Dear reader,
+
+                    Hello world
+                    Best regards,
+                    EventHub
+                    """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"), getEmail());
+
+    }
     public void initialize(){
         imvTicketPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/RealTicketPreview.png"))));
     }

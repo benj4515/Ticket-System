@@ -14,6 +14,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
+import dk.easv.ticket_system.Controllers.Coordinator.CCheckoutController;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.activation.DataHandler;
@@ -38,7 +39,7 @@ import java.util.Set;
 import static javax.mail.Message.RecipientType.TO;
 
 
-public class EmailHandler {
+public class EmailHandler{
 
     public EmailHandler() throws GeneralSecurityException, IOException {
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -48,9 +49,11 @@ public class EmailHandler {
                 .build();
 
     }
+
+    CCheckoutController checkoutController = new CCheckoutController();
     private final Gmail service;
     private static final String fromEmailAddress = "eventhubticket@gmail.com";
-    private static final String toEmailAddress = "eventhubticket@gmail.com";
+   // private static final String toEmailAddress = checkoutController.getEmail();
     /* how to send a mail
       new EmailHandler().send("EventHub ticket", """
       Dear reader,
@@ -60,6 +63,7 @@ public class EmailHandler {
       EventHub
        """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
      * */
+
     public Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
         // Load client secrets.
@@ -75,7 +79,8 @@ public class EmailHandler {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 
     }
-    public void send(String subject, String message, File attachment) throws Exception {
+    public void send(String subject, String message, File attachment, String toEmailAddress) throws Exception {
+
 
 
         // Encode as MIME message
