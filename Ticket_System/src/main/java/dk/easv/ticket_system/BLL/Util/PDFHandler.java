@@ -1,26 +1,33 @@
 package dk.easv.ticket_system.BLL.Util;
 
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import javafx.scene.control.Cell;
+
+import java.io.File;
+
 
 public class PDFHandler {
-        public static void main(String args[]) throws Exception {
-            // Creating a PdfWriter
-            String dest = "Ticket_System/src/main/resources/PDFs/sample.pdf";
-            PdfWriter writer = new PdfWriter(dest);
+        public static void createPDF(String filepath, String QRCodePath) throws Exception {
+           try {
+               File file = new File(filepath);
+               file.getParentFile().mkdirs();
+               PdfWriter writer = new PdfWriter(String.valueOf(file));
+               PdfDocument pdf = new PdfDocument(writer);
+               Document document = new Document(pdf, PageSize.A4);
+               pdf.addNewPage();
 
-            // Creating a PdfDocument
-            PdfDocument pdfDoc = new PdfDocument(writer);
 
-            // Adding a new page
-            pdfDoc.addNewPage();
 
-            // Creating a Document
-            Document document = new Document(pdfDoc);
-
-            // Closing the document
-            document.close();
-            System.out.println("PDF Created");
+               document.close();
+               System.out.println("PDF Created");
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
         }
     }

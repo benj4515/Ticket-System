@@ -2,6 +2,8 @@ package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EmailHandler;
+import dk.easv.ticket_system.BLL.Util.QRImageUtil;
+import dk.easv.ticket_system.BLL.Util.PDFHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +17,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Objects;
+import java.util.Random;
 
 public class CCheckoutController {
 
@@ -53,6 +58,18 @@ public class CCheckoutController {
     @FXML
     private void onbtnEmailclick (ActionEvent actionEvent) throws Exception {
         setEmail();
+
+        String rndString = generateRandomString();
+        String qrFilePath = "Ticket_System/src/main/resources/PDFImages/" + rndString + "_qr.PNG";
+
+
+        BufferedImage qrImage = QRImageUtil.generateQRCode(rndString, 150, 150);
+
+        ImageIO.write(qrImage, "PNG", new File(qrFilePath));
+
+        String ticketPath = "target/PDFs/" + rndString + ".pdf";
+
+        PDFHandler.createPDF(ticketPath,qrFilePath);
 
         // Forsøg at sende emailen
         new EmailHandler().send("EventHub ticket", """
@@ -96,5 +113,19 @@ public class CCheckoutController {
     }
 
     public void Handle1SetOfFreeEarplugs(ActionEvent actionEvent) {
+    }
+
+    public static String generateRandomString() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        int length = random.nextInt(30) + 15;
+        StringBuilder randomString = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            randomString.append(characters.charAt(index));
+        }
+        return length + "abc" + randomString.toString();
+
     }
 }
