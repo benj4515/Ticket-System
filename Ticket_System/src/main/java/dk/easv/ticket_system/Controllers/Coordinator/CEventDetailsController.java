@@ -177,8 +177,11 @@ public class CEventDetailsController {
                 // Create button for each ticket type with gradient background using ticket type color
                 Button button1 = new Button();
                 button1.setPrefSize(460, 75);
-                button1.setStyle("-fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0; -fx-background-color: linear-gradient(to left, #FFF, " + ticketType.getTicketTypeColor() + ");");
-                System.out.printf("TicketType color: %s%n", ticketType.getTicketTypeColor());
+
+                String ticketColor = ticketType.getTicketTypeColor() != null ?
+                        ticketType.getTicketTypeColor() : "#FFF";
+
+                button1.setStyle("-fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0; -fx-background-color: linear-gradient(to left, #FFF, " + ticketColor + ");");                System.out.printf("TicketType color: %s%n", ticketType.getTicketTypeColor());
                 vbxTicketTypes.getChildren().add(button1);
 
                 // Set up layout for ticket type button
