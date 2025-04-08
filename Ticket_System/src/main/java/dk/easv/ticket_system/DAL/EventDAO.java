@@ -188,7 +188,53 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
         return event;
     }
 
+    @Override
+    public List<User> getCoordinatorsForEvent(int eventID) {
+        List<User> coordinators = new ArrayList<>();
+        String sql = "SELECT u.userID, ud.firstName, ud.lastName FROM TrueUsers u " +
+                "JOIN AssignedEvents ae ON u.userID = ae.userID " +
+                "JOIN UserDetails ud ON u.userID = ud.userID " +
+                "WHERE ae.eventID = ?";
 
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, eventID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int userID = rs.getInt("userID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+
+                User coordinator = new User(userID, firstName, lastName);
+                coordinators.add(coordinator);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return coordinators;
+    }
+
+    @Override
+    public void removeCoordinatorFromEvent(User coordinator, Event event) {
+        String sql = "DELETE FROM AssignedEvents WHERE userID = ? AND eventID = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, coordinator.getUserID());
+            stmt.setInt(2, event.getEventID());
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                // Optional: Log that no records were deleted
+                System.out.println("No coordinator-event relationship found to delete");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Consider throwing this exception to be handled at a higher level
+        }
+    }
 
     public void updateEvent(Event updatedEvent) throws Exception {
 

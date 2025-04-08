@@ -123,14 +123,14 @@
                            <children>
                               <Label fx:id="lblCoordinatorsAssigned" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Coordinators Assigned" />
                               <Region HBox.hgrow="ALWAYS" />
-                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="1" />
+                              <Label fx:id="lblCoordinatorsAmount" style="-fx-font-size: 16px; -fx-text-fill: #000;" text="1" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Label fx:id="lblEventCreatedBy" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Sarah Wilson" />
+                              <Label fx:id="lblEventAssignees" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Sarah Wilson" />
                               <Region HBox.hgrow="ALWAYS" />
-                              <Label style="-fx-font-size: 16px; -fx-text-fill: #0059ff;" text="Remove" />
+                              <Label fx:id="lblRemoveAssignee" style="-fx-font-size: 16px; -fx-text-fill: #0059ff;" text="Remove" />
                            </children>
                         </HBox>
                      </children>

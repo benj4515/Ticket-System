@@ -71,8 +71,6 @@ public class AFrameController {
     private void resetStyles() {
         apnUser.setStyle("-fx-background-color: white");
         lblUser.setStyle("-fx-text-fill: black");
-        apnUTicket.setStyle("-fx-background-color: white");
-        lblUTicket.setStyle("-fx-text-fill: black");
     }
 
     @FXML
