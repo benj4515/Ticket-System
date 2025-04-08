@@ -2,6 +2,15 @@ package dk.easv.ticket_system.BE;
 
 public class User {
     private int id;
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     private int userID;
     private String email;
     private String password;
@@ -82,14 +91,16 @@ public class User {
         this.roleName = roleName;
     }
 
-    public User (int id, String email, String roleName) {
-
-    }
-
     public User(String email) {
     }
 
     public User(String firstName, String lastName) {
+    }
+
+    public User(int userID, String firstName, String lastName) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {

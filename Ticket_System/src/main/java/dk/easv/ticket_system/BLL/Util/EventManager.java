@@ -2,6 +2,7 @@ package dk.easv.ticket_system.BLL.Util;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
+import dk.easv.ticket_system.BE.User;
 import dk.easv.ticket_system.DAL.EventDAO;
 import dk.easv.ticket_system.DAL.IEventsDataAccess;
 
@@ -33,5 +34,17 @@ public class EventManager {
 
     public Event eventForEventManager() throws Exception {
         return dataAccess.eventForEventManager();
+    }
+
+    public Event assignCoordinatorToEvent(User user, Event event) throws Exception {
+        return dataAccess.assignCoordinatorToEvent( user, event);
+    }
+
+    public List<User> getCoordinatorsForEvent(int eventID) {
+        return dataAccess.getCoordinatorsForEvent(eventID);
+    }
+
+    public void removeCoordinatorFromEvent(User coordinator, Event event) throws Exception {
+        dataAccess.removeCoordinatorFromEvent(coordinator, event);
     }
 }

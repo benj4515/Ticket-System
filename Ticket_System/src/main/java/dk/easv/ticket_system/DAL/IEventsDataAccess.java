@@ -24,7 +24,10 @@ public interface IEventsDataAccess {
     Event eventForEventManager() throws Exception;
 
 
+    Event assignCoordinatorToEvent(User user, Event event) throws Exception;
 
 
+    List<User> getCoordinatorsForEvent(int eventID);
 
+    void removeCoordinatorFromEvent(User coordinator, Event event);
 }

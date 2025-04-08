@@ -95,7 +95,7 @@
                   <Button fx:id="btnCancelEvent" mnemonicParsing="false" onAction="#HandleCancelEvent" style="-fx-background-color: #C00D0D; -fx-background-radius: 6;" text="Cancel" textFill="WHITE" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <Button fx:id="btnEditEvent" mnemonicParsing="false" onAction="#HandleEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Create Event" textFill="WHITE" BorderPane.alignment="CENTER" />
+                  <Button fx:id="btnEditEvent" mnemonicParsing="false" onAction="#HandleEditEvent" style="-fx-background-color: #009FDA; -fx-background-radius: 6;" text="Edit Event" textFill="WHITE" BorderPane.alignment="CENTER" />
                </right>
             </BorderPane>
          </children>

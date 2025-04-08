@@ -26,41 +26,6 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
     int CreatedEventID;
 
 
-
-    /*
-
-    @Override
-    public Event createEvent(Event newEvent) throws Exception {
-        String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = dbConnector.getConnection();
-             PreparedStatement eventStmt = conn.prepareStatement(eventQuery, Statement.RETURN_GENERATED_KEYS)) {
-
-            eventStmt.setString(1, newEvent.geteventTitle());
-            eventStmt.setDate(2, newEvent.geteventStartDate());
-            eventStmt.setString(3, newEvent.getLocation());
-            eventStmt.setString(4, newEvent.geteventDescription());
-            eventStmt.setTime(5, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventStartTime())));
-            eventStmt.setTime(6, java.sql.Time.valueOf(LocalTime.parse(newEvent.geteventEndTime())));
-            eventStmt.setDate(7, newEvent.getEventEndDate());
-            eventStmt.executeUpdate();
-
-            try (ResultSet generatedKeys = eventStmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    CreatedEventID = generatedKeys.getInt(1);
-                } else {
-                    throw new Exception("User creation failed, no userID returned.");
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Couldn't create new Event", e);
-        }
-        return null;
-    }
-    */
-
     @Override
     public Event createEventAndTicketTypes(Event newEvent, List<TicketType> TicketTypes) throws Exception {
         String eventQuery = "INSERT INTO Events (eventName, eventDate, location, eventDescription, eventStart, eventEnd, eventDateEnd) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -106,7 +71,6 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             }
 
 
-
             conn.commit();
             return newEvent;
 
@@ -125,8 +89,7 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
 
         //try with resources to connect to the database and execute the delete statement
         try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql))
-        {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, eventToDelete.getEventID());
 
@@ -137,7 +100,6 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             throw new Exception("Couldn't delete Event from database", e);
         }
     }
-
 
 
     @Override
@@ -163,7 +125,7 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
                 Date eventEndDate = rs.getDate("eventDateEnd");
                 //String recTransport = rs.getString("recommendedTransport");
 
-                Event event = new Event(eventID, eventTitle, eventStartDate, location,eventDescription, eventStartTime, eventEndTime, eventEndDate);
+                Event event = new Event(eventID, eventTitle, eventStartDate, location, eventDescription, eventStartTime, eventEndTime, eventEndDate);
                 events.add(event);
             }
             return events;
@@ -172,7 +134,6 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             throw new Exception("Something happened, cannot retrieve events.");
         }
     }
-
 
 
     @Override
@@ -200,18 +161,84 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             event.setRecTransport(recTransport);
 
             return event;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Something happened, cannot retrieve event info for management thumbnail.");
         }
     }
 
+    @Override
+    public Event assignCoordinatorToEvent(User user, Event event) throws Exception {
+        String sql = "INSERT INTO AssignedEvents (userID, eventID) VALUES (?, ?)";
 
+        try (Connection conn = dbConnector.getConnection()) {
+            conn.setAutoCommit(false); // Start transaction
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, user.getUserID());
+                stmt.setInt(2, event.getEventID());
+
+                stmt.executeUpdate();
+                conn.commit(); // Commit transaction
+            } catch (SQLException e) {
+                conn.rollback(); // Rollback transaction on error
+                throw new Exception("Couldn't assign coordinator to event.", e);
+            }
+        }
+        return event;
+    }
+
+    @Override
+    public List<User> getCoordinatorsForEvent(int eventID) {
+        List<User> coordinators = new ArrayList<>();
+        String sql = "SELECT u.userID, ud.firstName, ud.lastName FROM TrueUsers u " +
+                "JOIN AssignedEvents ae ON u.userID = ae.userID " +
+                "JOIN UserDetails ud ON u.userID = ud.userID " +
+                "WHERE ae.eventID = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, eventID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int userID = rs.getInt("userID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+
+                User coordinator = new User(userID, firstName, lastName);
+                coordinators.add(coordinator);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return coordinators;
+    }
+
+    @Override
+    public void removeCoordinatorFromEvent(User coordinator, Event event) {
+        String sql = "DELETE FROM AssignedEvents WHERE userID = ? AND eventID = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, coordinator.getUserID());
+            stmt.setInt(2, event.getEventID());
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                // Optional: Log that no records were deleted
+                System.out.println("No coordinator-event relationship found to delete");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Consider throwing this exception to be handled at a higher level
+        }
+    }
 
     public void updateEvent(Event updatedEvent) throws Exception {
 
-        String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventStart = ?, eventEnd = ?, eventDescription = ?, recommendedTransport = ? WHERE eventID = ?";
+        String updateQuery = "UPDATE dbo.Events SET eventName = ?, eventDate = ?, location = ?, eventDescription = ?, eventStart = ?, eventEnd = ?, eventDateEnd = ? WHERE eventID = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
@@ -219,11 +246,13 @@ public class EventDAO implements IEventsDataAccess, ITicketTypeDataAccess {
             stmt.setString(1, updatedEvent.geteventTitle());
             stmt.setDate(2, updatedEvent.geteventStartDate());
             stmt.setString(3, updatedEvent.getLocation());
-            stmt.setTime(4, java.sql.Time.valueOf(updatedEvent.geteventStartTime()));
-            stmt.setTime(5, java.sql.Time.valueOf(updatedEvent.geteventEndTime()));
-            stmt.setString(6, updatedEvent.geteventDescription());
-            stmt.setString(7, updatedEvent.getRecTransport());
+            stmt.setTime(5, Time.valueOf(LocalTime.parse(updatedEvent.geteventStartTime())));
+            stmt.setTime(6, Time.valueOf(LocalTime.parse(updatedEvent.geteventEndTime())));
+            stmt.setString(4, updatedEvent.geteventDescription());
+            stmt.setDate(7, updatedEvent.getEventEndDate());
             stmt.setInt(8, updatedEvent.getEventID());
+
+            stmt.executeUpdate();
 
             int rowsAffected = stmt.executeUpdate();
 

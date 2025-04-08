@@ -34,7 +34,9 @@ public class CUserController {
     public Label lblVipPackage;
     public Label lblGeneralAdmission;
     public Label lblCoordinatorsAssigned;
-    public Label lblEventCreatedBy;
+    public Label lblCoordinatorsAmount;
+    public Label lblEventAssignees;
+    public Label lblRemoveAssignee;
     @FXML
     private FlowPane flowPane;
     private UserModel userModel;
@@ -70,6 +72,7 @@ public class CUserController {
     @FXML
     private ScrollPane scpScrollPane;
     private Button selectedUserButton;
+    private Button selectedEventButton;
 
 
     public CUserController() {
@@ -86,6 +89,29 @@ public class CUserController {
         showUserList();
         showEventList();
 
+        // Automatically select the first user if available
+        if (!vbox1.getChildren().isEmpty() && vbox1.getChildren().getFirst() instanceof Button firstUserButton) {
+            // Get the associated user from userModel
+            if (!userModel.getObservableUsers().isEmpty()) {
+                User firstUser = userModel.getObservableUsers().getFirst();
+                // Programmatically trigger the button click to select the first user
+                updateSelectedUser(firstUser, firstUserButton);
+            }
+        }
+
+        // Automatically select the first event if available
+        if (!vbox3.getChildren().isEmpty() && vbox3.getChildren().getFirst() instanceof Button firstEventButton) {
+            // Get the associated event from eventModel
+            if (!eventModel.getObservableEvents().isEmpty()) {
+                Event firstEvent = eventModel.getObservableEvents().getFirst();
+                // Programmatically trigger the button click to select the first event
+                updateSelectedEvent(firstEvent, firstEventButton);
+            }
+        }
+
+        // Add click handler for the remove assignee label
+        lblRemoveAssignee.setOnMouseClicked(event -> handleRemoveAssignee());
+
         scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
     }
 
@@ -94,6 +120,7 @@ public class CUserController {
             selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
         selectedUserButton = button;
+        selectedUserButton.setUserData(user);
         selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblName.setText(user.getFirstName() + " " + user.getLastName());
@@ -171,11 +198,12 @@ public class CUserController {
     }
 
     private void updateSelectedEvent(Event event, Button button) {
-        if (selectedUserButton != null) {
-            selectedUserButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        if (selectedEventButton != null) {
+            selectedEventButton.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
         }
-        selectedUserButton = button;
-        selectedUserButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+        selectedEventButton = button;
+        selectedEventButton.setUserData(event); // Set the event as user data
+        selectedEventButton.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
 
         lblEventTitle.setText(event.geteventTitle());
         lblLocationEvent.setText(event.getLocation());
@@ -190,6 +218,122 @@ public class CUserController {
         } else {
             lblEventTime.setText(event.geteventStartTime());
         }
+
+        // Get coordinators assigned to this event
+        try {
+            java.util.List<User> assignedCoordinators = eventModel.getCoordinatorsForEvent(event.getEventID());
+
+            // Update coordinator count
+            int coordinatorCount = assignedCoordinators.size();
+            lblCoordinatorsAmount.setText(String.valueOf(coordinatorCount));
+
+            // Add this inside updateSelectedEvent after retrieving coordinators
+            for (User coordinator : assignedCoordinators) {
+                System.out.println("Coordinator in UI: ID=" + coordinator.getUserID() +
+                        ", firstName=" + coordinator.getFirstName() +
+                        ", lastName=" + coordinator.getLastName());
+            }
+
+            // Update assigned coordinators names - each on a new line
+            StringBuilder assigneesList = new StringBuilder();
+            for (int i = 0; i < assignedCoordinators.size(); i++) {
+                User coordinator = assignedCoordinators.get(i);
+                assigneesList.append(coordinator.getFirstName()).append(" ").append(coordinator.getLastName());
+                // Add a new line instead of a comma
+                if (i < assignedCoordinators.size() - 1) {
+                    assigneesList.append("\n");
+                }
+            }
+
+
+            lblEventAssignees.setText(assigneesList.toString());
+
+        } catch (Exception e) {
+            lblCoordinatorsAmount.setText("0");
+            lblEventAssignees.setText("None");
+            e.printStackTrace();
+        }
+
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
+
+    private void handleRemoveAssignee() {
+        if (selectedEventButton == null) return;
+
+        Event event = (Event) selectedEventButton.getUserData();
+        try {
+            // Get coordinators assigned to this event
+            java.util.List<User> assignedCoordinators = eventModel.getCoordinatorsForEvent(event.getEventID());
+            if (assignedCoordinators.isEmpty()) {
+                return; // No coordinators to remove
+            }
+
+            // Create the dialog
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Remove Coordinator Assignment");
+
+            VBox layout = new VBox(10);
+            layout.setPadding(new javafx.geometry.Insets(20));
+            layout.getChildren().add(new Label("Select coordinator to remove:"));
+
+            // Create buttons for each coordinator
+            for (User coordinator : assignedCoordinators) {
+                Button btn = new Button(coordinator.getFirstName() + " " + coordinator.getLastName());
+                btn.setPrefWidth(200);
+                btn.setOnAction(e -> {
+                    try {
+                        // Remove the selected coordinator
+                        eventModel.removeCoordinatorFromEvent(coordinator, event);
+                        popupStage.close();
+
+                        // Refresh the event list and details
+                        showEventList();
+
+                        // Reselect the current event to update the UI
+                        if (selectedEventButton != null) {
+                            updateSelectedEvent(event, selectedEventButton);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                layout.getChildren().add(btn);
+            }
+
+            // Add cancel button
+            Button cancelBtn = new Button("Cancel");
+            cancelBtn.setPrefWidth(200);
+            cancelBtn.setOnAction(e -> popupStage.close());
+            layout.getChildren().add(cancelBtn);
+
+            Scene scene = new Scene(layout);
+            popupStage.setScene(scene);
+            popupStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void HandleBtnAssignToEvent(ActionEvent actionEvent) {
+
+
+        if (selectedUserButton != null && selectedEventButton != null) {
+            User user = (User) selectedUserButton.getUserData();
+            Event event = (Event) selectedEventButton.getUserData();
+            try {
+                eventModel.assignCoordinatorToEvent(user, event);
+                showEventList();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+
+
 }

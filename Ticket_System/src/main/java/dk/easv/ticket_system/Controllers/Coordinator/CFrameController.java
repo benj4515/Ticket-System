@@ -21,11 +21,7 @@ public class CFrameController {
     @FXML
     public Button btnEventManagement;
     @FXML
-    public Button btnUniversalTicket;
-    @FXML
     public Button btnCheckout;
-    @FXML
-    public Button btnNewUser;
 
     @FXML
     public AnchorPane apnUser;
@@ -69,6 +65,7 @@ public class CFrameController {
         lblUser.setStyle("-fx-text-fill: black");
         apnEvent.setStyle("-fx-background-color: white");
         lblEvent.setStyle("-fx-text-fill: black");
+
         apnCheckout.setStyle("-fx-background-color: white");
         lblCheckout.setStyle("-fx-text-fill: black");
 
@@ -96,16 +93,6 @@ public class CFrameController {
         lblEvent.setStyle("-fx-text-fill: #1D4ED8");
     }
 
-    @FXML
-    public void onUniversalTicket(ActionEvent actionEvent) throws IOException {
-        resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CU-TicketPane.fxml"));
-        Pane pane = loader.load();
-        CTicketController ticketController = loader.getController();
-        pnePane.getChildren().setAll(pane);
-        apnUTicket.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
-        lblUTicket.setStyle("-fx-text-fill: #1D4ED8");
-    }
 
     @FXML
     public void onCheckout(ActionEvent actionEvent) throws IOException {
@@ -117,6 +104,4 @@ public class CFrameController {
         apnCheckout.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblCheckout.setStyle("-fx-text-fill: #1D4ED8");
     }
-
-
 }
