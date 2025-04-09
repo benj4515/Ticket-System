@@ -36,125 +36,129 @@
       </BorderPane>
    </top>
    <left>
-      <ScrollPane prefHeight="1008.0" prefWidth="1371.0" BorderPane.alignment="CENTER">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <FlowPane fx:id="flowPane" hgap="20000.0" prefHeight="200.0" prefWidth="200.0" prefWrapLength="2700.0" vgap="25.0">
+      <VBox prefHeight="1008.0" prefWidth="1245.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane prefHeight="662.0" prefWidth="1245.0">
+               <content>
+                  <VBox>
                      <children>
-                        <Pane fx:id="customPane1" prefHeight="293.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+                        <FlowPane fx:id="flowPane" hgap="20000.0" prefHeight="200.0" prefWidth="200.0" prefWrapLength="2700.0" vgap="25.0">
                            <children>
-                              <VBox prefHeight="286.0" prefWidth="1138.0">
+                              <Pane fx:id="customPane1" prefHeight="293.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
                                  <children>
-                                    <HBox prefHeight="34.0" prefWidth="460.0" spacing="915.0">
+                                    <VBox prefHeight="286.0" prefWidth="1138.0">
                                        <children>
-                                          <Label prefHeight="67.0" prefWidth="157.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Customer" />
-                                          <Button fx:id="btnClear" prefHeight="50.0" prefWidth="54.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Clear" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font name="System Bold" size="30.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <AnchorPane prefHeight="227.0" prefWidth="1138.0">
-                                       <children>
-                                          <Label layoutX="51.0" layoutY="12.0" text="First Name" />
-                                          <Label layoutX="51.0" layoutY="106.0" text="Email" />
-                                          <Label layoutX="569.0" layoutY="12.0" text="Last Name" />
-                                          <Label layoutX="569.0" layoutY="106.0" text="Phone Number" />
-                                          <TextField fx:id="txtFirstName" layoutX="51.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="First" />
-                                          <TextField fx:id="txtLastName" layoutX="569.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="Last" />
-                                          <TextField fx:id="txtEmail" layoutX="51.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Email" />
-                                          <TextField layoutX="569.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Phone" />
-                                          <Button fx:id="btnPrint" layoutX="1039.0" layoutY="177.0" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Print" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="btnEmail" layoutX="911.0" layoutY="177.0" onAction="#onbtnEmailclick" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Email" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </Pane>
-                        <Pane fx:id="customPane11" prefHeight="293.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
-                           <children>
-                              <VBox prefHeight="286.0" prefWidth="1138.0">
-                                 <children>
-                                    <HBox prefHeight="34.0" prefWidth="460.0" spacing="915.0">
-                                       <children>
-                                          <Label prefHeight="67.0" prefWidth="157.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Showing" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <VBox fx:id="vbxTicketTypes" prefHeight="235.0" prefWidth="1138.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </Pane>
-                        <Pane fx:id="customPane111" prefHeight="325.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
-                           <children>
-                              <VBox prefHeight="326.0" prefWidth="1138.0">
-                                 <children>
-                                    <HBox prefHeight="34.0" prefWidth="460.0" spacing="800.0">
-                                       <children>
-                                          <Label prefHeight="67.0" prefWidth="272.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Ticket Preview" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <AnchorPane prefHeight="267.0" prefWidth="1138.0">
-                                       <children>
-                                          <Pane prefHeight="204.0" prefWidth="614.0" style="-fx-border-color: black; -fx-border-radius: 8;">
+                                          <HBox prefHeight="34.0" prefWidth="460.0" spacing="915.0">
                                              <children>
-                                                <ImageView fx:id="imvQrPreview" fitHeight="155.0" fitWidth="155.0" layoutX="395.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
-                                                <Label fx:id="lblEventTitle" layoutX="12.0" layoutY="11.0" prefHeight="21.0" prefWidth="180.0" text="EventTitle">
+                                                <Label prefHeight="67.0" prefWidth="157.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Customer" />
+                                                <Button fx:id="btnClear" prefHeight="50.0" prefWidth="54.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Clear" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </HBox.margin>
                                                    <font>
-                                                      <Font name="System Bold" size="15.0" />
+                                                      <Font name="System Bold" size="30.0" />
                                                    </font>
-                                                </Label>
-                                                <Label fx:id="lblEventStartDate" layoutX="22.0" layoutY="41.0" text="July 15, 2025" />
-                                                <Label fx:id="lblEventEndDate" layoutX="22.0" layoutY="59.0" text="Event End Date" />
-                                                <Label fx:id="lblEventStartTime" layoutX="135.0" layoutY="41.0" text="11:00 PM" />
-                                                <Label fx:id="lblEventLocation" layoutX="268.0" layoutY="41.0" prefHeight="17.0" prefWidth="126.0" text="Event Location" />
-                                                <Label fx:id="lblEventEndTime" layoutX="135.0" layoutY="59.0" text="Event End Time" />
-                                                <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="363.0" text="Event Description" wrapText="true" />
-                                                <ImageView fx:id="imvCalenderPreview" fitHeight="16.0" fitWidth="16.0" layoutX="4.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
-                                                <ImageView fx:id="imvTimePreview" fitHeight="16.0" fitWidth="16.0" layoutX="117.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
-                                                <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                                </Button>
                                              </children>
-                                          </Pane>
-                                          <CheckBox fx:id="chbOneFreeBeer" layoutX="906.0" layoutY="32.0" mnemonicParsing="false" onAction="#HandleOneFreeBeer" text="One Beer - 25 kr." />
-                                          <CheckBox fx:id="chb50OffOneDrink" layoutX="906.0" layoutY="79.0" mnemonicParsing="false" onAction="#Handle50OffOneDrink" text="50% Off One Drink - 15 kr." />
-                                          <CheckBox fx:id="chb1SetOfEarplugs" layoutX="906.0" layoutY="130.0" mnemonicParsing="false" onAction="#Handle1SetOfFreeEarplugs" text="1 Set Of Earplugs - 20 kr." />
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <AnchorPane prefHeight="227.0" prefWidth="1138.0">
+                                             <children>
+                                                <Label layoutX="51.0" layoutY="12.0" text="First Name" />
+                                                <Label layoutX="51.0" layoutY="106.0" text="Email" />
+                                                <Label layoutX="569.0" layoutY="12.0" text="Last Name" />
+                                                <Label layoutX="569.0" layoutY="106.0" text="Phone Number" />
+                                                <TextField fx:id="txtFirstName" layoutX="51.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="First" />
+                                                <TextField fx:id="txtLastName" layoutX="569.0" layoutY="31.0" prefHeight="47.0" prefWidth="427.0" promptText="Last" />
+                                                <TextField fx:id="txtEmail" layoutX="51.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Email" />
+                                                <TextField layoutX="569.0" layoutY="123.0" prefHeight="47.0" prefWidth="427.0" promptText="Phone" />
+                                                <Button fx:id="btnPrint" layoutX="1039.0" layoutY="177.0" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Print" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnEmail" layoutX="911.0" layoutY="177.0" onAction="#onbtnEmailclick" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" text="Email" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </VBox>
                                  </children>
-                              </VBox>
+                              </Pane>
+                              <Pane fx:id="customPane11" prefHeight="293.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+                                 <children>
+                                    <VBox prefHeight="286.0" prefWidth="1138.0">
+                                       <children>
+                                          <HBox prefHeight="34.0" prefWidth="460.0" spacing="915.0">
+                                             <children>
+                                                <Label prefHeight="67.0" prefWidth="157.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Showing" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <VBox fx:id="vbxTicketTypes" prefHeight="235.0" prefWidth="1138.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="customPane111" prefHeight="325.0" prefWidth="1136.0" style="-fx-background-color: #FFF; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
+                                 <children>
+                                    <VBox prefHeight="326.0" prefWidth="1138.0">
+                                       <children>
+                                          <HBox prefHeight="34.0" prefWidth="460.0" spacing="800.0">
+                                             <children>
+                                                <Label prefHeight="67.0" prefWidth="272.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Ticket Preview" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <AnchorPane prefHeight="267.0" prefWidth="1138.0">
+                                             <children>
+                                                <Pane prefHeight="204.0" prefWidth="614.0" style="-fx-border-color: black; -fx-border-radius: 8;">
+                                                   <children>
+                                                      <ImageView fx:id="imvQrPreview" fitHeight="155.0" fitWidth="155.0" layoutX="395.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <Label fx:id="lblEventTitle" layoutX="12.0" layoutY="11.0" prefHeight="21.0" prefWidth="180.0" text="EventTitle">
+                                                         <font>
+                                                            <Font name="System Bold" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblEventStartDate" layoutX="22.0" layoutY="41.0" text="July 15, 2025" />
+                                                      <Label fx:id="lblEventEndDate" layoutX="22.0" layoutY="59.0" text="Event End Date" />
+                                                      <Label fx:id="lblEventStartTime" layoutX="135.0" layoutY="41.0" text="11:00 PM" />
+                                                      <Label fx:id="lblEventLocation" layoutX="268.0" layoutY="41.0" prefHeight="17.0" prefWidth="126.0" text="Event Location" />
+                                                      <Label fx:id="lblEventEndTime" layoutX="135.0" layoutY="59.0" text="Event End Time" />
+                                                      <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="363.0" text="Event Description" wrapText="true" />
+                                                      <ImageView fx:id="imvCalenderPreview" fitHeight="16.0" fitWidth="16.0" layoutX="4.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="imvTimePreview" fitHeight="16.0" fitWidth="16.0" layoutX="117.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                </Pane>
+                                                <CheckBox fx:id="chbOneFreeBeer" layoutX="906.0" layoutY="32.0" mnemonicParsing="false" onAction="#HandleOneFreeBeer" text="One Beer - 25 kr." />
+                                                <CheckBox fx:id="chb50OffOneDrink" layoutX="906.0" layoutY="79.0" mnemonicParsing="false" onAction="#Handle50OffOneDrink" text="50% Off One Drink - 15 kr." />
+                                                <CheckBox fx:id="chb1SetOfEarplugs" layoutX="906.0" layoutY="130.0" mnemonicParsing="false" onAction="#Handle1SetOfFreeEarplugs" text="1 Set Of Earplugs - 20 kr." />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
                            </children>
-                        </Pane>
+                           <padding>
+                              <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+                           </padding>
+                        </FlowPane>
                      </children>
-                     <padding>
-                        <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
-                     </padding>
-                  </FlowPane>
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
    </left>
 </BorderPane>
