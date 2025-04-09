@@ -12,30 +12,18 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
+import dk.easv.ticket_system.BE.Event;
 import javafx.scene.control.Cell;
 
 import java.io.File;
 
 
 public class PDFHandler {
-    /**
-     * Demo method that creates a simple empty PDF file.
-     * This demonstrates basic PDF creation functionality using iText.
-     * Creates a new PDF document, adds a page, and saves it to the resources directory.
-     *
-     * @param args Command line arguments (not used)
-     * @throws Exception If there's an error during PDF creation or file writing
-     */
-    public static void main(String args[]) throws Exception {
-        // Creating a PdfWriter
-        String dest = "Ticket_System/src/main/resources/PDFs/sample.pdf";
-        PdfWriter writer = new PdfWriter(dest);
-    public static void createPDF(String filepath, String QRCodePath) throws Exception {
+    public static void createPDF(String filepath, String QRCodePath, Event event) throws Exception {
         File file = new File(filepath);
         file.getParentFile().mkdirs();
         PdfWriter writer = new PdfWriter(String.valueOf(file));
@@ -43,17 +31,25 @@ public class PDFHandler {
         Document document = new Document(pdf, PageSize.A4);
         pdf.addNewPage();
 
-            // Creating a PdfDocument
-            PdfDocument pdfDoc = new PdfDocument(writer);
 
         Image qrImage = new Image(ImageDataFactory.create(QRCodePath)).setWidth(150).setHeight(150);
+        String eventTitle = event.geteventTitle();
+        String eventDescription = event.geteventDescription();
+        String eventStartDate = event.geteventStartDate().toString();
+        String eventStartTime = event.geteventStartTime();
+        String eventEndTime = event.geteventEndTime();
+        String eventEndDate = event.getEventEndDate().toString();
+        String eventLocation = event.getLocation();
         document.add(qrImage);
+        document.add(new Paragraph(eventTitle));
+        document.add(new Paragraph(eventDescription));
+        document.add(new Paragraph("Start time: " + eventStartDate + " " + eventStartTime));
+        document.add(new Paragraph("End time: " + eventEndDate + " " + eventEndTime));
+        document.add(new Paragraph(eventLocation));
 
-            // Creating a Document
-            Document document = new Document(pdfDoc);
 
-            // Closing the document
-            document.close();
-            System.out.println("PDF Created");
-        }
+        // Closing the document
+        document.close();
+        System.out.println("PDF Created");
     }
+}

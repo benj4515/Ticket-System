@@ -65,16 +65,13 @@ public class CEventDetailsController {
     public ImageView imvCalenderPreview1;
     public ImageView imvTimePreview1;
     public ImageView imvLocationPreview1;
+
+
+
     private Event event;
     private TicketTypeModel ticketTypeModel;
-
     private Map<Integer, Integer> ticketCounts = new HashMap<>();
 
-
-    // Data and state objects
-    private Event event;                     // The event being displayed
-    private TicketTypeModel ticketTypeModel; // Model for accessing ticket type data
-    private Map<Integer, Integer> ticketCounts = new HashMap<>();  // Tracks quantity of each selected ticket type
 
     /**
      * Constructs the controller and initializes the ticket type model.
@@ -121,7 +118,6 @@ public class CEventDetailsController {
         // Load and set images for the event display
         imvEventImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
-        imvBarPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/barcodePreview.png"))));
 
 
         // Load and set icons for the first set of labels

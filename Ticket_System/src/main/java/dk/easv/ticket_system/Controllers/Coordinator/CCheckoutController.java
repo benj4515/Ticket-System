@@ -53,11 +53,19 @@ public class CCheckoutController {
     @FXML
     private TextField txtEmail;               // Field for entering recipient email address
     @FXML
-    private Button btnEmail;                  // Button to trigger email sending
+    private Button btnEmail;    // Button to trigger email sending
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtLastName;
+
 
     private CEventDetailsController cEventDetailsController;  // Reference to the event details controller (unused)
     private EmailHandler emailHandler;        // Utility for handling email operations (unused)
-    private String Toemail;                   // Stores the validated recipient email address
+    private String Toemail;
+    private Event event;
+    private String customerName;
+    // Stores the validated recipient email address
 
     /**
      * Default constructor for the checkout controller.
@@ -75,7 +83,11 @@ public class CCheckoutController {
             this.Toemail = inputEmail;
         }
     }
-
+    public void setCustomerName() {
+        String inputCustomerName = txtFirstName.getText() + " " + txtLastName.getText();
+        this.customerName = inputCustomerName;
+    }
+    public String getCustomerName() {return customerName;}
     /**
      * Returns the currently set recipient email address.
      *
@@ -96,6 +108,7 @@ public class CCheckoutController {
     @FXML
     private void onbtnEmailclick (ActionEvent actionEvent) throws Exception {
         setEmail();
+        setCustomerName();
 
         String rndString = generateRandomString();
         String qrFilePath = "Ticket_System/src/main/resources/PDFImages/" + rndString + "_qr.PNG";
@@ -107,17 +120,14 @@ public class CCheckoutController {
 
         String ticketPath = "Ticket_System/src/main/resources/PDFs/" + rndString + ".pdf";
 
-        PDFHandler.createPDF(ticketPath,qrFilePath);
+        PDFHandler.createPDF(ticketPath,qrFilePath, event);
 
         // Forsøg at sende emailen
         // Attempt to send the email with a PDF attachment
-        new EmailHandler().send("EventHub ticket", """
-                    Dear reader,
+        new EmailHandler().send("Your tickets for " + event.geteventTitle() + " is here", "Hello " + getCustomerName() + "\nYour ticket is attached down bellow" + "\nBest regards EventHub", new File(ticketPath), getEmail());
 
-                    Hello world
-                    Best regards,
-                    EventHub
-                    """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"), getEmail());
+        new File(qrFilePath).delete();
+        new File(ticketPath).delete();
     }
 
     /**
@@ -125,7 +135,7 @@ public class CCheckoutController {
      * Loads and displays the ticket preview image.
      */
     public void initialize() {
-        imvTicketPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/RealTicketPreview.png"))));
+
     }
 
     /**
@@ -163,6 +173,7 @@ public class CCheckoutController {
     }
 
     public void setSelectedEvent(Event event){
+        this.event = event;
         lblEventTitle.setText(event.geteventTitle());
         lblEventStartDate.setText(event.geteventStartDate().toString());
         lblEventEndDate.setText(event.getEventEndDate().toString());
