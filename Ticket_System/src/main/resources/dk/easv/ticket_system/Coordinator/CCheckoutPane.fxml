@@ -95,7 +95,25 @@
                         </HBox>
                         <AnchorPane prefHeight="267.0" prefWidth="1138.0">
                            <children>
-                              <ImageView fx:id="imvTicketPreview" fitHeight="246.0" fitWidth="789.0" layoutX="4.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+                              <Pane prefHeight="204.0" prefWidth="614.0" style="-fx-border-color: black; -fx-border-radius: 8;">
+                                 <children>
+                                    <ImageView fx:id="imvQrPreview" fitHeight="155.0" fitWidth="155.0" layoutX="395.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label fx:id="lblEventTitle" layoutX="12.0" layoutY="11.0" prefHeight="21.0" prefWidth="180.0" text="EventTitle">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblEventStartDate" layoutX="22.0" layoutY="41.0" text="July 15, 2025" />
+                                    <Label fx:id="lblEventEndDate" layoutX="22.0" layoutY="59.0" text="Event End Date" />
+                                    <Label fx:id="lblEventStartTime" layoutX="135.0" layoutY="41.0" text="11:00 PM" />
+                                    <Label fx:id="lblEventLocation" layoutX="268.0" layoutY="41.0" prefHeight="17.0" prefWidth="126.0" text="Event Location" />
+                                    <Label fx:id="lblEventEndTime" layoutX="135.0" layoutY="59.0" text="Event End Time" />
+                                    <Label fx:id="lblEventDescription" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="363.0" text="Event Description" wrapText="true" />
+                                    <ImageView fx:id="imvCalenderPreview" fitHeight="16.0" fitWidth="16.0" layoutX="4.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="imvTimePreview" fitHeight="16.0" fitWidth="16.0" layoutX="117.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
                               <CheckBox layoutX="906.0" layoutY="32.0" mnemonicParsing="false" onAction="#HandleOneFreeBeer" text="One Free Beer - 25 kr." />
                               <CheckBox layoutX="906.0" layoutY="79.0" mnemonicParsing="false" onAction="#Handle50OffOneDrink" text="50% Off One Drink - 15 kr." />
                               <CheckBox layoutX="906.0" layoutY="130.0" mnemonicParsing="false" onAction="#Handle1SetOfFreeEarplugs" text="1 Set Of Free Earplugs - 20 kr." />

@@ -36,45 +36,40 @@ import java.util.Objects;
 
 public class CEventDetailsController {
 
-    // Navigation and action buttons
-    public Button btnEditEvent;              // Button to open the event edit form
-    public Button btnBackToEvents;           // Button to return to events list
-    public Button btnAddToCheckout;          // Button to proceed to checkout with selected tickets
 
-    // Event details labels - first set (possibly for main display)
-    public Label lblEventTitle1;             // Main display of event title
-    public Label lblEventStartDate1;         // Main display of event start date
-    public Label lblEventEndDate1;           // Main display of event end date
-    public Label lblEventStartTime1;         // Main display of event start time
-    public Label lblEventEndTime1;           // Main display of event end time
-    public Label lblEventLocation1;          // Main display of event location
-    public Label lblEventDescription1;       // Main display of event description
+    public Button btnEditEvent;
+    public Label lblEventTitle1;
+    public Label lblEventStartDate1;
+    public Label lblEventEndDate1;
+    public Label lblEventStartTime1;
+    public Label lblEventLocation1;
+    public Label lblEventDescription1;
+    public Label lblEventTitle;
+    public Label lblEventStartDate;
+    public Label lblEventEndDate;
+    public Label lblEventStartTime;
+    public Label lblEventLocation;
+    public Label lblEventDescription;
+    public Label lblEventEndTime1;
+    public Label lblEventEndTime;
+    public VBox vbxTicketTypes;
+    public ImageView imvQrPreview;
+    public ImageView imvEventImage;
+    public Button btnBackToEvents;
+    public AnchorPane apPane;
+    public Button btnAddToCheckout;
+    public ImageView imvBarPreview;
+    public ImageView imvCalenderPreview;
+    public ImageView imvTimePreview;
+    public ImageView imvLocationPreview;
+    public ImageView imvCalenderPreview1;
+    public ImageView imvTimePreview1;
+    public ImageView imvLocationPreview1;
+    private Event event;
+    private TicketTypeModel ticketTypeModel;
 
-    // Event details labels - second set (possibly for secondary display)
-    public Label lblEventTitle;              // Secondary display of event title
-    public Label lblEventStartDate;          // Secondary display of event start date
-    public Label lblEventEndDate;            // Secondary display of event end date
-    public Label lblEventStartTime;          // Secondary display of event start time
-    public Label lblEventEndTime;            // Secondary display of event end time
-    public Label lblEventLocation;           // Secondary display of event location
-    public Label lblEventDescription;        // Secondary display of event description
+    private Map<Integer, Integer> ticketCounts = new HashMap<>();
 
-    // Container for ticket types
-    public VBox vbxTicketTypes;              // Vertical container for displaying ticket types
-
-    // Visual elements and icons
-    public ImageView imvQrPreview;           // Preview of QR code for event/tickets
-    public ImageView imvEventImage;          // Event promotional image
-    public ImageView imvBarPreview;          // Preview of barcode for event/tickets
-    public ImageView imvCalenderPreview;     // Calendar icon for the first set of labels
-    public ImageView imvTimePreview;         // Time icon for the first set of labels
-    public ImageView imvLocationPreview;     // Location icon for the first set of labels
-    public ImageView imvCalenderPreview1;    // Calendar icon for the second set of labels
-    public ImageView imvTimePreview1;        // Time icon for the second set of labels
-    public ImageView imvLocationPreview1;    // Location icon for the second set of labels
-
-    // Layout container
-    public AnchorPane apPane;                // Main container for the event details view
 
     // Data and state objects
     private Event event;                     // The event being displayed
@@ -128,6 +123,7 @@ public class CEventDetailsController {
         imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
         imvBarPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/barcodePreview.png"))));
 
+
         // Load and set icons for the first set of labels
         imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
         imvTimePreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
@@ -145,7 +141,7 @@ public class CEventDetailsController {
 
     /**
      * Handles the Edit Event button click.
-     * Opens a modal dialog with the event editing form and passes 
+     * Opens a modal dialog with the event editing form and passes
      * the current event data to be modified.
      *
      * @param actionEvent The action event
@@ -289,6 +285,7 @@ public class CEventDetailsController {
             Parent root = loader.load();
             CCheckoutController controller = loader.getController();
             controller.setSelectedTickets(selectedTickets);
+            controller.setSelectedEvent(event);
 
             // Replace current content with checkout view
             apPane.getChildren().clear();

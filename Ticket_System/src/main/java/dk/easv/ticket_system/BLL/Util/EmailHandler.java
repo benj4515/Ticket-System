@@ -133,7 +133,7 @@ public class EmailHandler{
         mimeBodyPart = new MimeBodyPart();
         DataSource source = new FileDataSource(attachment);
         mimeBodyPart.setDataHandler(new DataHandler(source));
-        mimeBodyPart.setFileName("sample.pdf");
+        mimeBodyPart.setFileName("ticket.pdf");
         multipart.addBodyPart(mimeBodyPart);
         email.setContent(multipart);
 
