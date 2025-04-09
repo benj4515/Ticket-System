@@ -51,7 +51,6 @@ public class CEventDetailsController {
     public Button btnBackToEvents;
     public AnchorPane apPane;
     public Button btnAddToCheckout;
-    public ImageView imvBarPreview;
     public ImageView imvCalenderPreview;
     public ImageView imvTimePreview;
     public ImageView imvLocationPreview;
@@ -94,7 +93,7 @@ public class CEventDetailsController {
         // Set the image for the event
         imvEventImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
-        imvBarPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/barcodePreview.png"))));
+
 
         imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
         imvTimePreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
@@ -213,6 +212,7 @@ public class CEventDetailsController {
             Parent root = loader.load();
             CCheckoutController controller = loader.getController();
             controller.setSelectedTickets(selectedTickets);
+            controller.setSelectedEvent(event);
             apPane.getChildren().clear();
             apPane.getChildren().add(root);
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package dk.easv.ticket_system.Controllers.Coordinator;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EmailHandler;
 import dk.easv.ticket_system.BLL.Util.QRImageUtil;
@@ -30,6 +31,17 @@ public class CCheckoutController {
 
     public ImageView imvTicketPreview;
     public VBox vbxTicketTypes;
+    public Label lblEventStartDate;
+    public Label lblEventEndDate;
+    public Label lblEventStartTime;
+    public Label lblEventLocation;
+    public Label lblEventEndTime;
+    public Label lblEventDescription;
+    public ImageView imvCalenderPreview;
+    public ImageView imvTimePreview;
+    public ImageView imvLocationPreview;
+    public ImageView imvQrPreview;
+    public Label lblEventTitle;
     @FXML
     private FlowPane flowPane;
     @FXML
@@ -82,7 +94,7 @@ public class CCheckoutController {
 
     }
     public void initialize(){
-        imvTicketPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/RealTicketPreview.png"))));
+        
     }
 
     public void setSelectedTickets(ObservableList<TicketType> selectedTickets) {
@@ -103,6 +115,22 @@ public class CCheckoutController {
             AnchorPane.setLeftAnchor(labelEmail1, 68.0);
             pane.getChildren().add(anchorPaneUser1);
         }
+    }
+
+    public void setSelectedEvent(Event event){
+        lblEventTitle.setText(event.geteventTitle());
+        lblEventStartDate.setText(event.geteventStartDate().toString());
+        lblEventEndDate.setText(event.getEventEndDate().toString());
+        lblEventStartTime.setText(event.geteventStartTime());
+        lblEventLocation.setText(event.getLocation());
+        lblEventDescription.setText(event.geteventDescription());
+        lblEventEndTime.setText(event.geteventEndTime());
+
+        imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
+        imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
+        imvTimePreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
+        imvLocationPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Location.png"))));
+
     }
 
     public void HandleOneFreeBeer(ActionEvent actionEvent) {

@@ -48,7 +48,6 @@
                   <Label fx:id="lblEventLocation1" layoutX="268.0" layoutY="41.0" prefHeight="17.0" prefWidth="126.0" text="Event Location" />
                   <Label fx:id="lblEventEndTime1" layoutX="135.0" layoutY="59.0" text="Event End Time" />
                   <Label fx:id="lblEventDescription1" alignment="TOP_LEFT" layoutX="5.0" layoutY="77.0" prefHeight="91.0" prefWidth="363.0" text="Event Description" wrapText="true" />
-                  <ImageView fx:id="imvBarPreview" fitHeight="196.0" fitWidth="42.0" layoutX="565.0" layoutY="4.0" pickOnBounds="true" />
                   <ImageView fx:id="imvCalenderPreview" fitHeight="16.0" fitWidth="16.0" layoutX="4.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imvTimePreview" fitHeight="16.0" fitWidth="16.0" layoutX="117.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
