@@ -67,7 +67,7 @@ public class CCheckoutController {
 
         ImageIO.write(qrImage, "PNG", new File(qrFilePath));
 
-        String ticketPath = "target/PDFs/" + rndString + ".pdf";
+        String ticketPath = "Ticket_System/src/main/resources/PDFs/" + rndString + ".pdf";
 
         PDFHandler.createPDF(ticketPath,qrFilePath);
 
@@ -78,7 +78,7 @@ public class CCheckoutController {
                     Hello world
                     Best regards,
                     EventHub
-                    """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"), getEmail());
+                    """, new File(ticketPath), getEmail());
 
     }
     public void initialize(){
