@@ -94,9 +94,22 @@ public class CCheckoutController {
      * @throws Exception If there is an error sending the email
      */
     @FXML
-    private void onbtnEmailclick(ActionEvent actionEvent) throws Exception {
+    private void onbtnEmailclick (ActionEvent actionEvent) throws Exception {
         setEmail();
 
+        String rndString = generateRandomString();
+        String qrFilePath = "Ticket_System/src/main/resources/PDFImages/" + rndString + "_qr.PNG";
+
+
+        BufferedImage qrImage = QRImageUtil.generateQRCode(rndString, 150, 150);
+
+        ImageIO.write(qrImage, "PNG", new File(qrFilePath));
+
+        String ticketPath = "Ticket_System/src/main/resources/PDFs/" + rndString + ".pdf";
+
+        PDFHandler.createPDF(ticketPath,qrFilePath);
+
+        // Forsøg at sende emailen
         // Attempt to send the email with a PDF attachment
         new EmailHandler().send("EventHub ticket", """
                     Dear reader,
@@ -191,5 +204,19 @@ public class CCheckoutController {
      * @param actionEvent The triggering action event
      */
     public void Handle1SetOfFreeEarplugs(ActionEvent actionEvent) {
+    }
+
+    public static String generateRandomString() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        int length = random.nextInt(30) + 15;
+        StringBuilder randomString = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            randomString.append(characters.charAt(index));
+        }
+        return length + "abc" + randomString.toString();
+
     }
 }
