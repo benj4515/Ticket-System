@@ -12,18 +12,26 @@ import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import java.io.IOException;
 
 public class AFrameController {
     private static final Logger log = LoggerFactory.getLogger(AFrameController.class);
+    Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));  // Application icon
+
     @FXML
     public Pane pnePane;                 // Main content pane for loading different views
     @FXML
@@ -85,5 +93,24 @@ public class AFrameController {
         pnePane.getChildren().setAll(pane);
         apnUser.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
         lblUser.setStyle("-fx-text-fill: #1D4ED8");
+    }
+
+    @FXML
+    public void onHandleLogOut(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Login.fxml"));
+        try {
+            Parent scene = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Login");
+            stage.getIcons().add(icon);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage currentStage = (Stage) btnUserManagement.getScene().getWindow();
+        currentStage.close();
     }
 }
