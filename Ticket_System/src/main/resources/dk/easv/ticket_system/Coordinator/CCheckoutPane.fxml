@@ -114,9 +114,9 @@
                                     <ImageView fx:id="imvLocationPreview" fitHeight="16.0" fitWidth="16.0" layoutX="251.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
-                              <CheckBox layoutX="906.0" layoutY="32.0" mnemonicParsing="false" onAction="#HandleOneFreeBeer" text="One Free Beer - 25 kr." />
-                              <CheckBox layoutX="906.0" layoutY="79.0" mnemonicParsing="false" onAction="#Handle50OffOneDrink" text="50% Off One Drink - 15 kr." />
-                              <CheckBox layoutX="906.0" layoutY="130.0" mnemonicParsing="false" onAction="#Handle1SetOfFreeEarplugs" text="1 Set Of Free Earplugs - 20 kr." />
+                              <CheckBox fx:id="chbOneFreeBeer" layoutX="906.0" layoutY="32.0" mnemonicParsing="false" onAction="#HandleOneFreeBeer" text="One Beer - 25 kr." />
+                              <CheckBox fx:id="chb50OffOneDrink" layoutX="906.0" layoutY="79.0" mnemonicParsing="false" onAction="#Handle50OffOneDrink" text="50% Off One Drink - 15 kr." />
+                              <CheckBox fx:id="chb1SetOfEarplugs" layoutX="906.0" layoutY="130.0" mnemonicParsing="false" onAction="#Handle1SetOfFreeEarplugs" text="1 Set Of Earplugs - 20 kr." />
                            </children>
                         </AnchorPane>
                      </children>

@@ -59,6 +59,7 @@ public class AFrameController {
      * Creates a new UserModel instance for user data operations.
      */
     public void initialize() {
+        imgUserIcon.setImage(new Image(getClass().getResourceAsStream("/Images/person.png")));
         try {
             userModel = new UserModel();
         } catch (Exception e) {

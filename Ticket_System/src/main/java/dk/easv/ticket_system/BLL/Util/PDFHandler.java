@@ -6,28 +6,23 @@
 package dk.easv.ticket_system.BLL.Util;
 
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Cell;
-import com.itextpdf.layout.element.*;
-import javafx.scene.control.Separator;
+import javafx.scene.control.CheckBox;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class PDFHandler {
-    public static void createPDF(String filepath, String QRCodePath, Event event, ObservableList<TicketType> selectedTickets) throws Exception {
+    public static void createPDF(String filepath, String QRCodePath, Event event, ObservableList<TicketType> selectedTickets, ArrayList<CheckBox> selectedUniversalTickets) throws Exception {
         File file = new File(filepath);
         file.getParentFile().mkdirs();
         PdfWriter writer = new PdfWriter(String.valueOf(file));
@@ -43,6 +38,12 @@ public class PDFHandler {
             
             document.add(new Paragraph("Ticket Type: " + ticketType.getTicketDescription()));
             document.add(new Paragraph("Price: " + ticketType.getTicketPrice() + " DKK"));
+        }
+
+        for(CheckBox checkBox : selectedUniversalTickets) {
+            if(checkBox.isSelected()) {
+                document.add(new Paragraph("Universal Ticket: " + checkBox.getText()).setFontSize(14).setBold());
+            }
         }
 
 

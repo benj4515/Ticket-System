@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="600.0" style="-fx-background-color: #D9D9D9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.ACreateUserController">
@@ -22,14 +22,11 @@
             <Font size="22.0" />
          </font>
       </TextField>
-      <Circle fill="#009fda" layoutX="600.0" layoutY="400.0" radius="136.0" stroke="BLACK" strokeType="INSIDE" style="-fx-stroke-width: 0;" />
       <Label fx:id="lblLoginError" layoutX="41.0" layoutY="295.0" prefHeight="35.0" prefWidth="369.0">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <SVGPath content="M6.64561 46.4137L39.7843 13.275L59.7261 33.2168L33.2153 59.7277L26.5682 53.0806L53.0791 26.5698L46.4315 19.9222L13.2928 53.0609L33.2334 73.0015L72.9999 33.235L39.7651 0.000132922L-0.00141939 39.7666L6.64561 46.4137Z" fill="#d9d9d9" layoutX="523.0" layoutY="276.0" />
-      <SVGPath content="M33.2349 72.2935L72.0408 33.4875L65.3949 26.8415L33.1944 59.042L26.5463 52.3939L19.8992 45.7469L13.252 39.0996L38.8472 13.5044L45.4945 20.1516L19.8992 45.7469L26.5463 52.3939L58.7468 20.1934L38.806 0.252668L4.54534e-05 39.0586L33.2349 72.2935Z" fill="#d9d9d9" layoutX="476.0" layoutY="324.0" />
       <Button fx:id="btnCancel" layoutX="227.0" layoutY="340.0" onAction="#handleCancel" prefHeight="56.0" prefWidth="145.0" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-radius: 6;" text="Cancel">
          <font>
             <Font size="25.0" />
@@ -58,5 +55,10 @@
          </font>
       </TextField>
       <CheckBox layoutX="450.0" layoutY="190.0" mnemonicParsing="false" onAction="#HandleShowPassowrd" text="Show Password" />
+      <ImageView fitHeight="67.0" fitWidth="162.0" layoutX="424.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Images/Group16.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -43,6 +43,7 @@ public class AUserController {
     public Label lblCoordinatorsAmount;        // Label to display the number of coordinators assigned
     public Label lblEventAssignees;            // Label to display the names of assigned coordinators
     public Label lblRemoveAssignee;            // Label that acts as a button to remove an assignee
+    public ImageView imgCreateUser;
     @FXML
     private FlowPane flowPane;                 // Main container for the UI
     private UserModel userModel;               // Model for user data management
@@ -117,6 +118,7 @@ public class AUserController {
      */
     @FXML
     public void initialize() {
+        imgCreateUser.setImage(new Image(getClass().getResourceAsStream("/Images/person_add.png")));
         showUserList();
         showEventList();
 

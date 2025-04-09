@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,6 +30,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -48,6 +51,9 @@ public class CCheckoutController {
     public ImageView imvLocationPreview;
     public ImageView imvQrPreview;
     public Label lblEventTitle;
+    public CheckBox chbOneFreeBeer;
+    public CheckBox chb50OffOneDrink;
+    public CheckBox chb1SetOfEarplugs;
     @FXML
     private FlowPane flowPane;                // Main layout container (unused)
     @FXML
@@ -66,6 +72,7 @@ public class CCheckoutController {
     private Event event;
     private String customerName;
     private ObservableList<TicketType> selectedTickets; // List of selected ticket types
+    private ArrayList<CheckBox> selectedUniversalTickets;
     // Stores the validated recipient email address
 
     /**
@@ -106,8 +113,11 @@ public class CCheckoutController {
      * @param actionEvent The triggering action event
      * @throws Exception If there is an error sending the email
      */
+
+
     @FXML
     private void onbtnEmailclick (ActionEvent actionEvent) throws Exception {
+        getSelectedUniversalTickets();
         setEmail();
         setCustomerName();
 
@@ -121,7 +131,7 @@ public class CCheckoutController {
 
         String ticketPath = "Ticket_System/src/main/resources/PDFs/" + rndString + ".pdf";
 
-        PDFHandler.createPDF(ticketPath,qrFilePath, event, selectedTickets);
+        PDFHandler.createPDF(ticketPath,qrFilePath, event, selectedTickets, selectedUniversalTickets);
 
         // Forsøg at sende emailen
         // Attempt to send the email with a PDF attachment
@@ -206,6 +216,21 @@ public class CCheckoutController {
 
     public void Handle1SetOfFreeEarplugs(ActionEvent actionEvent) {
     }
+
+    public void getSelectedUniversalTickets() {
+        ArrayList<CheckBox> selectedUniversalTickets = new ArrayList<>();
+        if (chbOneFreeBeer.isSelected()) {
+            selectedUniversalTickets.add(chbOneFreeBeer);
+        }
+        if (chb50OffOneDrink.isSelected()) {
+            selectedUniversalTickets.add(chb50OffOneDrink);
+        }
+        if (chb1SetOfEarplugs.isSelected()) {
+            selectedUniversalTickets.add(chb1SetOfEarplugs);
+        }
+        this.selectedUniversalTickets = selectedUniversalTickets;
+    }
+
 
     public static String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -71,6 +71,8 @@ public class CFrameController {
      * Sets up the user model for data access.
      */
     public void initialize() {
+        imgUserIcon.setImage(new Image(getClass().getResourceAsStream("/Images/person.png")));
+        imgEventIcon.setImage(new Image(getClass().getResourceAsStream("/Images/celebration.png")));
         try {
             userModel = new UserModel();
         } catch (Exception e) {
@@ -88,8 +90,7 @@ public class CFrameController {
         lblUser.setStyle("-fx-text-fill: black");
         apnEvent.setStyle("-fx-background-color: white");
         lblEvent.setStyle("-fx-text-fill: black");
-        apnCheckout.setStyle("-fx-background-color: white");
-        lblCheckout.setStyle("-fx-text-fill: black");
+
     }
 
     /**
