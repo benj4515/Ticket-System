@@ -50,6 +50,35 @@ public class CEventDetailsController {
     public Label lblEventLocation1;          // Main display of event location
     public Label lblEventDescription1;       // Main display of event description
 
+    public Button btnEditEvent;
+    public Label lblEventTitle1;
+    public Label lblEventStartDate1;
+    public Label lblEventEndDate1;
+    public Label lblEventStartTime1;
+    public Label lblEventLocation1;
+    public Label lblEventDescription1;
+    public Label lblEventTitle;
+    public Label lblEventStartDate;
+    public Label lblEventEndDate;
+    public Label lblEventStartTime;
+    public Label lblEventLocation;
+    public Label lblEventDescription;
+    public Label lblEventEndTime1;
+    public Label lblEventEndTime;
+    public VBox vbxTicketTypes;
+    public ImageView imvQrPreview;
+    public ImageView imvEventImage;
+    public Button btnBackToEvents;
+    public AnchorPane apPane;
+    public Button btnAddToCheckout;
+    public ImageView imvCalenderPreview;
+    public ImageView imvTimePreview;
+    public ImageView imvLocationPreview;
+    public ImageView imvCalenderPreview1;
+    public ImageView imvTimePreview1;
+    public ImageView imvLocationPreview1;
+    private Event event;
+    private TicketTypeModel ticketTypeModel;
     // Event details labels - second set (possibly for secondary display)
     public Label lblEventTitle;              // Secondary display of event title
     public Label lblEventStartDate;          // Secondary display of event start date
@@ -126,7 +155,7 @@ public class CEventDetailsController {
         // Load and set images for the event display
         imvEventImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/TechFest.png"))));
         imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
-        imvBarPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/barcodePreview.png"))));
+
 
         // Load and set icons for the first set of labels
         imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
@@ -145,7 +174,7 @@ public class CEventDetailsController {
 
     /**
      * Handles the Edit Event button click.
-     * Opens a modal dialog with the event editing form and passes 
+     * Opens a modal dialog with the event editing form and passes
      * the current event data to be modified.
      *
      * @param actionEvent The action event
@@ -289,6 +318,7 @@ public class CEventDetailsController {
             Parent root = loader.load();
             CCheckoutController controller = loader.getController();
             controller.setSelectedTickets(selectedTickets);
+            controller.setSelectedEvent(event);
 
             // Replace current content with checkout view
             apPane.getChildren().clear();

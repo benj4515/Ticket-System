@@ -6,8 +6,11 @@
  */
 package dk.easv.ticket_system.Controllers.Coordinator;
 
+import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BLL.Util.EmailHandler;
+import dk.easv.ticket_system.BLL.Util.QRImageUtil;
+import dk.easv.ticket_system.BLL.Util.PDFHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,15 +24,30 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Objects;
+import java.util.Random;
 
 public class CCheckoutController {
 
-    public ImageView imvTicketPreview;        // Displays a preview of the ticket layout
-    public VBox vbxTicketTypes;               // Container for displaying selected ticket types
+
+    public ImageView imvTicketPreview;
+    public VBox vbxTicketTypes;
+    public Label lblEventStartDate;
+    public Label lblEventEndDate;
+    public Label lblEventStartTime;
+    public Label lblEventLocation;
+    public Label lblEventEndTime;
+    public Label lblEventDescription;
+    public ImageView imvCalenderPreview;
+    public ImageView imvTimePreview;
+    public ImageView imvLocationPreview;
+    public ImageView imvQrPreview;
+    public Label lblEventTitle;
     @FXML
     private FlowPane flowPane;                // Main layout container (unused)
     @FXML
@@ -130,6 +148,22 @@ public class CCheckoutController {
 
             pane.getChildren().add(anchorPaneUser1);
         }
+    }
+
+    public void setSelectedEvent(Event event){
+        lblEventTitle.setText(event.geteventTitle());
+        lblEventStartDate.setText(event.geteventStartDate().toString());
+        lblEventEndDate.setText(event.getEventEndDate().toString());
+        lblEventStartTime.setText(event.geteventStartTime());
+        lblEventLocation.setText(event.getLocation());
+        lblEventDescription.setText(event.geteventDescription());
+        lblEventEndTime.setText(event.geteventEndTime());
+
+        imvQrPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/QrPreview.png"))));
+        imvCalenderPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Calender.png"))));
+        imvTimePreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Time.png"))));
+        imvLocationPreview.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/Location.png"))));
+
     }
 
     /**
