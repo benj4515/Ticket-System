@@ -17,19 +17,33 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import dk.easv.ticket_system.BE.Event;
+import dk.easv.ticket_system.BE.TicketType;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Cell;
+import com.itextpdf.layout.element.*;
+import javafx.scene.control.Separator;
 
 import java.io.File;
 
 
 public class PDFHandler {
-    public static void createPDF(String filepath, String QRCodePath, Event event) throws Exception {
+    public static void createPDF(String filepath, String QRCodePath, Event event, ObservableList<TicketType> selectedTickets) throws Exception {
         File file = new File(filepath);
         file.getParentFile().mkdirs();
         PdfWriter writer = new PdfWriter(String.valueOf(file));
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf, PageSize.A4);
         pdf.addNewPage();
+
+
+        document.add(new Paragraph("Ticket Confirmation:").setFontSize(20).setBold());
+        document.add(new Paragraph("Ticket Details:").setFontSize(16).setBold());
+
+        for(TicketType ticketType : selectedTickets) {
+            
+            document.add(new Paragraph("Ticket Type: " + ticketType.getTicketDescription()));
+            document.add(new Paragraph("Price: " + ticketType.getTicketPrice() + " DKK"));
+        }
 
 
         Image qrImage = new Image(ImageDataFactory.create(QRCodePath)).setWidth(150).setHeight(150);
@@ -41,6 +55,8 @@ public class PDFHandler {
         String eventEndDate = event.getEventEndDate().toString();
         String eventLocation = event.getLocation();
         document.add(qrImage);
+        document.add(new Paragraph("✂- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -").setFontSize(14).setBold());
+        document.add(new Paragraph("Event details:").setFontSize(20).setBold());
         document.add(new Paragraph(eventTitle));
         document.add(new Paragraph(eventDescription));
         document.add(new Paragraph("Start time: " + eventStartDate + " " + eventStartTime));

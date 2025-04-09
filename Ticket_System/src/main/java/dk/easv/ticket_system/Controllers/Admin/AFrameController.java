@@ -17,10 +17,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class AFrameController {
+    private static final Logger log = LoggerFactory.getLogger(AFrameController.class);
     @FXML
     public Pane pnePane;                 // Main content pane for loading different views
     @FXML
@@ -38,23 +41,7 @@ public class AFrameController {
     public AnchorPane apnUser;            // Container for user management navigation element
     public ImageView imgUserIcon;         // Icon for user management
     public Label lblUser;                 // Label for user management
-    public AnchorPane apnEvent;           // Container for event management navigation element
-    public ImageView imgEventIcon;        // Icon for event management
-    public Label lblEvent;                // Label for event management
-    public AnchorPane apnUTicket;         // Container for universal ticket navigation element
-    public ImageView imgUTicketIcon;      // Icon for universal ticket
-    public Label lblUTicket;              // Label for universal ticket
-    public AnchorPane apnCheckout;        // Container for checkout navigation element
-    public ImageView imgCheckoutIcon;      // Icon for checkout
-    public Label lblCheckout;             // Label for checkout
-    public Label lblUsername;             // Label for username display
-    public ImageView imgUser;             // User avatar image
-    public Label lblEmail;                // Label for displaying user email
-    public ImageView imgLoggedImg;        // Image for logged-in user
-    public Label lblLoggedUser;           // Label showing logged user name
-    public Label lblLoggedEmail;          // Label showing logged user email
     private UserModel userModel;          // Model for user data operations
-    private User loggedInUser;            // Reference to the currently logged-in user
 
     @FXML
     private Object parent;                // Reference to parent controller (unused)
@@ -69,17 +56,6 @@ public class AFrameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Sets the currently logged-in user and updates the UI accordingly.
-     * Displays the user's email in the appropriate label.
-     *
-     * @param user The logged-in user object
-     */
-    public void setLoggedInUser(User user) {
-        this.loggedInUser = user;
-        lblEmail.setText(user.getEmail());
     }
 
     /**

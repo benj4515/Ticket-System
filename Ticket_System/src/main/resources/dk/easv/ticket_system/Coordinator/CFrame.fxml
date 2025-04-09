@@ -83,26 +83,7 @@
             </VBox>
          </center>
          <bottom>
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 0;" BorderPane.alignment="CENTER">
-               <graphic>
-                  <AnchorPane prefHeight="48.0" prefWidth="240.0">
-                     <children>
-                        <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="-8.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label layoutX="49.0" prefHeight="19.0" prefWidth="185.0" text="Username">
-                           <font>
-                              <Font name="Inter" size="16.0" />
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="49.0" layoutY="26.0" prefHeight="19.0" prefWidth="185.0" text="Email" textFill="#4b5563">
-                           <font>
-                              <Font name="Inter" size="16.0" />
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </graphic>
+            <Button onAction="#onHandleLogOut" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 0;" BorderPane.alignment="CENTER">
             </Button>
          </bottom>
          <effect>

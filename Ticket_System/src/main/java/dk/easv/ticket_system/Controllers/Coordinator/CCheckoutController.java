@@ -65,6 +65,7 @@ public class CCheckoutController {
     private String Toemail;
     private Event event;
     private String customerName;
+    private ObservableList<TicketType> selectedTickets; // List of selected ticket types
     // Stores the validated recipient email address
 
     /**
@@ -120,7 +121,7 @@ public class CCheckoutController {
 
         String ticketPath = "Ticket_System/src/main/resources/PDFs/" + rndString + ".pdf";
 
-        PDFHandler.createPDF(ticketPath,qrFilePath, event);
+        PDFHandler.createPDF(ticketPath,qrFilePath, event, selectedTickets);
 
         // Forsøg at sende emailen
         // Attempt to send the email with a PDF attachment
@@ -146,6 +147,7 @@ public class CCheckoutController {
      * @param selectedTickets An observable list of ticket types to display
      */
     public void setSelectedTickets(ObservableList<TicketType> selectedTickets) {
+        this.selectedTickets = selectedTickets;
         System.out.println(selectedTickets + " selectedTickets");
         for (TicketType ticketType : selectedTickets) {
             // Create container for each ticket type
