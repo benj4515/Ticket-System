@@ -43,14 +43,17 @@ public class PDFHandler {
         Document document = new Document(pdf, PageSize.A4);
         pdf.addNewPage();
 
-
+            // Creating a PdfDocument
+            PdfDocument pdfDoc = new PdfDocument(writer);
 
         Image qrImage = new Image(ImageDataFactory.create(QRCodePath)).setWidth(150).setHeight(150);
         document.add(qrImage);
 
+            // Creating a Document
+            Document document = new Document(pdfDoc);
 
-        // Closing the document
-        document.close();
-        System.out.println("PDF Created");
+            // Closing the document
+            document.close();
+            System.out.println("PDF Created");
+        }
     }
-}

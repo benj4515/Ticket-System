@@ -158,7 +158,6 @@ public class CCheckoutController {
             anchorPaneUser1.getChildren().add(labelEmail1);
             AnchorPane.setTopAnchor(labelEmail1, 30.0);
             AnchorPane.setLeftAnchor(labelEmail1, 68.0);
-
             pane.getChildren().add(anchorPaneUser1);
         }
     }
@@ -188,21 +187,10 @@ public class CCheckoutController {
     public void HandleOneFreeBeer(ActionEvent actionEvent) {
     }
 
-    /**
-     * Placeholder method for handling the "50% Off One Drink" promotion.
-     * Currently not implemented.
-     *
-     * @param actionEvent The triggering action event
-     */
     public void Handle50OffOneDrink(ActionEvent actionEvent) {
+
     }
 
-    /**
-     * Placeholder method for handling the "Free Set of Earplugs" promotion.
-     * Currently not implemented.
-     *
-     * @param actionEvent The triggering action event
-     */
     public void Handle1SetOfFreeEarplugs(ActionEvent actionEvent) {
     }
 
