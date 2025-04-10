@@ -36,14 +36,6 @@ public class AFrameController {
     public Pane pnePane;                 // Main content pane for loading different views
     @FXML
     public Button btnUserManagement;      // Button for navigating to user management
-    @FXML
-    public Button btnEventManagement;     // Button for navigating to event management
-    @FXML
-    public Button btnUniversalTicket;     // Button for universal ticket operations
-    @FXML
-    public Button btnCheckout;            // Button for navigating to checkout
-    @FXML
-    public Button btnNewUser;             // Button for creating a new user
 
     @FXML
     public AnchorPane apnUser;            // Container for user management navigation element
@@ -51,8 +43,6 @@ public class AFrameController {
     public Label lblUser;                 // Label for user management
     private UserModel userModel;          // Model for user data operations
 
-    @FXML
-    private Object parent;                // Reference to parent controller (unused)
 
     /**
      * Initializes the controller state.

@@ -38,14 +38,6 @@ public class Ticket {
     }
 
     /**
-     * Sets the ticket's unique identifier.
-     * @param ticketID The new ticket ID
-     */
-    public void setTicketID(int ticketID) {
-        this.ticketID = ticketID;
-    }
-
-    /**
      * Gets the ID of the user who purchased the ticket.
      * @return The user ID
      */
@@ -53,13 +45,6 @@ public class Ticket {
         return userID;
     }
 
-    /**
-     * Sets the ID of the user who purchased the ticket.
-     * @param eventID The new user ID
-     */
-    public void setUserID(int eventID) {
-        this.userID = eventID;
-    }
 
     /**
      * Gets the ticket type ID.
@@ -69,13 +54,6 @@ public class Ticket {
         return ticketTypeID;
     }
 
-    /**
-     * Sets the ticket type ID.
-     * @param ticketTypeID The new ticket type ID
-     */
-    public void setTicketTypeID(int ticketTypeID) {
-        this.ticketTypeID = ticketTypeID;
-    }
 
     /**
      * Gets the date and time when the ticket was purchased.
@@ -85,11 +63,5 @@ public class Ticket {
         return purchaseDate;
     }
 
-    /**
-     * Sets the date and time when the ticket was purchased.
-     * @param purchaseDate The new purchase date and time
-     */
-    public void setPurchaseDate(LocalDateTime purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
+
 }

@@ -19,7 +19,6 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
-import dk.easv.ticket_system.Controllers.Coordinator.CCheckoutController;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.activation.DataHandler;
@@ -62,19 +61,10 @@ public class EmailHandler{
 
     }
 
-    CCheckoutController checkoutController = new CCheckoutController();   // Controller for checkout process
     private final Gmail service;                                          // Gmail API service instance
     private static final String fromEmailAddress = "eventhubticket@gmail.com";  // Sender email address
     
-    /* Example of how to send an email:
-      new EmailHandler().send("EventHub ticket", """
-      Dear reader,
 
-      Hello world
-      Best regards,
-      EventHub
-       """, new File("Ticket_System/src/main/resources/PDFs/sample.pdf"));
-     */
 
     /**
      * Gets OAuth2 credentials for Gmail API access.

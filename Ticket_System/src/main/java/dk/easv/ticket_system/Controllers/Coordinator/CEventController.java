@@ -36,8 +36,6 @@ public class CEventController {
     @FXML
     public Button btnCreateEvent;           // Button to trigger event creation
     @FXML
-    private BorderPane bpnTopBar;           // Container for the top navigation bar
-    @FXML
     private BorderPane bpnFullPane;         // Main container for the entire view
 
     private boolean listenersAdded = false; // Flag to prevent adding multiple listeners

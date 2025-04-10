@@ -18,14 +18,10 @@ public class ACreateUserController {
     public TextField txtShowPWD;             // Field for displaying password in plain text
     private String selectedUserType;         // Stores the selected user type value (unused)
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));  // Application icon
-    @FXML
-    private Label welcomeText;               // Welcome label (unused)
-    @FXML
-    private MenuButton btnUserType;          // Button for user type selection (unused)
+
     @FXML
     private Button btnCreate;                // Button to create new user
-    @FXML
-    private Button btnCancel;                // Button to cancel user creation
+
     @FXML
     private TextField txtLoginEmail;         // Field for user email address
     @FXML

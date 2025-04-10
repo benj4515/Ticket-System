@@ -44,22 +44,12 @@ public class AUserController {
     public Label lblEventAssignees;            // Label to display the names of assigned coordinators
     public Label lblRemoveAssignee;            // Label that acts as a button to remove an assignee
     public ImageView imgCreateUser;
-    @FXML
-    private FlowPane flowPane;                 // Main container for the UI
     private UserModel userModel;               // Model for user data management
     private EventModel eventModel;             // Model for event data management
     @FXML
-    private Pane customPane1;                  // Container for user list
-    @FXML
     private VBox vbox1;                        // VBox containing user buttons
     @FXML
-    private Pane customPane2;                  // Container for user details
-    @FXML
-    private Pane customPane3;                  // Container for event list
-    @FXML
     private VBox vbox3;                        // VBox containing event buttons
-    @FXML
-    private Pane customPane4;                  // Container for event details
     @FXML
     private Label lblFirstName;                // Label to display the first name of the selected user
     @FXML
@@ -72,10 +62,6 @@ public class AUserController {
     private Label lblRole;                     // Label to display the role of the selected user
     @FXML
     private Label lblName;                     // Label to display the full name of the selected user
-    @FXML
-    private Label lblUserCreated;              // Label to display when the user was created
-    @FXML
-    private Button btnNewUser;                 // Button to create a new user
     @FXML
     private ScrollPane scpScrollPane;          // ScrollPane for the main content
     private Button selectedUserButton;         // Keeps track of the currently selected user button

@@ -31,8 +31,6 @@ public class LoginController {
     public TextField txtShowPassword;           // Field for displaying password in plain text
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));  // Application icon
     @FXML
-    private Label welcomeText;                  // Welcome message label
-    @FXML
     private Button btnLogin;                    // Login button
 
     @FXML
