@@ -9,6 +9,7 @@ package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.User;
+import dk.easv.ticket_system.BLL.Util.UserSession;
 import dk.easv.ticket_system.Models.EventModel;
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class CUserController {
@@ -266,43 +268,75 @@ public class CUserController {
      * Sets up click handlers to select events and show their details.
      */
     public void showEventList() {
-        vbox3.getChildren().clear(); // Clear existing children
+        vbox3.getChildren().clear(); // Clear existing children to prevent duplication
 
-        for (Event event : eventModel.getObservableEvents()) {
-            // Create button for each event
-            Button button = new Button();
-            button.setPrefSize(460, 75);
-            button.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
-            vbox3.getChildren().add(button);
+        try {
+            // Get the currently logged-in user
+            User loggedInUser = UserSession.getLoggedInUser();
+            System.out.println("Logged in user: " + loggedInUser);
 
-            // Set up layout for event button content
-            AnchorPane anchorPaneEvent = new AnchorPane();
-            button.setGraphic(anchorPaneEvent);
+            if (loggedInUser == null) {
+                System.out.println("No user logged in");
+                return;
+            }
 
-            // Display event title
-            Label labelName = new Label(event.geteventTitle());
-            labelName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
-            anchorPaneEvent.getChildren().add(labelName);
-            AnchorPane.setTopAnchor(labelName, 10.0);
-            AnchorPane.setLeftAnchor(labelName, 68.0);
+            for (Event event : eventModel.getObservableEvents()) {
+                // Check if this user is assigned to this event
+                List<User> assignedCoordinators = eventModel.getCoordinatorsForEvent(event.getEventID());
+                boolean userAssigned = false;
 
-            // Display event icon
-            ImageView imageViewEvent = new ImageView();
-            imageViewEvent.setFitHeight(50.0);
-            imageViewEvent.setFitWidth(50.0);
-            anchorPaneEvent.getChildren().add(imageViewEvent);
-            imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/festival.png"))));
-            AnchorPane.setTopAnchor(imageViewEvent, 8.0);
-            AnchorPane.setLeftAnchor(imageViewEvent, 6.0);
+                // Check if the logged-in user is one of the assigned coordinators
+                for (User coordinator : assignedCoordinators) {
+                    if (coordinator.getUserID() == loggedInUser.getUserID()) {
+                        userAssigned = true;
+                        break;
+                    }
+                }
 
-            // Display event location
-            Label labelLocation = new Label(event.getLocation());
-            anchorPaneEvent.getChildren().add(labelLocation);
-            AnchorPane.setTopAnchor(labelLocation, 30.0);
-            AnchorPane.setLeftAnchor(labelLocation, 68.0);
+                // Skip this event if the user isn't assigned to it and isn't an admin
+                // Role ID 1 = Admin, they can see all events
+                if (!userAssigned && loggedInUser.getRoleID() != 1) {
+                    continue; // Skip to next event
+                }
 
-            // Set up click handler to select this event
-            button.setOnAction(events -> updateSelectedEvent(event, button));
+                // Create button for each event
+                Button button = new Button();
+                button.setPrefSize(460, 75);
+                button.setStyle("-fx-background-color: #FFF; -fx-background-radius: 2px; -fx-border-color: #E5E7EB; -fx-border-width: 1 0 1 0;");
+                vbox3.getChildren().add(button);
+
+                // Set up layout for event button content
+                AnchorPane anchorPaneEvent = new AnchorPane();
+                button.setGraphic(anchorPaneEvent);
+
+                // Display event title
+                Label labelName = new Label(event.geteventTitle());
+                labelName.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #000;");
+                anchorPaneEvent.getChildren().add(labelName);
+                AnchorPane.setTopAnchor(labelName, 10.0);
+                AnchorPane.setLeftAnchor(labelName, 68.0);
+
+                // Display event icon
+                ImageView imageViewEvent = new ImageView();
+                imageViewEvent.setFitHeight(50.0);
+                imageViewEvent.setFitWidth(50.0);
+                anchorPaneEvent.getChildren().add(imageViewEvent);
+                imageViewEvent.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/festival.png"))));
+                AnchorPane.setTopAnchor(imageViewEvent, 8.0);
+                AnchorPane.setLeftAnchor(imageViewEvent, 6.0);
+
+                // Display event location
+                Label labelLocation = new Label(event.getLocation());
+                anchorPaneEvent.getChildren().add(labelLocation);
+                AnchorPane.setTopAnchor(labelLocation, 30.0);
+                AnchorPane.setLeftAnchor(labelLocation, 68.0);
+
+                // Set up click handler to select this event
+                button.setOnAction(events -> updateSelectedEvent(event, button));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading events: " + e.getMessage());
         }
     }
 

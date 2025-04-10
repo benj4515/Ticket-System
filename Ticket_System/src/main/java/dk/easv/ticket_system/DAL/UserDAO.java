@@ -42,9 +42,11 @@ public class UserDAO implements IUserDataAccess {
      * @return true if credentials are valid, false otherwise
      */
     public boolean checkUserCredentials(String email, String password) {
-        String query = "SELECT u.userID, u.email, r.roleName, u.passwordHash " +
+        String query = "SELECT u.userID, u.email, u.passwordHash, r.roleID, r.roleName, " +
+                "ud.firstName, ud.lastName, ud.phoneNumber " +
                 "FROM TrueUsers u " +
                 "JOIN roles r ON u.roleID = r.roleID " +
+                "LEFT JOIN UserDetails ud ON u.userID = ud.userID " +
                 "WHERE u.email = ?";
 
         try (Connection conn = dbConnector.getConnection();
@@ -58,13 +60,19 @@ public class UserDAO implements IUserDataAccess {
             if (rs.next()) {
                 String storedPassword = rs.getString("passwordHash");
                 if (BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified) {
-                    int id = rs.getInt("userID");
+                    int userID = rs.getInt("userID");
+                    int roleID = rs.getInt("roleID");
                     String roleName = rs.getString("roleName");
+                    String firstName = rs.getString("firstName");
+                    String lastName = rs.getString("lastName");
+                    String phoneNumber = rs.getString("phoneNumber");
 
-                    User loggedInUser = new User(id, email, roleName);
+                    // Use the complete constructor that actually sets the fields
+                    User loggedInUser = new User(userID, email, storedPassword, roleID, roleName,
+                            firstName, lastName, phoneNumber);
                     UserSession.setLoggedInUser(loggedInUser);
 
-
+                    System.out.println("User logged in successfully: " + loggedInUser);
                     return true;
                 }
             }
@@ -217,19 +225,20 @@ public class UserDAO implements IUserDataAccess {
      * @return The role name if found, null otherwise
      */
     public String getRole(String email) {
-        String query = "SELECT r.roleName FROM Roles r " +
-                "JOIN TrueUsers u ON r.roleID = u.roleID " +
+        String query = "SELECT r.roleName FROM TrueUsers u " +
+                "JOIN roles r ON u.roleID = r.roleID " +
                 "WHERE u.email = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("roleName");
+                String roleName = rs.getString("roleName");
+                System.out.println("Role found: " + roleName);  // Debug output
+                return roleName;
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -66,6 +66,8 @@ public class LoginController {
         this.parent = parentParam;
     }
 
+
+
     /**
      * Constructs the controller and initializes required models and services.
      * Sets up the user model and session management for login operations.
@@ -166,6 +168,7 @@ public class LoginController {
      */
     @FXML
     private void onLoginButtonClick(ActionEvent actionEvent) throws IOException {
+
         this.loginValidator = new LoginValidator();
         boolean success = loginValidator.validateLogin(txtEmail.getText(), txtPassword.getText());
 
@@ -177,11 +180,8 @@ public class LoginController {
             lblLoginError.setText("Incorrect email or password");
         }
         User loggedInUser = UserSession.getLoggedInUser();
-        if (loggedInUser != null) {
-            System.out.println(loggedInUser);
-        } else {
-            System.out.println("Wrong");
-        }
+        System.out.println("Logged in user check: " + (loggedInUser == null ? "No user logged in" :
+                "User logged in: ID=" + loggedInUser.getUserID() + ", Email=" + loggedInUser.getEmail()));
     }
 
     /**

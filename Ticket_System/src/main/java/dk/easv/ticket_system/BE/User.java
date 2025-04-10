@@ -208,6 +208,13 @@ public class User {
      * @param phoneNumber The user's phone number
      */
     public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {
+        this.userID = id;
+        this.email = email;
+        this.password = password;
+        this.roleName = roleName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public User(int userID, String email, String password, int role, String firstName, String lastName) {
@@ -220,17 +227,6 @@ public class User {
     }
 
     /**
-     * Gets the user's ID (legacy field).
-     * @return The user's ID
-     */
-    /*
-    public int getUserId() {
-        return id;
-    }
-
-     */
-
-    /**
      * Gets the user's ID (primary identifier).
      * @return The user's ID
      */
@@ -238,6 +234,13 @@ public class User {
         return userID;
     }
 
+    /**
+     * Sets the user's ID.
+     * @param userID The new user ID
+     */
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
     /**
      * Gets the user's email address.
@@ -316,7 +319,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userID + // was id maybe workss
+                "userID=" + id +
                 ", email='" + email + '\'' +
                 ", roleName='" + roleName + '\'' +
                 '}';
