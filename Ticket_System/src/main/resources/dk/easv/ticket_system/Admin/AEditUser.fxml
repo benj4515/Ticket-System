@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="600.0" style="-fx-background-color: #D9D9D9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AEditUserController">
    <children>
-       <Button fx:id="btnCreate" layoutX="50.0" layoutY="340.0" onAction="#handleEditUser" prefHeight="56.0" prefWidth="145.0" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-radius: 6;" text="Create">
+       <Button fx:id="btnCreate" layoutX="50.0" layoutY="340.0" onAction="#handleEditUser" prefHeight="56.0" prefWidth="145.0" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-radius: 6;" text="Edit">
          <font>
             <Font size="25.0" />
          </font>

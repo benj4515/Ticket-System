@@ -131,7 +131,6 @@ public class AEditUserController {
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
         int userID = user.getUserID();
-        System.out.println(userID);
         int role = 0;
         if (adminSelect.isSelected()) {
             role = 1;
@@ -141,15 +140,16 @@ public class AEditUserController {
 
         // Debug output code (commented out)
 
-        if (email.isEmpty() || password.isEmpty() || role == 0 || firstName.isEmpty() || lastName.isEmpty()) {
+        if (email.isEmpty() || txtLoginPassword.getText().isEmpty() || role == 0 || firstName.isEmpty() || lastName.isEmpty()) {
             showAlert("Validation Error", "Please fill in all fields.");
-            return;
-        }
-        User editUser = new User(userID, email, password, role, firstName, lastName);
-        userModel.updateUser(editUser);
 
-        Stage stage = (Stage) btnCreate.getScene().getWindow();
-        stage.close();
+        }else {
+            User editUser = new User(userID, email, password, role, firstName, lastName);
+            userModel.updateUser(editUser);
+
+            Stage stage = (Stage) btnCreate.getScene().getWindow();
+            stage.close();
+        }
     }
 
     /**
