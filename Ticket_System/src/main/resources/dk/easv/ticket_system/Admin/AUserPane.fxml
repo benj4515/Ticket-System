@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AUserController">
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AUserController">
    <center>
       <ScrollPane fx:id="scpScrollPane" hbarPolicy="NEVER" prefHeight="930.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
          <FlowPane fx:id="flowPane" hgap="24.0" prefWrapLength="1200.0" vgap="24.0" BorderPane.alignment="CENTER">
@@ -26,10 +26,10 @@
                <children>
                   <VBox>
                      <children>
-                        <HBox prefHeight="34.0" prefWidth="460.0" spacing="310.0">
+                        <HBox prefHeight="34.0" prefWidth="460.0" spacing="208.0">
                            <children>
                               <Label prefHeight="67.0" prefWidth="192.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000; -fx-padding: 16px;" text="Users" />
-                              <Button fx:id="btnNewUser" onAction="#onNewUser" prefHeight="47.0" prefWidth="59.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" textFill="WHITE">
+                              <Button fx:id="btnNewUser" onAction="#onNewUser" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #009FDA; -fx-text-fill: #FFF; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 8px;" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>

@@ -14,16 +14,14 @@ import dk.easv.ticket_system.BLL.Util.PDFHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -70,6 +68,8 @@ public class CCheckoutController {
     private String customerName;
     private ObservableList<TicketType> selectedTickets; // List of selected ticket types
     private ArrayList<CheckBox> selectedUniversalTickets;
+    @FXML
+    private ScrollPane scpScrollPane;
     // Stores the validated recipient email address
 
     /**
@@ -143,6 +143,8 @@ public class CCheckoutController {
      * Loads and displays the ticket preview image.
      */
     public void initialize() {
+        // Set the scroll pane height to match the screen height
+        scpScrollPane.setPrefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 110);
 
     }
 
