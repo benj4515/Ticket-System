@@ -131,24 +131,7 @@ public class CFrameController {
         lblEvent.setStyle("-fx-text-fill: #1D4ED8");
     }
 
-    /**
-     * Handles navigation to the Checkout view.
-     * Loads the checkout pane, highlights the navigation item,
-     * and displays the view in the main content area.
-     *
-     * @param actionEvent The action event
-     * @throws IOException If there's an error loading the view
-     */
-    @FXML
-    public void onCheckout(ActionEvent actionEvent) throws IOException {
-        resetStyles();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Coordinator/CCheckoutPane.fxml"));
-        Pane pane = loader.load();
-        CCheckoutController checkoutController = loader.getController();
-        pnePane.getChildren().setAll(pane);
-        apnCheckout.setStyle("-fx-background-color: #EFF6FF; -fx-background-radius: 8px");
-        lblCheckout.setStyle("-fx-text-fill: #1D4ED8");
-    }
+
 
     @FXML
     public void onHandleLogOut(ActionEvent actionEvent) {

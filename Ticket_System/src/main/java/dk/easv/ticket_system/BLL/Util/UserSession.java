@@ -28,11 +28,4 @@ public class UserSession {
         return loggedInUser;
     }
 
-    /**
-     * Logs out the current user by clearing the user reference.
-     * After calling this method, getLoggedInUser() will return null.
-     */
-    public static void logout() {
-        loggedInUser = null;
-    }
 }

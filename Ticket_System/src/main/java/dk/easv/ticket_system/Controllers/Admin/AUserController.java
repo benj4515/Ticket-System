@@ -407,25 +407,7 @@ public class AUserController {
         System.out.println(event.geteventTitle() + " " + event.getLocation() + " " + event.geteventStartDate() + " " + event.getEventEndDate() + " " + event.geteventStartTime() + " " + event.geteventEndTime() + " " + event.geteventDescription());
     }
 
-    /**
-     * Handles the delete event button action.
-     * Deletes the currently selected event from the database and updates the UI.
-     * No action is taken if no event is selected.
-     *
-     * @param actionEvent The action event that triggered this method
-     */
-    public void HandlebtnDeleteEvent(ActionEvent actionEvent) {
-        if (selectedEventButton != null) {
-            Event event = (Event) selectedEventButton.getUserData();
-            try {
-                System.out.printf(event.getEventID()+"");
-                eventModel.deleteEvent(event);
-                showEventList(); // Refresh the event list
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     /**
      * Handles the remove assignee action.

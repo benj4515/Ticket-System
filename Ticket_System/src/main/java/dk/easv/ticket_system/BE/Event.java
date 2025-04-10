@@ -19,52 +19,9 @@ public class Event {
     private String recTransport;        // Recommended transportation information
     private int generatedEventID;       // Generated identifier for the event (may be used for temporary IDs before DB persistence)
 
-    /**
-     * Constructs a complete event with all details including an ID and recommended transportation.
-     *
-     * @param eventID Unique identifier for the event
-     * @param eventTitle Title of the event
-     * @param eventStartDate Start date of the event
-     * @param location Location where the event is held
-     * @param eventStartTime Start time of the event
-     * @param eventEndTime End time of the event
-     * @param eventDescription Description of the event
-     * @param recTransport Recommended transportation information
-     */
-    public Event(int eventID, String eventTitle, Date eventStartDate, String location,
-                 String eventStartTime, String eventEndTime, String eventDescription, String recTransport) {
-        this.eventID = eventID;
-        this.eventTitle = eventTitle;
-        this.eventStartDate = eventStartDate;
-        this.location = location;
-        this.eventStartTime = eventStartTime;
-        this.eventEndTime = eventEndTime;
-        this.eventDescription = eventDescription;
-        this.recTransport = recTransport;
-    }
 
-    /**
-     * Constructs an event without an ID (for new events before database insertion) but with transportation info.
-     *
-     * @param eventTitle Title of the event
-     * @param eventStartDate Start date of the event
-     * @param location Location where the event is held
-     * @param eventStartTime Start time of the event
-     * @param eventEndTime End time of the event
-     * @param eventDescription Description of the event
-     * @param recTransport Recommended transportation information
-     */
-    public Event(String eventTitle, Date eventStartDate, String location,
-                 String eventStartTime, String eventEndTime, String eventDescription, String recTransport) {
 
-        this.eventTitle = eventTitle;
-        this.eventStartDate = eventStartDate;
-        this.location = location;
-        this.eventStartTime = eventStartTime;
-        this.eventEndTime = eventEndTime;
-        this.eventDescription = eventDescription;
-        this.recTransport = recTransport;
-    }
+
 
     /**
      * Constructs an event with minimal required information and transportation info but no description.
@@ -86,47 +43,9 @@ public class Event {
         this.recTransport = recTransport;
     }
 
-    /**
-     * Constructs an event with start and end dates but no transportation info.
-     *
-     * @param eventTitle Title of the event
-     * @param eventDescription Description of the event
-     * @param eventLocation Location where the event is held
-     * @param eventStartDate Start date of the event
-     * @param endDate End date of the event
-     * @param startTime Start time of the event
-     * @param endTime End time of the event
-     */
-    public Event(String eventTitle, String eventDescription, String eventLocation, Date eventStartDate, Date endDate, String startTime, String endTime) {
-        this.eventTitle = eventTitle;
-        this.eventDescription = eventDescription;
-        this.location = eventLocation;
-        this.eventStartDate = eventStartDate;
-        this.eventEndDate = endDate;
-        this.eventStartTime = startTime;
-        this.eventEndTime = endTime;
-    }
 
-    /**
-     * Constructs an event with ID but no end date or transportation info.
-     *
-     * @param eventID Unique identifier for the event
-     * @param eventTitle Title of the event
-     * @param eventStartDate Start date of the event
-     * @param location Location where the event is held
-     * @param eventStartTime Start time of the event
-     * @param eventEndTime End time of the event
-     * @param eventDescription Description of the event
-     */
-    public Event(int eventID, String eventTitle, Date eventStartDate, String location, String eventStartTime, String eventEndTime, String eventDescription) {
-        this.eventID = eventID;
-        this.eventTitle = eventTitle;
-        this.eventStartDate = eventStartDate;
-        this.location = location;
-        this.eventStartTime = eventStartTime;
-        this.eventEndTime = eventEndTime;
-        this.eventDescription = eventDescription;
-    }
+
+
 
     /**
      * Constructs an event with no ID but with end date, often used when creating a new event.
@@ -268,21 +187,7 @@ public class Event {
         return eventDescription;
     }
 
-    /**
-     * Sets the event's description.
-     * @param eventDescription The new event description
-     */
-    public void seteventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
-    }
 
-    /**
-     * Gets the recommended transportation information.
-     * @return The recommended transportation
-     */
-    public String getRecTransport() {
-        return recTransport;
-    }
 
     /**
      * Sets the recommended transportation information.

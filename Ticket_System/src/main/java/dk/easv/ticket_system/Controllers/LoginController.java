@@ -46,25 +46,7 @@ public class LoginController {
 
     private UserModel userModel;                // Model for accessing user data
 
-    /**
-     * Gets the email text field.
-     * Provides access to the email input field for testing or external manipulation.
-     *
-     * @return The email TextField object
-     */
-    public TextField getTxtEmail() {
-        return txtEmail;
-    }
 
-    /**
-     * Sets the parent controller.
-     * Establishes a reference to the parent controller for navigation purposes.
-     *
-     * @param parentParam The parent controller to set
-     */
-    public void setParent(AFrameController parentParam) {
-        this.parent = parentParam;
-    }
 
 
 

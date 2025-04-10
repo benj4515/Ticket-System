@@ -14,8 +14,7 @@ import java.io.IOException;
 
 public class LoginValidator {
     private UserDAO loginDao;        // Data access object for user authentication
-    private UserModel userModel;     // Model for user data (unused)
-    private String role;             // User role (unused)
+
 
     /**
      * Constructs a LoginValidator with a new UserDAO instance.

@@ -84,10 +84,6 @@ public class CUserController {
     @FXML
     private Label lblName;                // Label for displaying selected user's full name
     @FXML
-    private Label lblUserCreated;         // Label for user creation timestamp (unused)
-    @FXML
-    private Button btnNewUser;            // Button to create new users (handler not implemented)
-    @FXML
     private ScrollPane scpScrollPane;     // Scrollable container for lists
 
     // Selection tracking

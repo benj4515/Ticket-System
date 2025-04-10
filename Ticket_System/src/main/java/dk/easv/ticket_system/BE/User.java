@@ -16,19 +16,7 @@ public class User {
     private String phoneNumber;         // User's phone number
     private String roleName;            // Display name of the user's role
 
-    /**
-     * Constructs a user with basic authentication and role information.
-     *
-     * @param email The user's email address
-     * @param password The user's password
-     * @param role The user's role identifier
-     */
-    public User(String email, String password, int role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.roleID = role;
-    }
+
 
     /**
      * Constructs a complete user with all primary attributes.
@@ -71,40 +59,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    /**
-     * Constructs a user with authentication, role, name and contact information.
-     *
-     * @param email The user's email address
-     * @param password The user's password
-     * @param role The user's role identifier
-     * @param firstName The user's first name
-     * @param lastName The user's last name
-     * @param phoneNumber The user's phone number
-     */
-    public User(String email, String password, int role, String firstName, String lastName, String phoneNumber) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.roleID = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-    }
 
-    /**
-     * Constructs a simplified user with identity and role information.
-     *
-     * @param email The user's email address
-     * @param role The user's role identifier
-     * @param firstName The user's first name
-     * @param lastName The user's last name
-     */
-    public User (String email,int role, String firstName, String lastName) {
-        this.email = email;
-        this.roleID = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+
+
 
     /**
      * Constructs a user with a generated ID and complete information except role name.
@@ -122,20 +79,7 @@ public class User {
                 int roleID, String firstName, String lastName, String phoneNumber) {
     }
 
-    /**
-     * Constructs a user with an ID and basic authentication information.
-     *
-     * @param id The user's unique identifier
-     * @param email The user's email address
-     * @param password The user's password
-     * @param role The user's role identifier
-     */
-    public User(int id, String email, String password, int role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.roleID = role;
-    }
+
 
     /**
      * Constructs a user with only email and name.
@@ -195,27 +139,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    /**
-     * Constructs a user with an ID and complete information except role ID.
-     * Note: This constructor has an empty implementation.
-     *
-     * @param id The user's unique identifier
-     * @param email The user's email address
-     * @param password The user's password
-     * @param roleName The name of the user's role
-     * @param firstName The user's first name
-     * @param lastName The user's last name
-     * @param phoneNumber The user's phone number
-     */
-    public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {
-        this.userID = id;
-        this.email = email;
-        this.password = password;
-        this.roleName = roleName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-    }
+
 
     public User(int userID, String email, String password, int role, String firstName, String lastName) {
         this.userID = userID;
@@ -234,13 +158,6 @@ public class User {
         return userID;
     }
 
-    /**
-     * Sets the user's ID.
-     * @param userID The new user ID
-     */
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
     /**
      * Gets the user's email address.
@@ -250,13 +167,6 @@ public class User {
         return email;
     }
 
-    /**
-     * Sets the user's email address.
-     * @param email The new email address
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     /**
      * Gets the user's password.
@@ -266,13 +176,6 @@ public class User {
         return password;
     }
 
-    /**
-     * Sets the user's password.
-     * @param password The new password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     /**
      * Gets the user's role ID.

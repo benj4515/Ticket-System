@@ -18,9 +18,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class AEditUserController {
-    public TextField txtName;                // Field for user's name (unused)
+
     public TextField txtShowPWD;             // Field for displaying password in plain text
-    private String selectedUserType;         // Stores the selected user type value (unused)
+
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));  // Application icon
 
     @FXML
@@ -38,19 +38,11 @@ public class AEditUserController {
     private CheckBox adminSelect;            // Checkbox to assign admin role
     @FXML
     private CheckBox eventCoordinatorSelect; // Checkbox to assign event coordinator role
-    private AFrameController parent;         // Reference to parent controller
+
 
     private User user;                       // User entity (unused)
     private UserModel userModel;             // Model for user data operations
 
-    /**
-     * Sets the parent controller reference for navigation.
-     *
-     * @param parentParam The parent controller
-     */
-    public void setParent(AFrameController parentParam) {
-        this.parent = parentParam;
-    }
 
     /**
      * Constructs the controller and initializes the user model.

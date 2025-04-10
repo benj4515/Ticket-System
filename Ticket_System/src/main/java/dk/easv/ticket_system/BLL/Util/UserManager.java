@@ -80,15 +80,7 @@ public class UserManager {
         return dataAccess.getAllUserDetails();
     }
 
-    /**
-     * Gets the role name of a user.
-     *
-     * @return The name of the user's role
-     * @throws Exception If there's an error retrieving the role name
-     */
-    public String getRoleName() throws Exception {
-        return  dataAccess.getUserRoleName();
-    }
+
 
     /**
      * Gets the first name of a user.

@@ -6,8 +6,7 @@
  */
 package dk.easv.ticket_system.Controllers.Admin;
 
-import dk.easv.ticket_system.BE.User;
-import dk.easv.ticket_system.Controllers.Coordinator.CCheckoutController;
+
 import dk.easv.ticket_system.Models.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

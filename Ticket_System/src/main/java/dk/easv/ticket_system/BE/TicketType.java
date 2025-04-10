@@ -35,37 +35,9 @@ public class TicketType {
         this.ticketColor = ticketColor;
     }
 
-    /**
-     * Constructs a ticket type without specifying a color.
-     *
-     * @param ticketTypeID Unique identifier for the ticket type
-     * @param eventID ID of the event this ticket type belongs to
-     * @param ticketPrice Price of the ticket
-     * @param ticketDescription Description of the ticket type
-     * @param ticketsSold Number of tickets sold
-     */
-    public TicketType(int ticketTypeID, int eventID, float ticketPrice, String ticketDescription, int ticketsSold) {
-        this.ticketTypeID = ticketTypeID;
-        this.eventID = eventID;
-        this.ticketPrice = ticketPrice;
-        this.ticketDescription = ticketDescription;
-        this.ticketsSold = ticketsSold;
-        this.ticketColor = ticketColor;
-    }
 
-    /**
-     * Constructs a simplified ticket type with name, description and price as a string.
-     * Used when creating new ticket types before database insertion.
-     *
-     * @param ticketName Name of the ticket type
-     * @param ticketDescription Description of the ticket type
-     * @param ticketPrice Price of the ticket as a string (will be parsed to float)
-     */
-    public TicketType(String ticketName, String ticketDescription, String ticketPrice) {
-        this.TicketName = ticketName;
-        this.ticketDescription = ticketDescription;
-        this.ticketPrice = Float.parseFloat(ticketPrice);
-    }
+
+
 
     /**
      * Constructs a simplified ticket type with name, description and price as a double.
@@ -134,10 +106,5 @@ public class TicketType {
     }
 
 
-    /**
-     * Default constructor for the TicketType class.
-     * Creates an empty ticket type object.
-     */
-    public TicketType() {
-    }
+
 }

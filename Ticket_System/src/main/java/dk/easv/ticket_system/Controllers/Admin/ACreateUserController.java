@@ -14,9 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 public class ACreateUserController {
-    public TextField txtName;                // Field for user's name (unused)
+
     public TextField txtShowPWD;             // Field for displaying password in plain text
-    private String selectedUserType;         // Stores the selected user type value (unused)
+
     Image icon = new Image(getClass().getResourceAsStream("/Images/EASV.png"));  // Application icon
 
     @FXML
@@ -34,33 +34,12 @@ public class ACreateUserController {
     private CheckBox adminSelect;            // Checkbox to assign admin role
     @FXML
     private CheckBox eventCoordinatorSelect; // Checkbox to assign event coordinator role
-    private AFrameController parent;         // Reference to parent controller
 
-    private User user;                       // User entity (unused)
     private UserModel userModel;             // Model for user data operations
 
-    /**
-     * Sets the parent controller reference for navigation.
-     *
-     * @param parentParam The parent controller
-     */
-    public void setParent(AFrameController parentParam) {
-        this.parent = parentParam;
-    }
 
-    /**
-     * Constructs the controller and initializes the user model.
-     * Logs current users to the console.
-     */
-    public ACreateUserController() {
-        try {
-            userModel = new UserModel();
-        } catch (Exception e) {
-            displayError(e);
-            e.printStackTrace();
-        }
-        System.out.println(userModel.getObservableUsers());
-    }
+
+
 
     /**
      * Initializes the controller state.
@@ -71,17 +50,6 @@ public class ACreateUserController {
         txtShowPWD.setVisible(false);
     }
 
-    /**
-     * Displays error messages in a dialog.
-     *
-     * @param e The exception to display
-     */
-    private void displayError(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(e.getMessage());
-        alert.showAndWait();
-    }
 
     /**
      * Shows an alert dialog with custom title and message.

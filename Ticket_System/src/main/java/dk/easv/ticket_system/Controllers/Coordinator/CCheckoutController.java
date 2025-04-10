@@ -57,8 +57,7 @@ public class CCheckoutController {
     private TextField txtLastName;
 
 
-    private CEventDetailsController cEventDetailsController;  // Reference to the event details controller (unused)
-    private EmailHandler emailHandler;        // Utility for handling email operations (unused)
+
     private String Toemail;
     private Event event;
     private String customerName;
@@ -68,11 +67,7 @@ public class CCheckoutController {
     private ScrollPane scpScrollPane;
     // Stores the validated recipient email address
 
-    /**
-     * Default constructor for the checkout controller.
-     */
-    public CCheckoutController() {
-    }
+
 
     /**
      * Validates and sets the recipient email address from the input field.
