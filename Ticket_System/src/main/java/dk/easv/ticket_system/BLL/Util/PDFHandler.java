@@ -35,7 +35,7 @@ public class PDFHandler {
         document.add(new Paragraph("Ticket Details:").setFontSize(16).setBold());
 
         for(TicketType ticketType : selectedTickets) {
-            
+
             document.add(new Paragraph("Ticket Type: " + ticketType.getTicketDescription()));
             document.add(new Paragraph("Price: " + ticketType.getTicketPrice() + " DKK"));
         }

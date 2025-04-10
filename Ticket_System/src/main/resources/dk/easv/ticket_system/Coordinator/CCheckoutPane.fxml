@@ -38,7 +38,7 @@
    <left>
       <VBox prefHeight="1008.0" prefWidth="1245.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane prefHeight="662.0" prefWidth="1245.0">
+            <ScrollPane fx:id="scpScrollPane" hbarPolicy="NEVER" prefHeight="930.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
                <content>
                   <VBox>
                      <children>
