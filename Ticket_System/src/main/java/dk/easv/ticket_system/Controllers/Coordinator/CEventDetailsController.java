@@ -9,7 +9,6 @@ package dk.easv.ticket_system.Controllers.Coordinator;
 
 import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
-import dk.easv.ticket_system.BLL.Util.TicketTypeManager;
 import dk.easv.ticket_system.Models.TicketTypeModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
