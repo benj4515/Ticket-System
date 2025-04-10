@@ -53,6 +53,8 @@ public class UserDAO implements IUserDataAccess {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
+
+
             if (rs.next()) {
                 String storedPassword = rs.getString("passwordHash");
                 if (BCrypt.verifyer().verify(password.toCharArray(), storedPassword).verified) {
@@ -197,7 +199,7 @@ public class UserDAO implements IUserDataAccess {
              PreparedStatement stmt = conn.prepareStatement(sql))
         {
 
-            stmt.setInt(1, userToDelete.getUserId());
+            stmt.setInt(1, userToDelete.getUserID());
 
             stmt.executeUpdate();
 
@@ -451,5 +453,43 @@ public class UserDAO implements IUserDataAccess {
         }
 
         return users;
+    }
+
+    @Override
+    public void updateUser(User user) throws Exception {
+        String sql = "UPDATE TrueUsers SET email = ?, passwordHash = ?, roleID = ? WHERE userID = ?";
+        String sql1 = "UPDATE UserDetails SET firstName = ?, lastName = ?, phoneNumber = ? WHERE userID = ?";
+
+        try (Connection conn = dbConnector.getConnection()){
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, user.getEmail());
+                stmt.setString(2, user.getPassword());
+                stmt.setInt(3, user.getRoleID());
+                stmt.setInt(4, user.getUserID());
+
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new Exception("Couldn't update User in database", e);
+            }
+
+            try (PreparedStatement stmt1 = conn.prepareStatement(sql1)) {
+                stmt1.setString(1, user.getFirstName());
+                stmt1.setString(2, user.getLastName());
+                stmt1.setString(3, user.getPhoneNumber());
+                stmt1.setInt(4, user.getUserID());
+
+                stmt1.executeUpdate();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new Exception("Couldn't update User in database", e);
+            }
+
+            conn.commit();
+
+        }
+
     }
 }

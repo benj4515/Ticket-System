@@ -10,7 +10,6 @@ public class User {
     private int userID;                 // Unique identifier for the user
     private String email;               // User's email address, also used for login
     private String password;            // User's password for authentication
-    private int role;                   // User's role as an integer (legacy field)
     private int roleID;                 // User's role ID for authorization purposes
     private String firstName;           // User's first name
     private String lastName;            // User's last name
@@ -28,7 +27,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roleID = role;
     }
 
     /**
@@ -67,7 +66,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roleID = role;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -86,7 +85,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roleID = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -102,7 +101,7 @@ public class User {
      */
     public User (String email,int role, String firstName, String lastName) {
         this.email = email;
-        this.role = role;
+        this.roleID = role;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -135,7 +134,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roleID = role;
     }
 
     /**
@@ -211,13 +210,25 @@ public class User {
     public User(int id, String email, String password, String roleName, String firstName, String lastName, String phoneNumber) {
     }
 
+    public User(int userID, String email, String password, int role, String firstName, String lastName) {
+        this.userID = userID;
+        this.email = email;
+        this.password = password;
+        this.roleID = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /**
      * Gets the user's ID (legacy field).
      * @return The user's ID
      */
+    /*
     public int getUserId() {
         return id;
     }
+
+     */
 
     /**
      * Gets the user's ID (primary identifier).
@@ -267,7 +278,7 @@ public class User {
      * @return The user's role identifier
      */
     public int getRoleID() {
-        return role;
+        return roleID;
     }
 
 
@@ -305,7 +316,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + id +
+                "userID=" + userID + // was id maybe workss
                 ", email='" + email + '\'' +
                 ", roleName='" + roleName + '\'' +
                 '}';

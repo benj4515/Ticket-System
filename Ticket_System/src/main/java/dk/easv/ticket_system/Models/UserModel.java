@@ -33,7 +33,7 @@ public class UserModel {
      *
      * @throws Exception If there's an error retrieving users from the data source
      */
-    public UserModel() throws Exception {
+    public UserModel()  throws Exception {
         this.userManager = new UserManager();
         observableUsers = FXCollections.observableArrayList();
         observableUsers.addAll(userManager.getAllUsers());
@@ -58,6 +58,12 @@ public class UserModel {
     public void createUser(User newUser) throws Exception {
         User u = userManager.createUser(newUser);
         observableUsers.add(u);
+    }
+
+
+    public void updateUser(User user) throws Exception {
+        userManager.updateUser(user);
+
     }
 
     /**

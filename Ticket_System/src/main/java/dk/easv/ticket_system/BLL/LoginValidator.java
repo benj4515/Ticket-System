@@ -50,6 +50,7 @@ public class LoginValidator {
      */
     public boolean isAdmin(String email) {
         String role = loginDao.getRole(email);
+        System.out.println(role);
         return "Admin".equals(role);
     }
 
@@ -61,6 +62,7 @@ public class LoginValidator {
      */
     public boolean isEventCoordinator(String email) {
         String role = loginDao.getRole(email);
-        return "Eventcoordinator".equals(role);
+        System.out.println(role);
+        return "EventCoordinator".equals(role);
     }
 }

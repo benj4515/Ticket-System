@@ -44,6 +44,8 @@ public class AUserController {
     public Label lblEventAssignees;            // Label to display the names of assigned coordinators
     public Label lblRemoveAssignee;            // Label that acts as a button to remove an assignee
     public ImageView imgCreateUser;
+    public ImageView imgDeleteEvent;
+    public ImageView imgEditUser;
     private UserModel userModel;               // Model for user data management
     private EventModel eventModel;             // Model for event data management
     @FXML
@@ -105,6 +107,9 @@ public class AUserController {
     @FXML
     public void initialize() {
         imgCreateUser.setImage(new Image(getClass().getResourceAsStream("/Images/person_add.png")));
+        imgDeleteEvent.setImage(new Image(getClass().getResourceAsStream("/Images/delete.png")));
+        imgEditUser.setImage(new Image(getClass().getResourceAsStream("/Images/edit.png")));
+        
         showUserList();
         showEventList();
 
@@ -140,6 +145,7 @@ public class AUserController {
      * Creates a button for each user with their name, email, and avatar.
      */
     public void showUserList() {
+        vbox1.getChildren().clear(); // Clear existing children
         for (User user : userModel.getObservableUsers()) {
             Button button1 = new Button();
             button1.setPrefSize(460, 75);
@@ -467,6 +473,39 @@ public class AUserController {
                 eventModel.assignCoordinatorToEvent(user, event);
                 showEventList(); // Refresh the event list
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void btnHandleDeleteEvent(ActionEvent actionEvent) throws Exception {
+
+        if (selectedEventButton != null) {
+        eventModel.deleteEvent((Event) selectedEventButton.getUserData());
+        }else
+        {
+            System.out.println("No event selected");
+        }
+    }
+
+    public void HandleBtnEditUser(ActionEvent actionEvent) {
+
+        if (selectedUserButton != null) {
+            User user = (User) selectedUserButton.getUserData();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/ticket_system/Admin/AEditUser.fxml"));
+                Parent root = loader.load();
+                AEditUserController editUserController = loader.getController();
+                editUserController.setUser(user);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit User");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                // Refresh the user list after editing
+                showUserList();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

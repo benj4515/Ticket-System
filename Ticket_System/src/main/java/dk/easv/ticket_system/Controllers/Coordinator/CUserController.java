@@ -150,6 +150,7 @@ public class CUserController {
      * Sets up click handlers to select users and show their details.
      */
     public void showUserList() {
+        vbox1.getChildren().clear(); // Clear existing children
         for (User user : userModel.getObservableUsers()) {
             // Create button for each user
             Button button1 = new Button();

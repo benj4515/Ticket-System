@@ -32,6 +32,8 @@ public interface IUserDataAccess {
 
     List <User> getAllUserNames() throws Exception;
 
+    void updateUser(User user) throws Exception;
+
 
 
 

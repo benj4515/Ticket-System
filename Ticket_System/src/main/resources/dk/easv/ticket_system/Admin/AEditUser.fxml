@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="600.0" style="-fx-background-color: #D9D9D9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Admin.AEditUserController">
+   <children>
+       <Button fx:id="btnCreate" layoutX="50.0" layoutY="340.0" onAction="#handleEditUser" prefHeight="56.0" prefWidth="145.0" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-radius: 6;" text="Create">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtLoginEmail" layoutX="41.0" layoutY="236.0" prefHeight="56.0" prefWidth="369.0" promptText="Email" style="-fx-background-radius: 6; -fx-background-color: white;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lblLoginError" layoutX="41.0" layoutY="295.0" prefHeight="35.0" prefWidth="369.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCancel" layoutX="227.0" layoutY="340.0" onAction="#handleCancel" prefHeight="56.0" prefWidth="145.0" style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-radius: 6;" text="Cancel">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtFirstName" layoutX="41.0" layoutY="38.0" prefHeight="56.0" prefWidth="369.0" promptText="First Name" style="-fx-background-radius: 6; -fx-background-color: white;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtLastName" layoutX="41.0" layoutY="104.0" prefHeight="56.0" prefWidth="369.0" promptText="Last Name" style="-fx-background-radius: 6; -fx-background-color: white;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <CheckBox fx:id="adminSelect" layoutX="449.0" layoutY="86.0" mnemonicParsing="false" text="Admin" />
+      <CheckBox fx:id="eventCoordinatorSelect" layoutX="450.0" layoutY="124.0" mnemonicParsing="false" text="EventCoordinator" />
+      <PasswordField fx:id="txtLoginPassword" layoutX="41.0" layoutY="170.0" prefHeight="56.0" prefWidth="369.0" promptText="Password" style="-fx-background-radius: 6; -fx-background-color: white;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="txtShowPWD" layoutX="41.0" layoutY="170.0" prefHeight="56.0" prefWidth="369.0" style="-fx-background-radius: 6; -fx-background-color: white;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <CheckBox layoutX="450.0" layoutY="190.0" mnemonicParsing="false" onAction="#HandleShowPassowrd" text="Show Password" />
+      <ImageView fitHeight="67.0" fitWidth="162.0" layoutX="424.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Images/Group16.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

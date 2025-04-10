@@ -36,6 +36,10 @@ public class UserManager {
         return dataAccess.createUser(newUser);
     }
 
+    public void updateUser(User user) throws Exception {
+         dataAccess.updateUser(user);
+    }
+
     /**
      * Deletes an existing user.
      *
