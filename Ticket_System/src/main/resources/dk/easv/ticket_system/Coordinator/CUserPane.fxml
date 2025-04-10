@@ -13,9 +13,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CUserController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.ticket_system.Controllers.Coordinator.CUserController">
    <center>
       <ScrollPane fx:id="scpScrollPane" hbarPolicy="NEVER" prefHeight="930.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" vbarPolicy="NEVER">
          <FlowPane fx:id="flowPane" hgap="24.0" prefWrapLength="1200.0" vgap="24.0" BorderPane.alignment="CENTER">
@@ -146,16 +145,7 @@
    <top>
       <BorderPane prefHeight="56.0" prefWidth="956.0" BorderPane.alignment="CENTER">
          <left>
-            <VBox BorderPane.alignment="CENTER">
-               <children>
-                  <Label text="User Management">
-                     <font>
-                        <Font name="Arial Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label text="Manage users and assign coordinators" textFill="#6b7280" />
-               </children>
-            </VBox>
+            <VBox BorderPane.alignment="CENTER" />
          </left>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
