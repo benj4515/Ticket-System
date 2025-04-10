@@ -1,7 +1,6 @@
 package dk.easv.ticket_system.DAL;
 
 import dk.easv.ticket_system.BE.TicketType;
-import dk.easv.ticket_system.BE.User;
 
 import java.math.BigDecimal;
 import java.util.List;

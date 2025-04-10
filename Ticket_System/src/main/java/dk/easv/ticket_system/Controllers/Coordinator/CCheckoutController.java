@@ -52,11 +52,7 @@ public class CCheckoutController {
     public CheckBox chb50OffOneDrink;
     public CheckBox chb1SetOfEarplugs;
     @FXML
-    private FlowPane flowPane;                // Main layout container (unused)
-    @FXML
     private TextField txtEmail;               // Field for entering recipient email address
-    @FXML
-    private Button btnEmail;    // Button to trigger email sending
     @FXML
     private TextField txtFirstName;
     @FXML

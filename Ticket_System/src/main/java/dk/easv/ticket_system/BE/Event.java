@@ -6,7 +6,6 @@
 package dk.easv.ticket_system.BE;
 
 import java.sql.Date;
-import java.time.LocalTime;
 
 public class Event {
     private int eventID;                // Unique identifier for the event
@@ -301,13 +300,6 @@ public class Event {
         return eventStartDate;
     }
 
-    /**
-     * Sets the event's start date (alternative method).
-     * @param eventStartDate The new start date
-     */
-    public void setEventStartDate(Date eventStartDate) {
-        this.eventStartDate = eventStartDate;
-    }
 
     /**
      * Gets the event's end date.
@@ -317,13 +309,6 @@ public class Event {
         return eventEndDate;
     }
 
-    /**
-     * Sets the event's end date.
-     * @param eventEndDate The new end date
-     */
-    public void setEventEndDate(Date eventEndDate) {
-        this.eventEndDate = eventEndDate;
-    }
 
     /**
      * Gets the generated event ID (used before permanent ID assignment).

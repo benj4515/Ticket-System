@@ -265,14 +265,4 @@ public class TicketDAO implements ITicketDataAccess {
         return ticketType;
     }
 
-    /*
-    @Override
-    public void updateTicket (Ticket updatedTicket) throws Exception {
-
-        String updateQuery = "UPDATE dbo.Tickets SET ticketID= ? WHERE eventID = ?";
-
-        try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(updateQuery))
-    }
-     */
 }

@@ -5,7 +5,6 @@
  */
 package dk.easv.ticket_system.BE;
 
-import java.math.BigDecimal;
 
 public class TicketType {
     private int ticketTypeID;       // Unique identifier for the ticket type
@@ -90,13 +89,6 @@ public class TicketType {
         return ticketTypeID;
     }
 
-    /**
-     * Sets the ticket type's unique identifier.
-     * @param ticketTypeID The new ticket type ID
-     */
-    public void setTicketTypeID(int ticketTypeID) {
-        this.ticketTypeID = ticketTypeID;
-    }
 
     /**
      * Gets the event ID this ticket type belongs to.
@@ -106,13 +98,6 @@ public class TicketType {
         return eventID;
     }
 
-    /**
-     * Sets the event ID this ticket type belongs to.
-     * @param eventID The new event ID
-     */
-    public void setEventID(int eventID) {
-        this.eventID = eventID;
-    }
 
     /**
      * Gets the ticket price.
@@ -123,14 +108,6 @@ public class TicketType {
     }
 
     /**
-     * Sets the ticket price (float version).
-     * @param ticketPrice The new ticket price as a float
-     */
-    public void setTicketPrice(float ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
-
-    /**
      * Gets the ticket description.
      * @return The ticket description
      */
@@ -138,25 +115,6 @@ public class TicketType {
         return ticketDescription;
     }
 
-    /**
-     * Sets the ticket description.
-     * @param ticketDescription The new ticket description
-     */
-    public void setTicketDescription(String ticketDescription) {
-        this.ticketDescription = ticketDescription;
-    }
-
-    /**
-     * Gets the number of tickets sold for this ticket type.
-     * @return The number of tickets sold
-     */
-    public int getTicketsSold() {return ticketsSold;}
-
-    /**
-     * Sets the number of tickets sold for this ticket type.
-     * @param ticketsSold The new number of tickets sold
-     */
-    public void setTicketsSold(int ticketsSold) {this.ticketsSold = ticketsSold;}
 
     /**
      * Gets the color associated with this ticket type.
@@ -166,13 +124,6 @@ public class TicketType {
         return ticketColor;
     }
 
-    /**
-     * Sets the ticket price (double version).
-     * @param ticketPrice The new ticket price as a double
-     */
-    public void setTicketPrice(double ticketPrice){
-        this.ticketPrice = ticketPrice;
-    }
 
     /**
      * Gets the ticket name.
@@ -182,13 +133,6 @@ public class TicketType {
         return ticketName;
     }
 
-    /**
-     * Sets the ticket name.
-     * @param ticketName The new ticket name
-     */
-    public void setTicketName(String ticketName){
-        this.ticketName = ticketName;
-    }
 
     /**
      * Default constructor for the TicketType class.

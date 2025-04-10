@@ -4,8 +4,6 @@ import dk.easv.ticket_system.BE.Event;
 import dk.easv.ticket_system.BE.TicketType;
 import dk.easv.ticket_system.BE.User;
 
-import java.sql.Date;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface IEventsDataAccess {

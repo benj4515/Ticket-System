@@ -227,13 +227,6 @@ public class User {
         return userID;
     }
 
-    /**
-     * Sets the user's ID.
-     * @param userID The new user ID
-     */
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
     /**
      * Gets the user's email address.
@@ -277,15 +270,6 @@ public class User {
         return role;
     }
 
-    /**
-     * Sets the user's role ID.
-     * Note: This method actually sets the role field, not roleID.
-     *
-     * @param role The new role identifier
-     */
-    public void setRoleID(int role) {
-        this.role = role;
-    }
 
     /**
      * Gets the user's first name.
@@ -295,13 +279,6 @@ public class User {
         return firstName;
     }
 
-    /**
-     * Sets the user's first name.
-     * @param firstName The new first name
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     /**
      * Gets the user's last name.
@@ -312,27 +289,11 @@ public class User {
     }
 
     /**
-     * Sets the user's last name.
-     * @param lastName The new last name
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
      * Gets the user's phone number.
      * @return The user's phone number
      */
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    /**
-     * Sets the user's phone number.
-     * @param phoneNumber The new phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     /**
@@ -350,11 +311,4 @@ public class User {
                 '}';
     }
 
-    /**
-     * Gets the display name of the user's role.
-     * @return The role name
-     */
-    public String getRoleName() {
-        return roleName;
-    }
 }
