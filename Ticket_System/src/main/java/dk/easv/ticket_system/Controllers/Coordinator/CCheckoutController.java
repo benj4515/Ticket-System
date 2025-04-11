@@ -123,7 +123,8 @@ public class CCheckoutController {
 
         // Forsøg at sende emailen
         // Attempt to send the email with a PDF attachment
-        new EmailHandler().send("Your tickets for " + event.geteventTitle() + " is here", "Hello " + getCustomerName() + "\nYour ticket is attached down bellow" + "\nBest regards EventHub", new File(ticketPath), getEmail());
+        new EmailHandler().send("Your tickets for " + event.geteventTitle() + " is here", "Hello " + getCustomerName() +
+                "\nYour ticket is attached down bellow" + "\nBest regards EventHub", new File(ticketPath), getEmail());
 
         new File(qrFilePath).delete();
         new File(ticketPath).delete();

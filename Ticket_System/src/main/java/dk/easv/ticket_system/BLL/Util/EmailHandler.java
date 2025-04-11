@@ -61,7 +61,7 @@ public class EmailHandler{
 
     }
 
-    private final Gmail service;                                          // Gmail API service instance
+    private final Gmail service;                                                // Gmail API service instance
     private static final String fromEmailAddress = "eventhubticket@gmail.com";  // Sender email address
     
 
@@ -79,7 +79,8 @@ public class EmailHandler{
     public Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
         // Load client secrets from resource file
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Objects.requireNonNull(EmailHandler.class.getResourceAsStream("/client_secret_410927174607-63cbdr16t9fia65lds1hbe862cstmp9l.apps.googleusercontent.com.json"))));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(Objects.requireNonNull(EmailHandler.class.
+                getResourceAsStream("/client_secret_410927174607-63cbdr16t9fia65lds1hbe862cstmp9l.apps.googleusercontent.com.json"))));
 
         // Build flow and trigger user authorization request
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -141,7 +142,6 @@ public class EmailHandler{
             System.out.println("Message sent: " + sentMessage.getId());
             System.out.println(sentMessage.toPrettyString());
         } catch (GoogleJsonResponseException e) {
-            // Handle error appropriately
             GoogleJsonError error = e.getDetails();
             if (error.getCode() == 403) {
                 System.err.println("Unable to send message: " + e.getDetails());

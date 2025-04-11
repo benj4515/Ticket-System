@@ -39,8 +39,30 @@ public class ACreateUserController {
 
 
 
-
-
+    /**
+     * Constructs the controller and initializes the user model.
+     * Logs current users to the console.
+     */
+    public ACreateUserController() {
+        try {
+            userModel = new UserModel();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
+        System.out.println(userModel.getObservableUsers());
+    }
+    /**
+     * Displays error messages in a dialog.
+     *
+     * @param e The exception to display
+     */
+    private void displayError(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(e.getMessage());
+        alert.showAndWait();
+    }
     /**
      * Initializes the controller state.
      * Hides the password display field by default.
@@ -95,7 +117,7 @@ public class ACreateUserController {
             return;
         }
         User newUser = new User(email, password, role, firstName, lastName);
-        userModel.createUser(newUser);
+        this.userModel.createUser(newUser);
 
         Stage stage = (Stage) btnCreate.getScene().getWindow();
         stage.close();
