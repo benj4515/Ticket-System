@@ -93,31 +93,10 @@
                <children>
                   <VBox prefHeight="485.0" prefWidth="460.0" spacing="10.0">
                      <children>
-                        <Label fx:id="lblEventTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;" text="Summer Music Festival" />
-                        <Label fx:id="lblLocationEvent" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Central Park, New York" />
-                        <Label fx:id="lblEventDate" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="July 15, 2025" />
-                        <Label fx:id="lblEventTime" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="2:00 PM - 10:00 PM" />
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Label fx:id="lblTicketsSold" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Tickets Sold" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="1,500" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label fx:id="lblVipPackage" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="VIP Package" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="199 kr" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label fx:id="lblGeneralAdmission" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="General Admission" />
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Label style="-fx-font-size: 16px; -fx-text-fill: #000;" text="59 kr" />
-                           </children>
-                        </HBox>
+                        <Label fx:id="lblEventTitle" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #000;" text="No Event Selected" />
+                        <Label fx:id="lblLocationEvent" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="No Event Selected" />
+                        <Label fx:id="lblEventDate" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="No Event Selected" />
+                        <Label fx:id="lblEventTime" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="No Event Selected" />
                         <HBox alignment="CENTER">
                            <children>
                               <Label fx:id="lblCoordinatorsAssigned" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Coordinators Assigned" />
@@ -127,7 +106,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Label fx:id="lblEventAssignees" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="Sarah Wilson" />
+                              <Label fx:id="lblEventAssignees" style="-fx-font-size: 16px; -fx-text-fill: #6B7280;" text="No Event Selected" />
                               <Region HBox.hgrow="ALWAYS" />
                               <Label fx:id="lblRemoveAssignee" style="-fx-font-size: 16px; -fx-text-fill: #0059ff;" text="Remove" />
                            </children>
